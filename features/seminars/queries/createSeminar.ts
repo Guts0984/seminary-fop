@@ -7,6 +7,9 @@ export async function createSeminar(
   params: InsertSeminarType | InsertSeminarType[],
 ) {
   const valuesToInsert = Array.isArray(params) ? params : [params];
+  if (valuesToInsert.length === 0) {
+    throw new Error("Failed to create seminar in database.");
+  }
   const res = await db
     .insert(seminarTable)
     .values(valuesToInsert)
@@ -15,7 +18,7 @@ export async function createSeminar(
     })
     .catch((error: unknown) => {
       console.error("Database crash:", error);
-      throw new Error("Failed to create seminar in database.", {
+      throw new Error("No seminars provided to insert.", {
         cause: error,
       });
     });

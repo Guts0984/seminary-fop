@@ -21,10 +21,14 @@ export async function getSeminars(filters?: SeminarFilters) {
     conditions.push(arrayOverlaps(seminarTable.category, filters.category));
   }
 
-  const res = await db
+  return await db
     .select()
     .from(seminarTable)
-    .where(conditions.length > 0 ? and(...conditions) : and());
-
-  return res;
+    .where(conditions.length > 0 ? and(...conditions) : undefined)
+    .catch((error: unknown) => {
+      console.error("Database crash:", error);
+      throw new Error("Failed to fetch seminars from the database.", {
+        cause: error,
+      });
+    });
 }

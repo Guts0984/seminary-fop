@@ -11,10 +11,14 @@ export async function deleteSeminarById(id: number) {
     .returning({ id: seminarTable.id })
     .catch((error: unknown) => {
       console.error("Database crash:", error);
-      throw new Error("Failed to delete seminar from database.");
+      throw new Error("Failed to delete seminar from the database.", {
+        cause: error,
+      });
     });
 
   if (!deletedRow) {
     throw new Error("Seminar not found or already deleted.");
   }
+
+  return { success: true };
 }

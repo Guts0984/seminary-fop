@@ -24,7 +24,7 @@ export async function getSeminars(filters?: SeminarFilters) {
   const res = await db
     .select()
     .from(seminarTable)
-    .where(conditions.length > 0 ? and(...conditions) : undefined);
+    .where(conditions.length > 0 ? and(...conditions) : and());
 
   return res;
 }

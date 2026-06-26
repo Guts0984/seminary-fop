@@ -20,10 +20,6 @@ export default async function Home() {
     </main>
   );
 }
-const filters: SeminarFilters = {
-  type: ["webinar"],
-  category: ["Business Management"],
-};
 
 async function SeminarDataWrapper() {
   const seminars = await getSeminars();

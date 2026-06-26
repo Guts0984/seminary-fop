@@ -16,9 +16,7 @@ export function SeminarCard({ seminar }: { seminar: SelectSeminarType }) {
         alt={seminar.title}
         width={500}
         height={300}
-        // 2. If the URL returns a 404 or fails, instantly swap it to the local fallback
         onError={() => setImgSrc("/no-image.jpg")}
-        // 3. This solves the LCP browser warning for elements loaded immediately on screen
         priority
         className="w-full h-48 object-cover"
       />

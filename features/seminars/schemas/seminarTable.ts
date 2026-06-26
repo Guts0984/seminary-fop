@@ -31,6 +31,7 @@ export const seminarTable = pgTable("seminars", {
     .default(sql`'{}'::varchar[]`),
   eventDate: timestamp("event_date", { mode: "date" }).notNull(),
   price: integer().notNull().default(0),
+  slug: text().notNull().unique(),
   location: text().notNull().default(""),
 });
 

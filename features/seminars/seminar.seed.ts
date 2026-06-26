@@ -16,6 +16,7 @@ export const DUMMY_SEMINARS: InsertSeminarType[] = [
     thumbnail:
       "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=500&auto=format&fit=crop&q=60",
     category: ["Finance"],
+    slug: "tax-optimization-strategies-for-ukrainian-llcs-in-2026",
   },
   {
     title: "AI Integration in Digital Marketing: Practical Case Studies",
@@ -27,6 +28,7 @@ export const DUMMY_SEMINARS: InsertSeminarType[] = [
     thumbnail:
       "https://images.unsplash.com/photo-1591115765373-5209765f710b?w=500&auto=format&fit=crop&q=60",
     category: ["Marketing"],
+    slug: "ai-integration-in-digital-marketing-practical-case-studies",
   },
   {
     title: "Labor Law Reforms 2026: What HR Managers Need to Know",
@@ -39,6 +41,7 @@ export const DUMMY_SEMINARS: InsertSeminarType[] = [
     thumbnail:
       "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=500&auto=format&fit=crop&q=60",
     category: ["Law"],
+    slug: "labor-law-reforms-2026-what-hr-managers-need-to-know",
   },
   {
     title: "How to Scale Your E-commerce Business Internationally",
@@ -50,6 +53,7 @@ export const DUMMY_SEMINARS: InsertSeminarType[] = [
     thumbnail:
       "https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=500&auto=format&fit=crop&q=60",
     category: ["Business Management"],
+    slug: "how-to-scale-your-e-commerce-business-internationally",
   },
   {
     title: "Advanced QuickBooks Frameworks for Financial Analysts",
@@ -61,6 +65,7 @@ export const DUMMY_SEMINARS: InsertSeminarType[] = [
     thumbnail:
       "https://images.unsplash.com/photo-1431540015161-0bf868a2d407?w=500&auto=format&fit=crop&q=60",
     category: ["Finance"],
+    slug: "advanced-quickbooks-frameworks-for-financial-analysts",
   },
   {
     title: "Crisis Management & Leadership Workshop",
@@ -73,6 +78,7 @@ export const DUMMY_SEMINARS: InsertSeminarType[] = [
     thumbnail:
       "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=500&auto=format&fit=crop&q=60",
     category: ["Business Management"],
+    slug: "crisis-management-and-leadership-workshop",
   },
 ];
 

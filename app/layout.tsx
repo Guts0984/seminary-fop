@@ -4,7 +4,6 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Contact from "@/components/Contact";
 import localFont from "next/font/local";
-import SpeakerCard from "@/components/SpeakerCard";
 import { Toaster } from "@/components/ui/sonner";
 
 const eUkraine = localFont({
@@ -51,7 +50,6 @@ export default function RootLayout({
       >
         <Contact />
         <Header />
-        <SpeakerCard />
         <main>{children}</main>
         <Toaster />
       </body>

@@ -4,6 +4,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { SelectSeminarType } from "../schemas/seminarTable";
+import Link from "next/link";
 
 export function SeminarCard({ seminar }: { seminar: SelectSeminarType }) {
   // 1. Initialize state with the database URL or your fallback
@@ -11,15 +12,17 @@ export function SeminarCard({ seminar }: { seminar: SelectSeminarType }) {
 
   return (
     <div className="seminar-card">
-      <Image
-        src={imgSrc}
-        alt={seminar.title}
-        width={500}
-        height={300}
-        onError={() => setImgSrc("/no-image.jpg")}
-        priority
-        className="w-full h-48 object-cover"
-      />
+      <Link href={`/seminars/${seminar.slug}`}>
+        <Image
+          src={imgSrc}
+          alt={seminar.title}
+          width={500}
+          height={300}
+          onError={() => setImgSrc("/no-image.jpg")}
+          priority
+          className="w-full h-48 object-cover hover:cursor-pointer"
+        ></Image>
+      </Link>
       <span className={`badge ${seminar.type}`}>
         {seminar.type[0] === "webinar" && seminar.type.length === 1
           ? "🌐 Online Webinar"

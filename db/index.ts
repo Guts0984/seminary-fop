@@ -1,16 +1,43 @@
+import { Pool } from "pg";
 import { drizzle } from "drizzle-orm/node-postgres";
+import * as schema from "./schema";
 
-// 1. Grab the global execution context
 const g = globalThis as unknown as {
-  db: ReturnType<typeof drizzle> | undefined;
+  pool: Pool | undefined;
 };
 
-// 2. Reuse the existing database instance if it exists, otherwise create a new one
-export const db = g.db || drizzle(process.env.DATABASE_URL!);
+function createPool(): Pool {
+  if (!process.env.DATABASE_URL) {
+    throw new Error("DATABASE_URL is not set. Check your .env.local");
+  }
 
-// 3. In development, save the instance to global memory so it survives HMR saves
-if (process.env.NODE_ENV !== "production") {
-  g.db = db;
+  return new Pool({
+    connectionString: process.env.DATABASE_URL,
+    max: 10,
+    idleTimeoutMillis: 30_000,
+    connectionTimeoutMillis: 5_000,
+    keepAlive: true,
+    keepAliveInitialDelayMillis: 10_000,
+    // enable only on Besthosting production via env var
+    ssl:
+      process.env.DATABASE_SSL === "true"
+        ? { rejectUnauthorized: false }
+        : false,
+  });
 }
 
-//docker exec -it seminary-db psql -U postgres -d seminary-db
+const pool = g.pool ?? createPool();
+
+// cache pool across hot reloads in dev
+if (process.env.NODE_ENV !== "production") {
+  g.pool = pool;
+}
+
+pool.on("error", (err) => {
+  console.error("[DB] Pool error:", err.message);
+});
+
+export const db = drizzle(pool, { schema });
+export { pool };
+
+//docker exec -it seminary-fop-postgres-1 psql -U user -d seminars-db

@@ -1,10 +1,32 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Header from "@/components/Header";
+import Contact from "@/components/Contact";
+import localFont from "next/font/local";
+import SpeakerCard from "@/components/SpeakerCard";
+import { Toaster } from "@/components/ui/sonner";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+const eUkraine = localFont({
+  src: [
+    {
+      path: "./fonts/e-Ukraine-Regular.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "./fonts/e-Ukraine-Medium.woff2",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "./fonts/e-Ukraine-Bold.woff2",
+      weight: "700",
+      style: "normal",
+    },
+  ],
+  variable: "--font-e-ukraine",
+  display: "swap",
 });
 
 const geistMono = Geist_Mono({
@@ -25,9 +47,13 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full antialiased">
       <body
-        className={`${geistSans.className} ${geistMono.variable} min-h-full flex flex-col`}
+        className={`${eUkraine.variable} ${geistMono.variable} min-h-full flex flex-col font-sans`}
       >
-        {children}
+        <Contact />
+        <Header />
+        <SpeakerCard />
+        <main>{children}</main>
+        <Toaster />
       </body>
     </html>
   );

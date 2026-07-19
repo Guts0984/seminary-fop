@@ -1,27 +1,27 @@
 "use client";
 
-import { useState } from "react";
 import { saveEmail } from "@/features/newsletterEmails/queries/saveEmail";
 import {
+  CATEGORY_VALUES,
+  categoryLabels,
   NewsletterFormType,
   newsletterSchema,
-  categoryLabels,
-  CATEGORY_VALUES,
 } from "@/features/newsletterEmails/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { Field } from "./ui/field";
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
-import { Checkbox } from "./ui/checkbox";
+import { Button } from "../../../components/ui/button";
+import { Checkbox } from "../../../components/ui/checkbox";
 import {
   Dialog,
   DialogContent,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogFooter,
-} from "./ui/dialog";
+} from "../../../components/ui/dialog";
+import { Field } from "../../../components/ui/field";
+import { Input } from "../../../components/ui/input";
 
 export default function NewsletterForm() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -51,12 +51,12 @@ export default function NewsletterForm() {
         return;
       }
       toast.success("Ви успішно підписались");
-      setModalOpen(false);
     } catch (error) {
       console.error("Failed to save email:", error);
       toast.error("Помилка підписки");
     } finally {
       reset();
+      setModalOpen(false);
     }
   };
 

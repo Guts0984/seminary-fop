@@ -1,34 +1,43 @@
-import { db } from "@/db";
-import { seminarTable } from "../schemas/seminarTable";
-import { and, arrayOverlaps } from "drizzle-orm";
+import { defineQuery } from "next-sanity";
 
-export interface SeminarFilters {
-  type?: ("seminar" | "webinar" | "recording")[];
-  category?: string[];
-}
-
-const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-
-export async function getSeminars(filters?: SeminarFilters) {
-  await delay(1000);
-
-  const conditions = [];
-
-  if (filters?.type && filters.type.length > 0) {
-    conditions.push(arrayOverlaps(seminarTable.type, filters.type));
+export const seminarFields = `
+  _id,
+  title,
+  slug,
+  description,
+  eventDates,
+  price,
+  location,
+  status,
+  type,
+  category,
+  thumbnail,
+  speakers[]->{
+    _id,
+    name,
+    slug,
+    title,
+    company,
+    bio,
+    photo
   }
-  if (filters?.category && filters.category.length > 0) {
-    conditions.push(arrayOverlaps(seminarTable.category, filters.category));
-  }
+`;
 
-  return await db
-    .select()
-    .from(seminarTable)
-    .where(conditions.length > 0 ? and(...conditions) : undefined)
-    .catch((error: unknown) => {
-      console.error("Database crash:", error);
-      throw new Error("Failed to fetch seminars from the database.", {
-        cause: error,
-      });
-    });
-}
+export const getSeminarsQuery = defineQuery(`
+  {
+    "items": *[
+      _type == "seminar"
+      && (!defined($status) || status == $status)
+      && (!defined($category) || count(category[@ in $category]) > 0)
+      && (!defined($type) || count(type[@ in $type]) > 0)
+    ] | order(eventDates[0] desc) [$start...$end] {
+      ${seminarFields}
+    },
+    "total": count(*[
+      _type == "seminar"
+      && (!defined($status) || status == $status)
+      && (!defined($category) || count(category[@ in $category]) > 0)
+      && (!defined($type) || count(type[@ in $type]) > 0)
+    ])
+  }
+`);

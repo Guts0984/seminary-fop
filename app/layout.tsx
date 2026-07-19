@@ -1,25 +1,23 @@
 import type { Metadata } from "next";
 import { Geist_Mono } from "next/font/google";
-import "./globals.css";
-import Header from "@/components/Header";
-import Contact from "@/components/Contact";
+
 import localFont from "next/font/local";
 import { Toaster } from "@/components/ui/sonner";
 
 const eUkraine = localFont({
   src: [
     {
-      path: "./fonts/e-Ukraine-Regular.woff2",
+      path: "../public/fonts/e-Ukraine-Regular.woff2",
       weight: "400",
       style: "normal",
     },
     {
-      path: "./fonts/e-Ukraine-Medium.woff2",
+      path: "../public/fonts/e-Ukraine-Medium.woff2",
       weight: "500",
       style: "normal",
     },
     {
-      path: "./fonts/e-Ukraine-Bold.woff2",
+      path: "../public/fonts/e-Ukraine-Bold.woff2",
       weight: "700",
       style: "normal",
     },
@@ -46,11 +44,9 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full antialiased">
       <body
-        className={`${eUkraine.variable} ${geistMono.variable} min-h-full flex flex-col font-sans`}
+        className={`${eUkraine.variable} ${geistMono.variable} min-h-full flex flex-col font-sans bg-background`}
       >
-        <Contact />
-        <Header />
-        <main>{children}</main>
+        {children}
         <Toaster />
       </body>
     </html>

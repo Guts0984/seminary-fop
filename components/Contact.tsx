@@ -1,7 +1,7 @@
 "use client";
 
 import { toast } from "sonner";
-import NewsletterForm from "./NewsletterForm";
+import NewsletterForm from "../features/newsletterEmails/components/NewsletterForm";
 
 export default function Contact() {
   const phoneNumber = "+38 (050) 914 56 25";

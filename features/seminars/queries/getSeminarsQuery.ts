@@ -3,7 +3,7 @@ import { defineQuery } from "next-sanity";
 export const seminarFields = `
   _id,
   title,
-  slug,
+  "slug": slug.current,
   description,
   eventDates,
   price,
@@ -11,7 +11,7 @@ export const seminarFields = `
   status,
   type,
   category,
-  thumbnail,
+  "image": image.asset->url,
   speakers[]->{
     _id,
     name,

@@ -3,9 +3,9 @@
 import CheckboxBadgeDemo from "@/components/ui/checkbox-badge";
 import { useState } from "react";
 import { SeminarCard } from "./SeminarCard";
-import { SelectSeminarType } from "../schemas/seminarTable";
+import { GetSeminarsQueryResult } from "@/sanity/types";
 
-export function SeminarsList({ data }: { data: SelectSeminarType[] }) {
+export function SeminarsList({ data }: { data: GetSeminarsQueryResult }) {
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState<boolean>(false);
 
   return (
@@ -13,7 +13,7 @@ export function SeminarsList({ data }: { data: SelectSeminarType[] }) {
       {isMobileFilterOpen && (
         <div
           className="fixed inset-0 z-50 bg-black/50 md:hidden animate-fade-in"
-          onClick={() => setIsMobileFilterOpen(false)} // Fix 1: Clicking the dark backdrop closes it
+          onClick={() => setIsMobileFilterOpen(false)}
         >
           <div
             className="absolute bottom-0 left-0 right-0 max-h-[85vh] bg-white p-6 rounded-t-2xl overflow-y-auto space-y-6"
@@ -47,7 +47,7 @@ export function SeminarsList({ data }: { data: SelectSeminarType[] }) {
           {/* Top Bar with Mobile Filter Trigger */}
           <div className="mb-6 flex justify-between items-center">
             <p className="text-sm text-gray-500">
-              Showing {data.length} seminars
+              Showing {data.total} seminars
             </p>
 
             <button
@@ -62,9 +62,9 @@ export function SeminarsList({ data }: { data: SelectSeminarType[] }) {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {data.length > 0 ? (
-              data.map((event) => (
-                <SeminarCard key={event.id} seminar={event} />
+            {data.total > 0 ? (
+              data.items.map((event) => (
+                <SeminarCard key={event._id} seminar={event} />
               ))
             ) : (
               <div className="col-span-full text-center py-12 text-gray-500">

@@ -1,7 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { SeminarsList } from "@/features/seminars/components/SeminarsList";
+import { getSeminarsQuery } from "@/features/seminars/queries/getSeminarsQuery";
+import { client } from "@/sanity/lib/client";
 
 import { Suspense } from "react";
+
+const options = { next: { revalidate: 60 } };
 
 export default async function Home() {
   return (
@@ -14,14 +18,17 @@ export default async function Home() {
       </header>
 
       <Suspense fallback={<div>Loading...</div>}>
-        {/* <SeminarDataWrapper /> */}
-        <h1>COMMING SOON</h1>
+        <SeminarDataWrapper />
       </Suspense>
     </main>
   );
 }
 
-// async function SeminarDataWrapper() {
-//   const seminars = await getSeminars();
-//   return <SeminarsList data={seminars} />;
-// }
+async function SeminarDataWrapper() {
+  const seminars = await client.fetch(
+    getSeminarsQuery,
+    { status: null, category: null, type: null, start: 0, end: 10 },
+    options,
+  );
+  return <SeminarsList data={seminars} />;
+}

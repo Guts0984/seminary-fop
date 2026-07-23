@@ -1,34 +1,56 @@
-import { Button } from "@/components/ui/button";
 import { SeminarsList } from "@/features/seminars/components/SeminarsList";
 import { getSeminarsQuery } from "@/features/seminars/queries/getSeminarsQuery";
-import { client } from "@/sanity/lib/client";
-
+import { sanityFetch } from "@/sanity/lib/live";
 import { Suspense } from "react";
 
-const options = { next: { revalidate: 60 } };
+type SearchParams = {
+  category?: string;
+  start?: number;
+  end?: number;
+};
 
-export default async function Home() {
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: Promise<SearchParams>;
+}) {
+  const params = await searchParams;
+  console.log("params", params);
+
   return (
-    <main className="p-6 mx-auto w-full">
-      <header className="mb-8">
-        <h1 className="text-3xl font-bold tracking-tight ">
-          Seminars & Webinars
-        </h1>
-        <Button className="mt-4">Filter</Button>
-      </header>
+    <main className="p-6 mx-auto w-full ">
+      <section aria-labelledby="events-heading">
+        <header className="my-14 md:my-20 space-y-3 flex flex-col items-center">
+          <h1 className="text-3xl">НАЙБЛИЖЧІ ЗАХОДИ</h1>
+          <p className="text-secondary-foreground">
+            Семінари, Вебінари, Записи
+          </p>
+        </header>
 
-      <Suspense fallback={<div>Loading...</div>}>
-        <SeminarDataWrapper />
-      </Suspense>
+        {/* TODO: add suspense */}
+        <Suspense key={JSON.stringify(params)} fallback={<div>Loading...</div>}>
+          <SeminarDataWrapper searchParams={params} />
+        </Suspense>
+      </section>
     </main>
   );
 }
 
-async function SeminarDataWrapper() {
-  const seminars = await client.fetch(
-    getSeminarsQuery,
-    { status: null, category: null, type: null, start: 0, end: 10 },
-    options,
-  );
-  return <SeminarsList data={seminars} />;
+async function SeminarDataWrapper({
+  searchParams,
+}: {
+  searchParams: SearchParams;
+}) {
+  const category = searchParams.category
+    ? searchParams.category.split(",")
+    : null;
+  const start = searchParams.start ? Number(searchParams.start) : 0;
+  const end = searchParams.end ? Number(searchParams.end) : 10;
+
+  console.log("category", category);
+  const { data } = await sanityFetch({
+    query: getSeminarsQuery,
+    params: { category, start, end },
+  });
+  return <SeminarsList data={data} />;
 }

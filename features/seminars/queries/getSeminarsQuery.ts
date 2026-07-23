@@ -27,17 +27,15 @@ export const getSeminarsQuery = defineQuery(`
   {
     "items": *[
       _type == "seminar"
-      && (!defined($status) || status == $status)
-      && (!defined($category) || count(category[@ in $category]) > 0)
-      && (!defined($type) || count(type[@ in $type]) > 0)
+      && status in ["upcoming", "recording"]
+      && (!defined($category) || count((category[]->slug.current)[@ in $category]) > 0)
     ] | order(eventDates[0] desc) [$start...$end] {
       ${seminarFields}
     },
     "total": count(*[
       _type == "seminar"
-      && (!defined($status) || status == $status)
-      && (!defined($category) || count(category[@ in $category]) > 0)
-      && (!defined($type) || count(type[@ in $type]) > 0)
+      && status in ["upcoming", "recording"]
+      && (!defined($category) || count((category[]->slug.current)[@ in $category]) > 0)
     ])
   }
 `);

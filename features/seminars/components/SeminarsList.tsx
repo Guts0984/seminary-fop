@@ -4,9 +4,10 @@ import CategoriesSidebar from "./CategoriesSidebar";
 
 export function SeminarsList({ data }: { data: GetSeminarsQueryResult }) {
   return (
-    <div className="max-w-screen-2xl mx-auto w-full md:px-6 lg:px-8 py-8">
-      <div className="flex gap-8">
-        <aside className="w-64 shrink-0 hidden md:block">
+    <div className="py-8">
+      <div className="flex gap-6">
+        <aside className="w-56 shrink-0 hidden md:block space-y-6">
+          <h3>Категорії семінарів</h3>
           <CategoriesSidebar />
         </aside>
 

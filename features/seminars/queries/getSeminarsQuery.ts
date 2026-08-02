@@ -6,11 +6,15 @@ export const seminarFields = `
   "slug": slug.current,
   description,
   eventDates,
-  price,
   location,
   status,
   type,
-  category,
+  category[]->{
+    _id,
+    title,
+    "slug": slug.current
+  },
+  googleMap,
   "image": image.asset->url,
   speakers[]->{
     _id,
@@ -19,7 +23,7 @@ export const seminarFields = `
     title,
     company,
     bio,
-    photo
+    "photoUrl": photo.asset->url
   }
 `;
 

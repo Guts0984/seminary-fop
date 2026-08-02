@@ -22,3 +22,23 @@ function assertValue<T>(v: T | undefined, errorMessage: string): T {
 // run every time you modify the schema
 // npx sanity@latest schema extract --path=./sanity/extract.json
 // npx sanity@latest typegen generate
+
+//TODOS:
+// Speaker page add seminars in which participate / participated
+// Logo
+// Skeletons
+// Footer
+// Seminar page
+// Delete blog
+// Card component
+// Redo filters
+// Add image edit in filters bottom
+// Finish text editor
+// Make configs of text editor in their own file
+// DropdownMenuIcons compoennt
+// Get emails to sanity
+// Registration field
+// delete unused data in GROQ queries
+// fix seminar bug screen
+// pagination
+// 404

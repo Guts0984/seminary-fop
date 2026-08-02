@@ -15,34 +15,28 @@ export default function HeaderNav() {
     <>
       <div className="mr-5 space-x-6 hidden md:flex md:items-center">
         <Link
-          className={`font-medium hover:text-primary ${isActive("/") ? "text-primary" : "text-black"}`}
+          className={`font-medium hover:text-primary/85 transition-colors ${isActive("/") ? "text-primary" : "text-secondary-foreground"}`}
           href="/"
         >
           Головна
         </Link>
         <Link
-          className={`font-medium hover:text-primary ${isActive("/seminars") ? "text-primary" : "text-black"}`}
+          className={`font-medium hover:text-primary/85 transition-colors ${isActive("/seminars") ? "text-primary" : "text-secondary-foreground"}`}
           href="/seminars"
         >
           Семінари
         </Link>
         <Link
-          className={`font-medium hover:text-primary ${isActive("/speakers") ? "text-primary" : "text-black"}`}
+          className={`font-medium hover:text-primary/85 transition-colors ${isActive("/speakers") ? "text-primary" : "text-secondary-foreground"}`}
           href="/speakers"
         >
           Спікери
         </Link>
         <Link
-          className={`font-medium hover:text-primary ${isActive("/contacts") ? "text-primary" : "text-black"}`}
+          className={`font-medium hover:text-primary/85 transition-colors ${isActive("/contacts") ? "text-primary" : "text-secondary-foreground"}`}
           href="/contacts"
         >
           Контакти
-        </Link>
-        <Link
-          className={`font-medium hover:text-primary ${isActive("/news") ? "text-primary" : "text-black"}`}
-          href="/news"
-        >
-          Новини
         </Link>
       </div>
 

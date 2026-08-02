@@ -1,12 +1,11 @@
-// app/(frontend)/speakers/[slug]/page.tsx
-import { defineQuery, PortableText } from "next-sanity";
+import { defineQuery } from "next-sanity";
 import { client } from "@/sanity/lib/client";
 import { sanityFetch } from "@/sanity/lib/live";
-import { getSeminarBySlug } from "@/features/seminars/queries/getSeminarBySlug";
+import { getSpeakerBySlug } from "@/features/speakers/queries/getSpeakerBySlug";
 import { notFound } from "next/navigation";
 
-const seminarSlugsQuery = defineQuery(
-  `*[_type == "seminar" && defined(slug.current)].slug.current`,
+const speakerSlugsQuery = defineQuery(
+  `*[_type == "speaker" && defined(slug.current)].slug.current`,
 );
 
 export async function generateStaticParams() {
@@ -16,31 +15,31 @@ export async function generateStaticParams() {
 
   const slugs = await client
     .withConfig({ useCdn: false })
-    .fetch(seminarSlugsQuery);
+    .fetch(speakerSlugsQuery);
 
   return slugs.map((slug: string) => ({ slug }));
 }
 
-export default async function SeminarSlugPage({
+export default async function SpeakerSlugPage({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
 
-  const { data: seminar } = await sanityFetch({
-    query: getSeminarBySlug,
+  const { data: speaker } = await sanityFetch({
+    query: getSpeakerBySlug,
     params: { slug },
   });
 
-  if (!seminar) {
+  if (!speaker) {
     notFound();
   }
 
   return (
     <div>
-      <PortableText value={seminar?.title} />
-      {/* rest of the seminar detail layout */}
+      <h1>{speaker.name}</h1>
+      {/* rest of the speaker detail layout */}
     </div>
   );
 }

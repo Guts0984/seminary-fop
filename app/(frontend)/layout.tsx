@@ -2,6 +2,7 @@ import Header from "@/components/Header";
 import Contact from "@/components/Contact";
 import { SanityLive } from "@/sanity/lib/live";
 import "./globals.css";
+import Footer from "@/components/Footer";
 
 export default function SiteLayout({
   children,
@@ -15,6 +16,7 @@ export default function SiteLayout({
       <main className="grow w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {children}
       </main>
+      <Footer />
       <SanityLive />
     </div>
   );

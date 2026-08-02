@@ -1,35 +1,45 @@
 import { SeminarCard } from "./SeminarCard";
 import { GetSeminarsQueryResult } from "@/sanity/types";
-import CategoriesSidebar from "./CategoriesSidebar";
 
 export function SeminarsList({ data }: { data: GetSeminarsQueryResult }) {
+  function getSeminarPlural(count: number): string {
+    const mod10 = count % 10;
+    const mod100 = count % 100;
+
+    // 11–14 are exceptions (11 семінарів, 12 семінарів...)
+    if (mod100 >= 11 && mod100 <= 14) {
+      return "семінарів";
+    }
+    // Ends in 1 (1, 21, 31... семінар)
+    if (mod10 === 1) {
+      return "семінар";
+    }
+    // Ends in 2, 3, 4 (2, 3, 4, 22, 23, 24... семінари)
+    if (mod10 >= 2 && mod10 <= 4) {
+      return "семінари";
+    }
+    // 0, 5-10, 15-20, 25-30... (0 семінарів, 5 семінарів)
+    return "семінарів";
+  }
+
   return (
-    <div className="py-8">
-      <div className="flex gap-6">
-        <aside className="w-56 shrink-0 hidden md:block space-y-6">
-          <h3>Категорії семінарів</h3>
-          <CategoriesSidebar />
-        </aside>
+    <div>
+      <div className="mb-6 flex justify-between items-center">
+        <p className="text-sm text-secondary-foreground">
+          Знайдено {data.total} {getSeminarPlural(data.total)}
+        </p>
+      </div>
 
-        <main className="flex-1">
-          <div className="mb-6 flex justify-between items-center">
-            <p className="text-sm text-gray-500">
-              Showing {data.total} seminars
-            </p>
+      <div className="flex flex-col gap-8">
+        {data.total > 0 ? (
+          data.items.map((event) => (
+            <SeminarCard key={event._id} seminar={event} />
+          ))
+        ) : (
+          <div className="col-span-full text-center py-12 text-gray-500">
+            No seminars found.
           </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {data.total > 0 ? (
-              data.items.map((event) => (
-                <SeminarCard key={event._id} seminar={event} />
-              ))
-            ) : (
-              <div className="col-span-full text-center py-12 text-gray-500">
-                No seminars found.
-              </div>
-            )}
-          </div>
-        </main>
+        )}
       </div>
     </div>
   );

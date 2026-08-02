@@ -24,7 +24,7 @@ export default function Contact() {
           <button
             type="button"
             onClick={() => handleCopy(phoneNumber)}
-            className="font-bold ml-1 text-highlight hover:text-highlight/85 transition-colors cursor-pointer"
+            className="font-bold ml-1 text-primary hover:text-primary/85 transition-colors cursor-pointer"
           >
             {phoneNumber}
           </button>
@@ -34,7 +34,7 @@ export default function Contact() {
           <button
             type="button"
             onClick={() => handleCopy(email)}
-            className="font-bold ml-1 text-highlight hover:text-highlight/85 transition-colors cursor-pointer"
+            className="font-bold ml-1 text-primary hover:text-primary/85 transition-colors cursor-pointer"
           >
             {email}
           </button>

@@ -58,7 +58,25 @@ export type Seminar = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  title: string;
+  title: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "normal" | "h2" | "h3" | "blockquote";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      openInNewTab?: boolean;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }>;
   slug: Slug;
   description?: Array<
     | {
@@ -87,9 +105,23 @@ export type Seminar = {
         crop?: SanityImageCrop;
         alt?: string;
         caption?: string;
-        size?: "small" | "medium" | "full";
+        widthPercent?: number;
         align?: "left" | "center" | "right";
         _type: "image";
+        _key: string;
+      }
+    | {
+        images?: Array<{
+          asset?: SanityImageAssetReference;
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          alt?: string;
+          caption?: string;
+          _type: "image";
+          _key: string;
+        }>;
+        _type: "imageRow";
         _key: string;
       }
   >;
@@ -113,6 +145,10 @@ export type Seminar = {
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
     _type: "image";
+  };
+  googleMap?: {
+    address?: string;
+    embedUrl?: string;
   };
 };
 
@@ -299,6 +335,16 @@ export type AllSanitySchemaTypes =
   | SanityImageAsset
   | Geopoint;
 
+// Source: app/(frontend)/seminars/[slug]/page.tsx
+// Variable: seminarSlugsQuery
+// Query: *[_type == "seminar" && defined(slug.current)].slug.current
+export type SeminarSlugsQueryResult = Array<string>;
+
+// Source: app/(frontend)/speakers/[slug]/page.tsx
+// Variable: speakerSlugsQuery
+// Query: *[_type == "speaker" && defined(slug.current)].slug.current
+export type SpeakerSlugsQueryResult = Array<string>;
+
 // Source: features/seminars/queries/getCategoriesQuery.ts
 // Variable: getCategoriesQuery
 // Query: *[      _type == "category" &&      count(*[        _type == "seminar" &&         status in ["upcoming", "recording"] &&        references(^._id)      ]) > 0    ] {      _id,      title,      "slug": slug.current    }
@@ -310,10 +356,28 @@ export type GetCategoriesQueryResult = Array<{
 
 // Source: features/seminars/queries/getSeminarBySlug.ts
 // Variable: getSeminarBySlug
-// Query: *[_type == "seminar" && slug.current == $slug][0]{    _id,  title,  "slug": slug.current,  description,  eventDates,  price,  location,  status,  type,  category,  "image": image.asset->url,  speakers[]->{    _id,    name,    slug,    title,    company,    bio,    photo  }  }
+// Query: *[_type == "seminar" && slug.current == $slug][0]{    _id,  title,  "slug": slug.current,  description,  eventDates,  location,  status,  type,  category[]->{    _id,    title,    "slug": slug.current  },  googleMap,  "image": image.asset->url,  speakers[]->{    _id,    name,    slug,    title,    company,    bio,    "photoUrl": photo.asset->url  }  }
 export type GetSeminarBySlugResult = {
   _id: string;
-  title: string;
+  title: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h2" | "h3" | "normal";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      openInNewTab?: boolean;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }>;
   slug: string;
   description: Array<
     | {
@@ -342,22 +406,39 @@ export type GetSeminarBySlugResult = {
         crop?: SanityImageCrop;
         alt?: string;
         caption?: string;
-        size?: "full" | "medium" | "small";
+        widthPercent?: number;
         align?: "center" | "left" | "right";
         _type: "image";
         _key: string;
       }
+    | {
+        images?: Array<{
+          asset?: SanityImageAssetReference;
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          alt?: string;
+          caption?: string;
+          _type: "image";
+          _key: string;
+        }>;
+        _type: "imageRow";
+        _key: string;
+      }
   > | null;
   eventDates: Array<string>;
-  price: null;
   location: string | null;
   status: "past" | "recording" | "upcoming";
   type: Array<string> | null;
-  category: Array<
-    {
-      _key: string;
-    } & CategoryReference
-  > | null;
+  category: Array<{
+    _id: string;
+    title: string;
+    slug: string | null;
+  }> | null;
+  googleMap: {
+    address?: string;
+    embedUrl?: string;
+  } | null;
   image: string | null;
   speakers: Array<{
     _id: string;
@@ -398,23 +479,35 @@ export type GetSeminarBySlugResult = {
           _key: string;
         }
     > | null;
-    photo: {
-      asset?: SanityImageAssetReference;
-      media?: unknown;
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      _type: "image";
-    } | null;
+    photoUrl: string | null;
   }> | null;
 } | null;
 
 // Source: features/seminars/queries/getSeminarsQuery.ts
 // Variable: getSeminarsQuery
-// Query: {    "items": *[      _type == "seminar"      && status in ["upcoming", "recording"]      && (!defined($category) || count((category[]->slug.current)[@ in $category]) > 0)    ] | order(eventDates[0] desc) [$start...$end] {        _id,  title,  "slug": slug.current,  description,  eventDates,  price,  location,  status,  type,  category,  "image": image.asset->url,  speakers[]->{    _id,    name,    slug,    title,    company,    bio,    photo  }    },    "total": count(*[      _type == "seminar"      && status in ["upcoming", "recording"]      && (!defined($category) || count((category[]->slug.current)[@ in $category]) > 0)    ])  }
+// Query: {    "items": *[      _type == "seminar"      && status in ["upcoming", "recording"]      && (!defined($category) || count((category[]->slug.current)[@ in $category]) > 0)    ] | order(eventDates[0] desc) [$start...$end] {        _id,  title,  "slug": slug.current,  description,  eventDates,  location,  status,  type,  category[]->{    _id,    title,    "slug": slug.current  },  googleMap,  "image": image.asset->url,  speakers[]->{    _id,    name,    slug,    title,    company,    bio,    "photoUrl": photo.asset->url  }    },    "total": count(*[      _type == "seminar"      && status in ["upcoming", "recording"]      && (!defined($category) || count((category[]->slug.current)[@ in $category]) > 0)    ])  }
 export type GetSeminarsQueryResult = {
   items: Array<{
     _id: string;
-    title: string;
+    title: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "blockquote" | "h2" | "h3" | "normal";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        href?: string;
+        openInNewTab?: boolean;
+        _type: "link";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    }>;
     slug: string;
     description: Array<
       | {
@@ -443,22 +536,39 @@ export type GetSeminarsQueryResult = {
           crop?: SanityImageCrop;
           alt?: string;
           caption?: string;
-          size?: "full" | "medium" | "small";
+          widthPercent?: number;
           align?: "center" | "left" | "right";
           _type: "image";
           _key: string;
         }
+      | {
+          images?: Array<{
+            asset?: SanityImageAssetReference;
+            media?: unknown;
+            hotspot?: SanityImageHotspot;
+            crop?: SanityImageCrop;
+            alt?: string;
+            caption?: string;
+            _type: "image";
+            _key: string;
+          }>;
+          _type: "imageRow";
+          _key: string;
+        }
     > | null;
     eventDates: Array<string>;
-    price: null;
     location: string | null;
     status: "past" | "recording" | "upcoming";
     type: Array<string> | null;
-    category: Array<
-      {
-        _key: string;
-      } & CategoryReference
-    > | null;
+    category: Array<{
+      _id: string;
+      title: string;
+      slug: string | null;
+    }> | null;
+    googleMap: {
+      address?: string;
+      embedUrl?: string;
+    } | null;
     image: string | null;
     speakers: Array<{
       _id: string;
@@ -499,14 +609,149 @@ export type GetSeminarsQueryResult = {
             _key: string;
           }
       > | null;
-      photo: {
+      photoUrl: string | null;
+    }> | null;
+  }>;
+  total: number;
+};
+
+// Source: features/speakers/queries/getSpeakerBySlug.tsx
+// Variable: getSpeakerBySlug
+// Query: *[_type == "speaker" && slug.current == $slug][0]{      _id,  name,  "slug": slug.current,  title,  bio,  "photo": photo.asset->url,  "seminars": *[_type == "seminar" && references(^._id)] | order(eventDates[0] desc) {    _id,    title,    "slug": slug.current,    eventDates,    "image": image.asset->url  }  }
+export type GetSpeakerBySlugResult = {
+  _id: string;
+  name: string;
+  slug: string;
+  title: Array<string> | null;
+  bio: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "blockquote" | "h2" | "h3" | "normal";
+        listItem?: "bullet" | "number";
+        markDefs?: Array<{
+          href?: string;
+          openInNewTab?: boolean;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }
+    | {
         asset?: SanityImageAssetReference;
         media?: unknown;
         hotspot?: SanityImageHotspot;
         crop?: SanityImageCrop;
+        alt?: string;
+        caption?: string;
+        size?: "full" | "medium" | "small";
+        align?: "center" | "left" | "right";
         _type: "image";
-      } | null;
-    }> | null;
+        _key: string;
+      }
+  > | null;
+  photo: string | null;
+  seminars: Array<{
+    _id: string;
+    title: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "blockquote" | "h2" | "h3" | "normal";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        href?: string;
+        openInNewTab?: boolean;
+        _type: "link";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    }>;
+    slug: string;
+    eventDates: Array<string>;
+    image: string | null;
+  }>;
+} | null;
+
+// Source: features/speakers/queries/getSpeakersQuery.tsx
+// Variable: getSpeakersQuery
+// Query: {    "items": *[_type == "speaker"] | order(name asc) [$start...$end] {        _id,  name,  "slug": slug.current,  title,  bio,  "photo": photo.asset->url,  "seminars": *[_type == "seminar" && references(^._id)] | order(eventDates[0] desc) {    _id,    title,    "slug": slug.current,    eventDates,    "image": image.asset->url  }    },    "total": count(*[_type == "speaker"])  }
+export type GetSpeakersQueryResult = {
+  items: Array<{
+    _id: string;
+    name: string;
+    slug: string;
+    title: Array<string> | null;
+    bio: Array<
+      | {
+          children?: Array<{
+            marks?: Array<string>;
+            text?: string;
+            _type: "span";
+            _key: string;
+          }>;
+          style?: "blockquote" | "h2" | "h3" | "normal";
+          listItem?: "bullet" | "number";
+          markDefs?: Array<{
+            href?: string;
+            openInNewTab?: boolean;
+            _type: "link";
+            _key: string;
+          }>;
+          level?: number;
+          _type: "block";
+          _key: string;
+        }
+      | {
+          asset?: SanityImageAssetReference;
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          alt?: string;
+          caption?: string;
+          size?: "full" | "medium" | "small";
+          align?: "center" | "left" | "right";
+          _type: "image";
+          _key: string;
+        }
+    > | null;
+    photo: string | null;
+    seminars: Array<{
+      _id: string;
+      title: Array<{
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "blockquote" | "h2" | "h3" | "normal";
+        listItem?: "bullet" | "number";
+        markDefs?: Array<{
+          href?: string;
+          openInNewTab?: boolean;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }>;
+      slug: string;
+      eventDates: Array<string>;
+      image: string | null;
+    }>;
   }>;
   total: number;
 };
@@ -515,8 +760,12 @@ export type GetSeminarsQueryResult = {
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
+    '*[_type == "seminar" && defined(slug.current)].slug.current': SeminarSlugsQueryResult;
+    '*[_type == "speaker" && defined(slug.current)].slug.current': SpeakerSlugsQueryResult;
     '\n   *[\n      _type == "category" &&\n      count(*[\n        _type == "seminar" &&\n         status in ["upcoming", "recording"] &&\n        references(^._id)\n      ]) > 0\n    ] {\n      _id,\n      title,\n      "slug": slug.current\n    }\n': GetCategoriesQueryResult;
-    '*[_type == "seminar" && slug.current == $slug][0]{\n  \n  _id,\n  title,\n  "slug": slug.current,\n  description,\n  eventDates,\n  price,\n  location,\n  status,\n  type,\n  category,\n  "image": image.asset->url,\n  speakers[]->{\n    _id,\n    name,\n    slug,\n    title,\n    company,\n    bio,\n    photo\n  }\n\n  }\n': GetSeminarBySlugResult;
-    '\n  {\n    "items": *[\n      _type == "seminar"\n      && status in ["upcoming", "recording"]\n      && (!defined($category) || count((category[]->slug.current)[@ in $category]) > 0)\n    ] | order(eventDates[0] desc) [$start...$end] {\n      \n  _id,\n  title,\n  "slug": slug.current,\n  description,\n  eventDates,\n  price,\n  location,\n  status,\n  type,\n  category,\n  "image": image.asset->url,\n  speakers[]->{\n    _id,\n    name,\n    slug,\n    title,\n    company,\n    bio,\n    photo\n  }\n\n    },\n    "total": count(*[\n      _type == "seminar"\n      && status in ["upcoming", "recording"]\n      && (!defined($category) || count((category[]->slug.current)[@ in $category]) > 0)\n    ])\n  }\n': GetSeminarsQueryResult;
+    '*[_type == "seminar" && slug.current == $slug][0]{\n  \n  _id,\n  title,\n  "slug": slug.current,\n  description,\n  eventDates,\n  location,\n  status,\n  type,\n  category[]->{\n    _id,\n    title,\n    "slug": slug.current\n  },\n  googleMap,\n  "image": image.asset->url,\n  speakers[]->{\n    _id,\n    name,\n    slug,\n    title,\n    company,\n    bio,\n    "photoUrl": photo.asset->url\n  }\n\n  }\n': GetSeminarBySlugResult;
+    '\n  {\n    "items": *[\n      _type == "seminar"\n      && status in ["upcoming", "recording"]\n      && (!defined($category) || count((category[]->slug.current)[@ in $category]) > 0)\n    ] | order(eventDates[0] desc) [$start...$end] {\n      \n  _id,\n  title,\n  "slug": slug.current,\n  description,\n  eventDates,\n  location,\n  status,\n  type,\n  category[]->{\n    _id,\n    title,\n    "slug": slug.current\n  },\n  googleMap,\n  "image": image.asset->url,\n  speakers[]->{\n    _id,\n    name,\n    slug,\n    title,\n    company,\n    bio,\n    "photoUrl": photo.asset->url\n  }\n\n    },\n    "total": count(*[\n      _type == "seminar"\n      && status in ["upcoming", "recording"]\n      && (!defined($category) || count((category[]->slug.current)[@ in $category]) > 0)\n    ])\n  }\n': GetSeminarsQueryResult;
+    '\n  *[_type == "speaker" && slug.current == $slug][0]{\n    \n  _id,\n  name,\n  "slug": slug.current,\n  title,\n  bio,\n  "photo": photo.asset->url,\n  "seminars": *[_type == "seminar" && references(^._id)] | order(eventDates[0] desc) {\n    _id,\n    title,\n    "slug": slug.current,\n    eventDates,\n    "image": image.asset->url\n  }\n\n  }\n': GetSpeakerBySlugResult;
+    '\n  {\n    "items": *[_type == "speaker"] | order(name asc) [$start...$end] {\n      \n  _id,\n  name,\n  "slug": slug.current,\n  title,\n  bio,\n  "photo": photo.asset->url,\n  "seminars": *[_type == "seminar" && references(^._id)] | order(eventDates[0] desc) {\n    _id,\n    title,\n    "slug": slug.current,\n    eventDates,\n    "image": image.asset->url\n  }\n\n    },\n    "total": count(*[_type == "speaker"])\n  }\n': GetSpeakersQueryResult;
   }
 }

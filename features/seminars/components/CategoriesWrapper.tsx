@@ -1,20 +1,40 @@
 import { sanityFetch } from "@/sanity/lib/live";
-import { getCategoriesQuery } from "../queries/getCategoriesQuery";
-import CategoriesList from "./CategoriesList";
+import { getSidebarSeminarsQuery } from "../queries/getSidebarSeminarsQuery";
+import CategoriesSidebarList from "./CategoriesSidebarList";
+import CategoriesMobileCarousel from "./CategoriesMobileCarousel";
 import { Separator } from "@/components/ui/separator";
 
-export default async function CategoriesWrapper() {
+interface CategoriesWrapperProps {
+  variant?: "sidebar" | "mobile";
+}
+
+type Category = {
+  _id: string;
+  category: string;
+  slug: string | null;
+};
+
+export default async function CategoriesWrapper({
+  variant = "sidebar",
+}: CategoriesWrapperProps) {
   const { data } = await sanityFetch({
-    query: getCategoriesQuery,
+    query: getSidebarSeminarsQuery,
   });
+  console.log(data);
+
+  if (!data?.length) return null;
+
+  if (variant === "mobile") {
+    return <CategoriesMobileCarousel categories={data} />;
+  }
 
   return (
-    <aside className="w-56 shrink-0 hidden md:block space-y-6">
+    <div className="space-y-6">
       <div className="space-y-2">
-        <h3 className="font-medium text-xl">Категорії семінарів</h3>
-        <Separator className="data-horizontal:h-1 bg-primary " />
+        <h3 className="font-medium text-lg">Семінари / Вебінари</h3>
+        <Separator className="data-horizontal:h-1 bg-primary" />
       </div>
-      <CategoriesList categories={data} />
-    </aside>
+      <CategoriesSidebarList categories={data} />
+    </div>
   );
 }

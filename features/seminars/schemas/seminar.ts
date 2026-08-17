@@ -1,10 +1,7 @@
 import { defineType, defineField } from "sanity";
 import { CaseIcon } from "@sanity/icons/Case";
-
-const imageCommonFields = [
-  { name: "alt", type: "string", title: "Alt текст" },
-  { name: "caption", type: "string", title: "Підпис" },
-];
+import { richTextBlock } from "@/sanity/helpers/richTextBlock";
+import { imageBlock } from "@/sanity/helpers/imageBlock";
 
 export const seminar = defineType({
   name: "seminar",
@@ -16,45 +13,7 @@ export const seminar = defineType({
       name: "title",
       title: "Заголовок",
       type: "array",
-      of: [
-        {
-          type: "block",
-          styles: [
-            { title: "Нормальний", value: "normal" },
-            { title: "H2", value: "h2" },
-            { title: "H3", value: "h3" },
-            { title: "Quote", value: "blockquote" },
-          ],
-          lists: [
-            { title: "Маркований", value: "bullet" },
-            { title: "Нумерований", value: "number" },
-          ],
-          marks: {
-            decorators: [
-              { title: "Bold", value: "strong" },
-              { title: "Italic", value: "em" },
-              { title: "Underline", value: "underline" },
-              { title: "Code", value: "code" },
-            ],
-            annotations: [
-              {
-                name: "link",
-                type: "object",
-                title: "Посилання",
-                fields: [
-                  { name: "href", type: "url", title: "URL" },
-                  {
-                    name: "openInNewTab",
-                    type: "boolean",
-                    title: "Відкривати в новій вкладці",
-                    initialValue: false,
-                  },
-                ],
-              },
-            ],
-          },
-        },
-      ],
+      of: [richTextBlock({ headings: true, lists: false, quote: false })],
       validation: (Rule) => Rule.required(),
     }),
 
@@ -62,19 +21,7 @@ export const seminar = defineType({
       name: "price",
       title: "Ціна",
       type: "array",
-      of: [
-        {
-          type: "block",
-          styles: [{ title: "Нормальний", value: "normal" }],
-          marks: {
-            decorators: [
-              { title: "Bold", value: "strong" },
-              { title: "Italic", value: "em" },
-            ],
-            annotations: [],
-          },
-        },
-      ],
+      of: [richTextBlock({ headings: false, lists: false, quote: false })],
     }),
 
     defineField({
@@ -114,7 +61,7 @@ export const seminar = defineType({
       title: "Слаг",
       type: "slug",
       options: {
-        source: "title",
+        source: "category",
         maxLength: 96,
       },
       validation: (Rule) => Rule.required(),
@@ -124,103 +71,7 @@ export const seminar = defineType({
       name: "description",
       title: "Текст",
       type: "array",
-      of: [
-        {
-          type: "block",
-          styles: [
-            { title: "Нормальний", value: "normal" },
-            { title: "H2", value: "h2" },
-            { title: "H3", value: "h3" },
-            { title: "Quote", value: "blockquote" },
-          ],
-          lists: [
-            { title: "Маркований", value: "bullet" },
-            { title: "Нумерований", value: "number" },
-          ],
-          marks: {
-            decorators: [
-              { title: "Bold", value: "strong" },
-              { title: "Italic", value: "em" },
-              { title: "Underline", value: "underline" },
-              { title: "Code", value: "code" },
-            ],
-            annotations: [
-              {
-                name: "link",
-                type: "object",
-                title: "Посилання",
-                fields: [
-                  { name: "href", type: "url", title: "URL" },
-                  {
-                    name: "openInNewTab",
-                    type: "boolean",
-                    title: "Відкривати в новій вкладці",
-                    initialValue: false,
-                  },
-                ],
-              },
-            ],
-          },
-        },
-        // Single standalone image — full-width by default, editor can shrink it if needed
-        {
-          type: "image",
-          name: "image",
-          title: "Одне зображення",
-          options: { hotspot: true },
-          fields: [
-            ...imageCommonFields,
-            {
-              name: "widthPercent",
-              type: "number",
-              title: "Ширина (%)",
-              validation: (Rule) => Rule.min(10).max(100),
-              initialValue: 100,
-            },
-            {
-              name: "align",
-              type: "string",
-              title: "Вирівнювання",
-              options: {
-                list: [
-                  { title: "Ліворуч", value: "left" },
-                  { title: "По центру", value: "center" },
-                  { title: "Праворуч", value: "right" },
-                ],
-                layout: "radio",
-              },
-              initialValue: "center",
-            },
-          ],
-        },
-        // Multiple images in one row — no width field at all, they split evenly automatically
-        {
-          type: "object",
-          name: "imageRow",
-          title: "Ряд зображень",
-          fields: [
-            {
-              name: "images",
-              title: "Зображення",
-              type: "array",
-              of: [
-                {
-                  type: "image",
-                  options: { hotspot: true },
-                  fields: imageCommonFields,
-                },
-              ],
-              validation: (Rule) => Rule.min(2).max(10),
-            },
-          ],
-          preview: {
-            select: { images: "images" },
-            prepare({ images }) {
-              return { title: `Ряд зображень (${images?.length || 0})` };
-            },
-          },
-        },
-      ],
+      of: [richTextBlock(), imageBlock],
     }),
 
     defineField({
@@ -247,7 +98,7 @@ export const seminar = defineType({
         list: [
           { title: "Наближається", value: "upcoming" },
           { title: "Пройшов", value: "past" },
-          { title: "Запис", value: "recording" },
+          { title: "Лише запис", value: "recording" },
         ],
         layout: "radio",
       },
@@ -271,9 +122,10 @@ export const seminar = defineType({
 
     defineField({
       name: "category",
-      title: "Категорії",
-      type: "array",
-      of: [{ type: "reference", to: [{ type: "category" }] }],
+      title: "Назва сайдбару",
+      description: "Оберіть назву, що відобразиться у сайдбарі.",
+      type: "string",
+      validation: (Rule) => Rule.required(),
     }),
 
     defineField({
@@ -292,7 +144,6 @@ export const seminar = defineType({
       },
     }),
 
-    // Fixed field — always rendered at the bottom of the page, not part of the flowing content
     defineField({
       name: "googleMap",
       title: "Карта (внизу сторінки)",

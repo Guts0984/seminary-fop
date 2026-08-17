@@ -1,9 +1,9 @@
+// app/page.tsx
 import CategoriesWrapper from "@/features/seminars/components/CategoriesWrapper";
 import {
   SeminarDataWrapper,
   SeminarSearchParams,
 } from "@/features/seminars/components/SeminarDataWrapper";
-
 import { Suspense } from "react";
 
 export default async function Home({
@@ -14,29 +14,22 @@ export default async function Home({
   const params = await searchParams;
 
   return (
-    <section aria-labelledby="events-heading">
-      <header className="my-14 md:my-16 space-y-3 flex flex-col items-center">
+    <section aria-labelledby="events-heading" className="space-y-6">
+      <header className="space-y-2 text-center md:text-left">
         <h1 id="events-heading" className="text-3xl font-medium">
           НАЙБЛИЖЧІ ЗАХОДИ
         </h1>
         <p className="text-secondary-foreground">Семінари, Вебінари, Записи</p>
       </header>
 
-      <div className="py-8">
-        <div className="flex gap-12">
-          <CategoriesWrapper />
-
-          {/* TODO: add suspense */}
-          <div className="flex-1">
-            <Suspense
-              key={JSON.stringify(params)}
-              fallback={<div>Loading...</div>}
-            >
-              <SeminarDataWrapper searchParams={params} />
-            </Suspense>
-          </div>
-        </div>
+      {/* Mobile Horizontal Carousel */}
+      <div className="block md:hidden border-y py-3">
+        <CategoriesWrapper variant="mobile" />
       </div>
+
+      <Suspense key={JSON.stringify(params)} fallback={<div>Loading...</div>}>
+        <SeminarDataWrapper searchParams={params} />
+      </Suspense>
     </section>
   );
 }

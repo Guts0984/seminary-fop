@@ -39,6 +39,7 @@ function assertValue<T>(v: T | undefined, errorMessage: string): T {
 // Get emails to sanity
 // Registration field
 // delete unused data in GROQ queries
-// fix seminar bug screen
 // pagination
 // 404
+// for jew, for ....
+// better sending emails popup

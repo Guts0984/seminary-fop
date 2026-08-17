@@ -9,11 +9,7 @@ export const seminarFields = `
   location,
   status,
   type,
-  category[]->{
-    _id,
-    title,
-    "slug": slug.current
-  },
+  category,
   googleMap,
   "image": image.asset->url,
   speakers[]->{
@@ -32,14 +28,12 @@ export const getSeminarsQuery = defineQuery(`
     "items": *[
       _type == "seminar"
       && status in ["upcoming", "recording"]
-      && (!defined($category) || count((category[]->slug.current)[@ in $category]) > 0)
     ] | order(eventDates[0] desc) [$start...$end] {
       ${seminarFields}
     },
     "total": count(*[
       _type == "seminar"
       && status in ["upcoming", "recording"]
-      && (!defined($category) || count((category[]->slug.current)[@ in $category]) > 0)
     ])
   }
 `);

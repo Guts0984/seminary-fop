@@ -58,7 +58,7 @@ export const imageBlock = defineField({
   ],
   preview: {
     select: { images: "images" },
-    prepare({ images }: { images: unknown[] }) {
+    prepare({ images }) {
       const count = images?.length || 0;
       return {
         title: count === 1 ? "Зображення (1)" : `Ряд зображень (${count})`,

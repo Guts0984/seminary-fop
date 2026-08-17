@@ -3,6 +3,7 @@ import { client } from "@/sanity/lib/client";
 import { sanityFetch } from "@/sanity/lib/live";
 import { getSpeakerBySlug } from "@/features/speakers/queries/getSpeakerBySlug";
 import { notFound } from "next/navigation";
+import Image from "next/image";
 
 const speakerSlugsQuery = defineQuery(
   `*[_type == "speaker" && defined(slug.current)].slug.current`,
@@ -37,9 +38,16 @@ export default async function SpeakerSlugPage({
   }
 
   return (
-    <div>
-      <h1>{speaker.name}</h1>
-      {/* rest of the speaker detail layout */}
+    <div className="mt-4">
+      <div className="relative h-[120px] w-[120px] shrink-0 overflow-hidden rounded-lg lg:h-[130px] lg:w-[130px]">
+        <Image
+          src={speaker?.photo || "/no-image.jpg"}
+          alt={speaker?.name || "Speaker photo"}
+          fill
+          className="object-cover"
+          sizes="130px"
+        />
+      </div>
     </div>
   );
 }

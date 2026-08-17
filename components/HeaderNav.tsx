@@ -21,12 +21,6 @@ export default function HeaderNav() {
           Головна
         </Link>
         <Link
-          className={`font-medium hover:text-primary/85 transition-colors ${isActive("/seminars") ? "text-primary" : "text-secondary-foreground"}`}
-          href="/seminars"
-        >
-          Семінари
-        </Link>
-        <Link
           className={`font-medium hover:text-primary/85 transition-colors ${isActive("/speakers") ? "text-primary" : "text-secondary-foreground"}`}
           href="/speakers"
         >

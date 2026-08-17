@@ -15,34 +15,11 @@
 export declare const internalGroqTypeReferenceTo: unique symbol;
 
 // Source: sanity/extract.json
-export type Category = {
-  _id: string;
-  _type: "category";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  title: string;
-  slug?: Slug;
-};
-
-export type Slug = {
-  _type: "slug";
-  current: string;
-  source?: string;
-};
-
 export type SanityImageAssetReference = {
   _ref: string;
   _type: "reference";
   _weak?: boolean;
   [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-};
-
-export type CategoryReference = {
-  _ref: string;
-  _type: "reference";
-  _weak?: boolean;
-  [internalGroqTypeReferenceTo]?: "category";
 };
 
 export type SpeakerReference = {
@@ -65,8 +42,8 @@ export type Seminar = {
       _type: "span";
       _key: string;
     }>;
-    style?: "normal" | "h2" | "h3" | "blockquote";
-    listItem?: "bullet" | "number";
+    style?: "normal" | "h2" | "h3";
+    listItem?: never;
     markDefs?: Array<{
       href?: string;
       openInNewTab?: boolean;
@@ -75,6 +52,38 @@ export type Seminar = {
     }>;
     level?: number;
     _type: "block";
+    _key: string;
+  }>;
+  price?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "normal";
+    listItem?: never;
+    markDefs?: Array<{
+      href?: string;
+      openInNewTab?: boolean;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }>;
+  partners?: Array<{
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    link?: {
+      href?: string;
+      openInNewTab?: boolean;
+    };
+    _type: "partnerLogo";
     _key: string;
   }>;
   slug: Slug;
@@ -99,18 +108,6 @@ export type Seminar = {
         _key: string;
       }
     | {
-        asset?: SanityImageAssetReference;
-        media?: unknown;
-        hotspot?: SanityImageHotspot;
-        crop?: SanityImageCrop;
-        alt?: string;
-        caption?: string;
-        widthPercent?: number;
-        align?: "left" | "center" | "right";
-        _type: "image";
-        _key: string;
-      }
-    | {
         images?: Array<{
           asset?: SanityImageAssetReference;
           media?: unknown;
@@ -118,10 +115,12 @@ export type Seminar = {
           crop?: SanityImageCrop;
           alt?: string;
           caption?: string;
+          widthPercent?: number;
           _type: "image";
           _key: string;
         }>;
-        _type: "imageRow";
+        align?: "left" | "center" | "right";
+        _type: "imageBlock";
         _key: string;
       }
   >;
@@ -129,11 +128,7 @@ export type Seminar = {
   location?: string;
   status: "upcoming" | "past" | "recording";
   type?: Array<string>;
-  category?: Array<
-    {
-      _key: string;
-    } & CategoryReference
-  >;
+  category: string;
   speakers?: Array<
     {
       _key: string;
@@ -168,6 +163,12 @@ export type SanityImageHotspot = {
   width: number;
 };
 
+export type Slug = {
+  _type: "slug";
+  current: string;
+  source?: string;
+};
+
 export type Speaker = {
   _id: string;
   _type: "speaker";
@@ -198,15 +199,19 @@ export type Speaker = {
         _key: string;
       }
     | {
-        asset?: SanityImageAssetReference;
-        media?: unknown;
-        hotspot?: SanityImageHotspot;
-        crop?: SanityImageCrop;
-        alt?: string;
-        caption?: string;
-        size?: "small" | "medium" | "full";
+        images?: Array<{
+          asset?: SanityImageAssetReference;
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          alt?: string;
+          caption?: string;
+          widthPercent?: number;
+          _type: "image";
+          _key: string;
+        }>;
         align?: "left" | "center" | "right";
-        _type: "image";
+        _type: "imageBlock";
         _key: string;
       }
   >;
@@ -317,14 +322,12 @@ export type Geopoint = {
 };
 
 export type AllSanitySchemaTypes =
-  | Category
-  | Slug
   | SanityImageAssetReference
-  | CategoryReference
   | SpeakerReference
   | Seminar
   | SanityImageCrop
   | SanityImageHotspot
+  | Slug
   | Speaker
   | SanityImagePaletteSwatch
   | SanityImagePalette
@@ -345,18 +348,9 @@ export type SeminarSlugsQueryResult = Array<string>;
 // Query: *[_type == "speaker" && defined(slug.current)].slug.current
 export type SpeakerSlugsQueryResult = Array<string>;
 
-// Source: features/seminars/queries/getCategoriesQuery.ts
-// Variable: getCategoriesQuery
-// Query: *[      _type == "category" &&      count(*[        _type == "seminar" &&         status in ["upcoming", "recording"] &&        references(^._id)      ]) > 0    ] {      _id,      title,      "slug": slug.current    }
-export type GetCategoriesQueryResult = Array<{
-  _id: string;
-  title: string;
-  slug: string | null;
-}>;
-
 // Source: features/seminars/queries/getSeminarBySlug.ts
 // Variable: getSeminarBySlug
-// Query: *[_type == "seminar" && slug.current == $slug][0]{    _id,  title,  "slug": slug.current,  description,  eventDates,  location,  status,  type,  category[]->{    _id,    title,    "slug": slug.current  },  googleMap,  "image": image.asset->url,  speakers[]->{    _id,    name,    slug,    title,    company,    bio,    "photoUrl": photo.asset->url  }  }
+// Query: *[_type == "seminar" && slug.current == $slug][0]{    _id,  title,  "slug": slug.current,  description,  eventDates,  location,  status,  type,  category,  googleMap,  "image": image.asset->url,  speakers[]->{    _id,    name,    slug,    title,    company,    bio,    "photoUrl": photo.asset->url  }  }
 export type GetSeminarBySlugResult = {
   _id: string;
   title: Array<{
@@ -366,8 +360,8 @@ export type GetSeminarBySlugResult = {
       _type: "span";
       _key: string;
     }>;
-    style?: "blockquote" | "h2" | "h3" | "normal";
-    listItem?: "bullet" | "number";
+    style?: "h2" | "h3" | "normal";
+    listItem?: never;
     markDefs?: Array<{
       href?: string;
       openInNewTab?: boolean;
@@ -400,18 +394,6 @@ export type GetSeminarBySlugResult = {
         _key: string;
       }
     | {
-        asset?: SanityImageAssetReference;
-        media?: unknown;
-        hotspot?: SanityImageHotspot;
-        crop?: SanityImageCrop;
-        alt?: string;
-        caption?: string;
-        widthPercent?: number;
-        align?: "center" | "left" | "right";
-        _type: "image";
-        _key: string;
-      }
-    | {
         images?: Array<{
           asset?: SanityImageAssetReference;
           media?: unknown;
@@ -419,10 +401,12 @@ export type GetSeminarBySlugResult = {
           crop?: SanityImageCrop;
           alt?: string;
           caption?: string;
+          widthPercent?: number;
           _type: "image";
           _key: string;
         }>;
-        _type: "imageRow";
+        align?: "center" | "left" | "right";
+        _type: "imageBlock";
         _key: string;
       }
   > | null;
@@ -430,11 +414,7 @@ export type GetSeminarBySlugResult = {
   location: string | null;
   status: "past" | "recording" | "upcoming";
   type: Array<string> | null;
-  category: Array<{
-    _id: string;
-    title: string;
-    slug: string | null;
-  }> | null;
+  category: string;
   googleMap: {
     address?: string;
     embedUrl?: string;
@@ -467,15 +447,19 @@ export type GetSeminarBySlugResult = {
           _key: string;
         }
       | {
-          asset?: SanityImageAssetReference;
-          media?: unknown;
-          hotspot?: SanityImageHotspot;
-          crop?: SanityImageCrop;
-          alt?: string;
-          caption?: string;
-          size?: "full" | "medium" | "small";
+          images?: Array<{
+            asset?: SanityImageAssetReference;
+            media?: unknown;
+            hotspot?: SanityImageHotspot;
+            crop?: SanityImageCrop;
+            alt?: string;
+            caption?: string;
+            widthPercent?: number;
+            _type: "image";
+            _key: string;
+          }>;
           align?: "center" | "left" | "right";
-          _type: "image";
+          _type: "imageBlock";
           _key: string;
         }
     > | null;
@@ -485,7 +469,7 @@ export type GetSeminarBySlugResult = {
 
 // Source: features/seminars/queries/getSeminarsQuery.ts
 // Variable: getSeminarsQuery
-// Query: {    "items": *[      _type == "seminar"      && status in ["upcoming", "recording"]      && (!defined($category) || count((category[]->slug.current)[@ in $category]) > 0)    ] | order(eventDates[0] desc) [$start...$end] {        _id,  title,  "slug": slug.current,  description,  eventDates,  location,  status,  type,  category[]->{    _id,    title,    "slug": slug.current  },  googleMap,  "image": image.asset->url,  speakers[]->{    _id,    name,    slug,    title,    company,    bio,    "photoUrl": photo.asset->url  }    },    "total": count(*[      _type == "seminar"      && status in ["upcoming", "recording"]      && (!defined($category) || count((category[]->slug.current)[@ in $category]) > 0)    ])  }
+// Query: {    "items": *[      _type == "seminar"      && status in ["upcoming", "recording"]    ] | order(eventDates[0] desc) [$start...$end] {        _id,  title,  "slug": slug.current,  description,  eventDates,  location,  status,  type,  category,  googleMap,  "image": image.asset->url,  speakers[]->{    _id,    name,    slug,    title,    company,    bio,    "photoUrl": photo.asset->url  }    },    "total": count(*[      _type == "seminar"      && status in ["upcoming", "recording"]    ])  }
 export type GetSeminarsQueryResult = {
   items: Array<{
     _id: string;
@@ -496,8 +480,8 @@ export type GetSeminarsQueryResult = {
         _type: "span";
         _key: string;
       }>;
-      style?: "blockquote" | "h2" | "h3" | "normal";
-      listItem?: "bullet" | "number";
+      style?: "h2" | "h3" | "normal";
+      listItem?: never;
       markDefs?: Array<{
         href?: string;
         openInNewTab?: boolean;
@@ -530,18 +514,6 @@ export type GetSeminarsQueryResult = {
           _key: string;
         }
       | {
-          asset?: SanityImageAssetReference;
-          media?: unknown;
-          hotspot?: SanityImageHotspot;
-          crop?: SanityImageCrop;
-          alt?: string;
-          caption?: string;
-          widthPercent?: number;
-          align?: "center" | "left" | "right";
-          _type: "image";
-          _key: string;
-        }
-      | {
           images?: Array<{
             asset?: SanityImageAssetReference;
             media?: unknown;
@@ -549,10 +521,12 @@ export type GetSeminarsQueryResult = {
             crop?: SanityImageCrop;
             alt?: string;
             caption?: string;
+            widthPercent?: number;
             _type: "image";
             _key: string;
           }>;
-          _type: "imageRow";
+          align?: "center" | "left" | "right";
+          _type: "imageBlock";
           _key: string;
         }
     > | null;
@@ -560,11 +534,7 @@ export type GetSeminarsQueryResult = {
     location: string | null;
     status: "past" | "recording" | "upcoming";
     type: Array<string> | null;
-    category: Array<{
-      _id: string;
-      title: string;
-      slug: string | null;
-    }> | null;
+    category: string;
     googleMap: {
       address?: string;
       embedUrl?: string;
@@ -597,15 +567,19 @@ export type GetSeminarsQueryResult = {
             _key: string;
           }
         | {
-            asset?: SanityImageAssetReference;
-            media?: unknown;
-            hotspot?: SanityImageHotspot;
-            crop?: SanityImageCrop;
-            alt?: string;
-            caption?: string;
-            size?: "full" | "medium" | "small";
+            images?: Array<{
+              asset?: SanityImageAssetReference;
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              alt?: string;
+              caption?: string;
+              widthPercent?: number;
+              _type: "image";
+              _key: string;
+            }>;
             align?: "center" | "left" | "right";
-            _type: "image";
+            _type: "imageBlock";
             _key: string;
           }
       > | null;
@@ -614,6 +588,15 @@ export type GetSeminarsQueryResult = {
   }>;
   total: number;
 };
+
+// Source: features/seminars/queries/getSidebarSeminarsQuery.ts
+// Variable: getSidebarSeminarsQuery
+// Query: *[_type == "seminar"    && defined(slug.current)    && status in ["upcoming", "recording"]  ] | order(eventDates[0] desc) {    _id,    category,    "slug": slug.current  }
+export type GetSidebarSeminarsQueryResult = Array<{
+  _id: string;
+  category: string;
+  slug: string;
+}>;
 
 // Source: features/speakers/queries/getSpeakerBySlug.tsx
 // Variable: getSpeakerBySlug
@@ -644,15 +627,19 @@ export type GetSpeakerBySlugResult = {
         _key: string;
       }
     | {
-        asset?: SanityImageAssetReference;
-        media?: unknown;
-        hotspot?: SanityImageHotspot;
-        crop?: SanityImageCrop;
-        alt?: string;
-        caption?: string;
-        size?: "full" | "medium" | "small";
+        images?: Array<{
+          asset?: SanityImageAssetReference;
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          alt?: string;
+          caption?: string;
+          widthPercent?: number;
+          _type: "image";
+          _key: string;
+        }>;
         align?: "center" | "left" | "right";
-        _type: "image";
+        _type: "imageBlock";
         _key: string;
       }
   > | null;
@@ -666,8 +653,8 @@ export type GetSpeakerBySlugResult = {
         _type: "span";
         _key: string;
       }>;
-      style?: "blockquote" | "h2" | "h3" | "normal";
-      listItem?: "bullet" | "number";
+      style?: "h2" | "h3" | "normal";
+      listItem?: never;
       markDefs?: Array<{
         href?: string;
         openInNewTab?: boolean;
@@ -714,15 +701,19 @@ export type GetSpeakersQueryResult = {
           _key: string;
         }
       | {
-          asset?: SanityImageAssetReference;
-          media?: unknown;
-          hotspot?: SanityImageHotspot;
-          crop?: SanityImageCrop;
-          alt?: string;
-          caption?: string;
-          size?: "full" | "medium" | "small";
+          images?: Array<{
+            asset?: SanityImageAssetReference;
+            media?: unknown;
+            hotspot?: SanityImageHotspot;
+            crop?: SanityImageCrop;
+            alt?: string;
+            caption?: string;
+            widthPercent?: number;
+            _type: "image";
+            _key: string;
+          }>;
           align?: "center" | "left" | "right";
-          _type: "image";
+          _type: "imageBlock";
           _key: string;
         }
     > | null;
@@ -736,8 +727,8 @@ export type GetSpeakersQueryResult = {
           _type: "span";
           _key: string;
         }>;
-        style?: "blockquote" | "h2" | "h3" | "normal";
-        listItem?: "bullet" | "number";
+        style?: "h2" | "h3" | "normal";
+        listItem?: never;
         markDefs?: Array<{
           href?: string;
           openInNewTab?: boolean;
@@ -762,9 +753,9 @@ declare module "@sanity/client" {
   interface SanityQueries {
     '*[_type == "seminar" && defined(slug.current)].slug.current': SeminarSlugsQueryResult;
     '*[_type == "speaker" && defined(slug.current)].slug.current': SpeakerSlugsQueryResult;
-    '\n   *[\n      _type == "category" &&\n      count(*[\n        _type == "seminar" &&\n         status in ["upcoming", "recording"] &&\n        references(^._id)\n      ]) > 0\n    ] {\n      _id,\n      title,\n      "slug": slug.current\n    }\n': GetCategoriesQueryResult;
-    '*[_type == "seminar" && slug.current == $slug][0]{\n  \n  _id,\n  title,\n  "slug": slug.current,\n  description,\n  eventDates,\n  location,\n  status,\n  type,\n  category[]->{\n    _id,\n    title,\n    "slug": slug.current\n  },\n  googleMap,\n  "image": image.asset->url,\n  speakers[]->{\n    _id,\n    name,\n    slug,\n    title,\n    company,\n    bio,\n    "photoUrl": photo.asset->url\n  }\n\n  }\n': GetSeminarBySlugResult;
-    '\n  {\n    "items": *[\n      _type == "seminar"\n      && status in ["upcoming", "recording"]\n      && (!defined($category) || count((category[]->slug.current)[@ in $category]) > 0)\n    ] | order(eventDates[0] desc) [$start...$end] {\n      \n  _id,\n  title,\n  "slug": slug.current,\n  description,\n  eventDates,\n  location,\n  status,\n  type,\n  category[]->{\n    _id,\n    title,\n    "slug": slug.current\n  },\n  googleMap,\n  "image": image.asset->url,\n  speakers[]->{\n    _id,\n    name,\n    slug,\n    title,\n    company,\n    bio,\n    "photoUrl": photo.asset->url\n  }\n\n    },\n    "total": count(*[\n      _type == "seminar"\n      && status in ["upcoming", "recording"]\n      && (!defined($category) || count((category[]->slug.current)[@ in $category]) > 0)\n    ])\n  }\n': GetSeminarsQueryResult;
+    '*[_type == "seminar" && slug.current == $slug][0]{\n  \n  _id,\n  title,\n  "slug": slug.current,\n  description,\n  eventDates,\n  location,\n  status,\n  type,\n  category,\n  googleMap,\n  "image": image.asset->url,\n  speakers[]->{\n    _id,\n    name,\n    slug,\n    title,\n    company,\n    bio,\n    "photoUrl": photo.asset->url\n  }\n\n  }\n': GetSeminarBySlugResult;
+    '\n  {\n    "items": *[\n      _type == "seminar"\n      && status in ["upcoming", "recording"]\n    ] | order(eventDates[0] desc) [$start...$end] {\n      \n  _id,\n  title,\n  "slug": slug.current,\n  description,\n  eventDates,\n  location,\n  status,\n  type,\n  category,\n  googleMap,\n  "image": image.asset->url,\n  speakers[]->{\n    _id,\n    name,\n    slug,\n    title,\n    company,\n    bio,\n    "photoUrl": photo.asset->url\n  }\n\n    },\n    "total": count(*[\n      _type == "seminar"\n      && status in ["upcoming", "recording"]\n    ])\n  }\n': GetSeminarsQueryResult;
+    '\n  *[_type == "seminar"\n    && defined(slug.current)\n    && status in ["upcoming", "recording"]\n  ] | order(eventDates[0] desc) {\n    _id,\n    category,\n    "slug": slug.current\n  }\n': GetSidebarSeminarsQueryResult;
     '\n  *[_type == "speaker" && slug.current == $slug][0]{\n    \n  _id,\n  name,\n  "slug": slug.current,\n  title,\n  bio,\n  "photo": photo.asset->url,\n  "seminars": *[_type == "seminar" && references(^._id)] | order(eventDates[0] desc) {\n    _id,\n    title,\n    "slug": slug.current,\n    eventDates,\n    "image": image.asset->url\n  }\n\n  }\n': GetSpeakerBySlugResult;
     '\n  {\n    "items": *[_type == "speaker"] | order(name asc) [$start...$end] {\n      \n  _id,\n  name,\n  "slug": slug.current,\n  title,\n  bio,\n  "photo": photo.asset->url,\n  "seminars": *[_type == "seminar" && references(^._id)] | order(eventDates[0] desc) {\n    _id,\n    title,\n    "slug": slug.current,\n    eventDates,\n    "image": image.asset->url\n  }\n\n    },\n    "total": count(*[_type == "speaker"])\n  }\n': GetSpeakersQueryResult;
   }

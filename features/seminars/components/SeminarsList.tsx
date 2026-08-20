@@ -24,7 +24,7 @@ export function SeminarsList({ data }: { data: GetSeminarsQueryResult }) {
 
   return (
     <div>
-      <div className="mb-6 flex justify-between items-center">
+      <div className="mb-6">
         <p className="text-sm text-secondary-foreground">
           Знайдено {data.total} {getSeminarPlural(data.total)}
         </p>

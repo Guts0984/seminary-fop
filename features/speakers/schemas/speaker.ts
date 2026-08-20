@@ -28,18 +28,17 @@ export const speaker = defineType({
     }),
 
     defineField({
-      name: "title",
-      title: "Посада / Заслуги",
-      type: "array",
-      of: [{ type: "string" }],
-      description: "Голова правління, УКРБУДКОНСАЛТГРУП",
-    }),
-
-    defineField({
       name: "bio",
       title: "Біо",
       type: "array",
       of: [richTextBlock(), imageBlock],
+    }),
+
+    defineField({
+      name: "title",
+      title: "Короткий опис заслуг",
+      type: "array",
+      of: [richTextBlock({ headings: false, lists: false, quote: false })],
     }),
 
     defineField({
@@ -54,7 +53,6 @@ export const speaker = defineType({
   preview: {
     select: {
       title: "name",
-      subtitle: "title.0",
       media: "photo",
     },
   },

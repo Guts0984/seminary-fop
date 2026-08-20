@@ -7,7 +7,6 @@ export const seminarFields = `
   description,
   eventDates,
   location,
-  status,
   type,
   category,
   googleMap,
@@ -27,7 +26,6 @@ export const getSeminarsQuery = defineQuery(`
   {
     "items": *[
       _type == "seminar"
-      && status in ["upcoming", "recording"]
     ] | order(eventDates[0] desc) [$start...$end] {
       ${seminarFields}
     },

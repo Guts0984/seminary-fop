@@ -19,10 +19,6 @@ function assertValue<T>(v: T | undefined, errorMessage: string): T {
   return v;
 }
 
-// run every time you modify the schema
-// npx sanity@latest schema extract --path=./sanity/extract.json
-// npx sanity@latest typegen generate
-
 //TODOS:
 // Speaker page add seminars in which participate / participated
 // Logo
@@ -43,3 +39,10 @@ function assertValue<T>(v: T | undefined, errorMessage: string): T {
 // 404
 // for jew, for ....
 // better sending emails popup
+// footer rights reserved
+// deployment
+// proper cache
+// recordings
+// cleanup english names
+// handle better typing and break into type files
+// clean tailwind stuff

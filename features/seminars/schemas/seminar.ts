@@ -91,22 +91,6 @@ export const seminar = defineType({
     }),
 
     defineField({
-      name: "status",
-      title: "Статус",
-      type: "string",
-      options: {
-        list: [
-          { title: "Наближається", value: "upcoming" },
-          { title: "Пройшов", value: "past" },
-          { title: "Лише запис", value: "recording" },
-        ],
-        layout: "radio",
-      },
-      initialValue: "upcoming",
-      validation: (Rule) => Rule.required(),
-    }),
-
-    defineField({
       name: "type",
       title: "Тип заходу",
       type: "array",

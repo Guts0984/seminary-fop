@@ -1,4 +1,5 @@
-import SpeakerList from "@/features/speakers/components/SpeakerList";
+import { Separator } from "@/components/ui/separator";
+import SpeakerList from "@/features/speakers/components/SpeakersList";
 import { getSpeakersQuery } from "@/features/speakers/queries/getSpeakersQuery";
 import { sanityFetch } from "@/sanity/lib/live";
 import { Suspense } from "react";
@@ -16,8 +17,11 @@ export default async function SpeakerPage({
   const params = await searchParams;
 
   return (
-    <div>
-      <h1>Speakers</h1>
+    <div className="space-y-6">
+      <div className="space-y-2">
+        <h3 className="font-medium text-lg">Доповідачі</h3>
+        <Separator className="data-horizontal:h-1 bg-primary max-w-30" />
+      </div>
       <Suspense key={JSON.stringify(params)} fallback={<div>Loading...</div>}>
         <SpeakerDataWrapper searchParams={params} />
       </Suspense>

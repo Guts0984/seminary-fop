@@ -20,8 +20,6 @@ function assertValue<T>(v: T | undefined, errorMessage: string): T {
 }
 
 //TODOS:
-// Speaker page add seminars in which participate / participated
-// Logo
 // Skeletons
 // Footer
 // Seminar page
@@ -48,3 +46,4 @@ function assertValue<T>(v: T | undefined, errorMessage: string): T {
 // clean tailwind stuff
 // check images compression
 // client review for dates in seminar speaker slug
+// clean public folder

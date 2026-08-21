@@ -11,5 +11,5 @@ export function formatEventDates(eventDates: string[] = []): string {
     month: "long",
     year: "numeric",
   });
-  return eventDates.map((date) => formatter.format(new Date(date))).join(", ");
+  return eventDates.map((date) => formatter.format(new Date(date))).join(",\n");
 }

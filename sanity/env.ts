@@ -46,3 +46,5 @@ function assertValue<T>(v: T | undefined, errorMessage: string): T {
 // cleanup english names
 // handle better typing and break into type files
 // clean tailwind stuff
+// check images compression
+// client review for dates in seminar speaker slug

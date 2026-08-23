@@ -20,7 +20,6 @@ export default async function CategoriesWrapper({
   const { data } = await sanityFetch({
     query: getSidebarSeminarsQuery,
   });
-  console.log(data);
 
   if (!data?.length) return null;
 

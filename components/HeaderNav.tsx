@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { DropdownMenuIcons } from "./DropdownButton";
+import { NAV_LINKS } from "@/helpers/nav-links";
 
 export default function HeaderNav() {
   const pathname = usePathname();
@@ -14,24 +15,17 @@ export default function HeaderNav() {
   return (
     <>
       <div className="mr-5 space-x-6 hidden md:flex md:items-center">
-        <Link
-          className={`font-medium hover:text-primary/85 transition-colors ${isActive("/") ? "text-primary" : "text-secondary-foreground"}`}
-          href="/"
-        >
-          Головна
-        </Link>
-        <Link
-          className={`font-medium hover:text-primary/85 transition-colors ${isActive("/speakers") ? "text-primary" : "text-secondary-foreground"}`}
-          href="/speakers"
-        >
-          Спікери
-        </Link>
-        <Link
-          className={`font-medium hover:text-primary/85 transition-colors ${isActive("/contacts") ? "text-primary" : "text-secondary-foreground"}`}
-          href="/contacts"
-        >
-          Контакти
-        </Link>
+        {NAV_LINKS.map((link) => {
+          return (
+            <Link
+              key={link.href}
+              className={`font-medium hover:text-primary/85 transition-colors ${isActive("/speakers") ? "text-primary" : "text-secondary-foreground"}`}
+              href={link.href}
+            >
+              {link.label}
+            </Link>
+          );
+        })}
       </div>
 
       <div className="md:hidden">

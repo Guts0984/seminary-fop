@@ -20,7 +20,6 @@ function assertValue<T>(v: T | undefined, errorMessage: string): T {
 }
 
 //TODOS:
-// Skeletons
 // Footer
 // Seminar page
 // Delete blog
@@ -34,6 +33,7 @@ function assertValue<T>(v: T | undefined, errorMessage: string): T {
 // Registration field
 // delete unused data in GROQ queries
 // pagination
+// Skeletons
 // 404
 // for jew, for ....
 // better sending emails popup
@@ -47,3 +47,4 @@ function assertValue<T>(v: T | undefined, errorMessage: string): T {
 // check images compression
 // client review for dates in seminar speaker slug
 // clean public folder
+// break main components code into folders

@@ -70,7 +70,7 @@ export function SpeakerSeminars({ seminars }: { seminars: Seminar[] }) {
               >
                 <Link
                   href={`/seminars/${seminar.slug}`}
-                  className="group block rounded-lg focus-visible:outline-none"
+                  className="group block rounded-lg focus-visible:outline-none pt-2"
                 >
                   <div
                     className="relative overflow-hidden rounded-lg border-2 border-muted transition-all duration-300

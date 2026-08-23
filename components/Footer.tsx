@@ -1,5 +1,56 @@
+import Link from "next/link";
+import { NAV_LINKS } from "@/helpers/nav-links";
+import ContactLinks from "./FooterContactLinks";
+
 export default function Footer() {
   return (
-    <div className="flex h-24 items-center justify-center border-t">Footer</div>
+    <footer className="bg-[#3C3C3C] text-white">
+      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12">
+        {/* Top row: brand */}
+        <div className="border-b border-white/10 pb-8 sm:pb-12">
+          <div className="max-w-md">
+            <h2 className="text-xl font-semibold tracking-tight sm:text-2xl">
+              Семінари<span className="text-primary"> / </span>Вебінари
+            </h2>
+            <p className="mt-3 text-sm leading-relaxed text-secondary-foreground">
+              Знаходьте події, реєструйтесь та отримуйте знання від практиків.
+            </p>
+          </div>
+        </div>
+
+        {/* Middle: nav / contacts */}
+        <div className="grid grid-cols-1 gap-8 py-8 sm:grid-cols-2 sm:gap-10 sm:py-12">
+          <div>
+            <h3 className="mb-4 text-xs font-semibold uppercase tracking-wider text-secondary-foreground">
+              Навігація
+            </h3>
+            <ul className="flex flex-wrap gap-x-6 gap-y-3">
+              {NAV_LINKS.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="text-sm text-white transition-colors hover:text-primary"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="mb-4 text-xs font-semibold uppercase tracking-wider text-secondary-foreground">
+              Контакти
+            </h3>
+            <ContactLinks />
+          </div>
+        </div>
+
+        {/* Bottom bar */}
+        <div className="border-t border-white/10 pt-6 text-center text-sm text-secondary-foreground">
+          <p>© {new Date().getFullYear()} Усі права захищено.</p>
+        </div>
+      </div>
+    </footer>
   );
 }

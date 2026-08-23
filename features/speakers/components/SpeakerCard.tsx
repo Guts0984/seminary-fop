@@ -46,7 +46,7 @@ export default function SpeakerCard({ speaker }: { speaker: Speaker }) {
   return (
     <Link
       href={`/speakers/${slug}`}
-      className="group block focus-visible:outline-none"
+      className="group block pt-2 focus-visible:outline-none"
     >
       <Card
         className="relative overflow-visible border-2 border-muted pt-10 transition-all duration-300

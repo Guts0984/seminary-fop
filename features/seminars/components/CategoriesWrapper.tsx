@@ -3,22 +3,18 @@ import { getSidebarSeminarsQuery } from "../queries/getSidebarSeminarsQuery";
 import CategoriesSidebarList from "./CategoriesSidebarList";
 import CategoriesMobileCarousel from "./CategoriesMobileCarousel";
 import { Separator } from "@/components/ui/separator";
-
-interface CategoriesWrapperProps {
-  variant?: "sidebar" | "mobile";
-}
-
-type Category = {
-  _id: string;
-  category: string;
-  slug: string | null;
-};
+import { CategoriesWrapperProps } from "../types";
 
 export default async function CategoriesWrapper({
   variant = "sidebar",
+  filterType = "all",
 }: CategoriesWrapperProps) {
   const { data } = await sanityFetch({
     query: getSidebarSeminarsQuery,
+    params: {
+      filterType,
+      now: new Date().toISOString(),
+    },
   });
 
   if (!data?.length) return null;

@@ -16,7 +16,7 @@ export default function CategoriesSidebarList({
   const pathname = usePathname();
 
   return (
-    <div className="flex flex-col gap-1.5 w-full border-2 border-hover rounded-xl">
+    <div className="flex flex-col w-full border-2 border-hover rounded-xl overflow-hidden">
       {categories.map((category) => {
         if (!category.slug) return null;
 

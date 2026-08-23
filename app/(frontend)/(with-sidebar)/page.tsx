@@ -1,9 +1,7 @@
 // app/page.tsx
 import CategoriesWrapper from "@/features/seminars/components/CategoriesWrapper";
-import {
-  SeminarDataWrapper,
-  SeminarSearchParams,
-} from "@/features/seminars/components/SeminarDataWrapper";
+import { SeminarDataWrapper } from "@/features/seminars/components/SeminarDataWrapper";
+import { SeminarSearchParams } from "@/features/seminars/types";
 import { Suspense } from "react";
 
 export default async function Home({

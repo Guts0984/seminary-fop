@@ -2,11 +2,9 @@
 
 import { toast } from "sonner";
 import NewsletterForm from "../features/newsletterEmails/components/NewsletterForm";
+import { EMAIL, PHONE_NUMBER } from "@/helpers/contacts";
 
 export default function Contact() {
-  const phoneNumber = "+38 (050) 914 56 25";
-  const email = "petrishina_t@ukr.net";
-
   const handleCopy = async (value: string) => {
     try {
       await navigator.clipboard.writeText(value);
@@ -23,20 +21,20 @@ export default function Contact() {
           Телефон:
           <button
             type="button"
-            onClick={() => handleCopy(phoneNumber)}
+            onClick={() => handleCopy(PHONE_NUMBER)}
             className="font-bold ml-1 text-primary hover:text-primary/85 transition-colors cursor-pointer"
           >
-            {phoneNumber}
+            {PHONE_NUMBER}
           </button>
         </p>
         <p className="text-[11px] md:text-sm flex items-center">
           E-mail:
           <button
             type="button"
-            onClick={() => handleCopy(email)}
+            onClick={() => handleCopy(EMAIL)}
             className="font-bold ml-1 text-primary hover:text-primary/85 transition-colors cursor-pointer"
           >
-            {email}
+            {EMAIL}
           </button>
         </p>
       </div>

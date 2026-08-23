@@ -18,10 +18,10 @@ export const seminar = defineType({
     }),
 
     defineField({
-      name: "price",
-      title: "Ціна",
+      name: "subtitle",
+      title: "Підзаголовок",
       type: "array",
-      of: [richTextBlock({ headings: false, lists: false, quote: false })],
+      of: [richTextBlock({ headings: true, lists: false, quote: false })],
     }),
 
     defineField({
@@ -128,6 +128,12 @@ export const seminar = defineType({
       },
     }),
 
+    defineField({
+      name: "price",
+      title: "Ціна",
+      type: "array",
+      of: [richTextBlock({ headings: false, lists: false, quote: false })],
+    }),
     defineField({
       name: "googleMap",
       title: "Карта (внизу сторінки)",

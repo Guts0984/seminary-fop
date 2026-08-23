@@ -58,7 +58,7 @@ export default function SpeakerCard({ speaker }: { speaker: Speaker }) {
             {photo ? (
               <AvatarImage src={sizedImage(photo, 200)} alt={`Фото ${name}`} />
             ) : null}
-            <AvatarFallback className="text-lg font-semibold">
+            <AvatarFallback className="text-lg font-semibold bg-gray-200">
               {getInitials(name)}
             </AvatarFallback>
           </Avatar>

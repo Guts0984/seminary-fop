@@ -6,7 +6,7 @@ import Link from "next/link";
 import { Card } from "@/components/ui/card";
 import { GetSeminarBySlugResult } from "@/sanity/types";
 import { PortableText } from "next-sanity";
-import { TextFormating } from "@/sanity/helpers/TextFormating";
+import { TextFormating } from "@/sanity/helpers/frontend/TextFormating";
 
 const MONTHS_GENITIVE_UA = [
   "січня",

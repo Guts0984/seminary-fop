@@ -5,7 +5,7 @@ import ContactLinks from "./FooterContactLinks";
 export default function Footer() {
   return (
     <footer className="bg-[#3C3C3C] text-white">
-      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12">
+      <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:pt-8">
         {/* Top row: brand */}
         <div className="border-b border-white/10 pb-8 sm:pb-12">
           <div className="max-w-md">
@@ -47,7 +47,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="border-t border-white/10 pt-6 text-center text-sm text-secondary-foreground">
+        <div className="border-t border-white/10 pt-6 text-center text-xs text-secondary-foreground">
           <p>© {new Date().getFullYear()} Усі права захищено.</p>
         </div>
       </div>

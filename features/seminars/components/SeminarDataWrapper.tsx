@@ -1,12 +1,7 @@
 import { sanityFetch } from "@/sanity/lib/live";
 import { getSeminarsQuery } from "../queries/getSeminarsQuery";
 import { SeminarsList } from "./SeminarsList";
-
-export type SeminarSearchParams = {
-  category?: string;
-  start?: number;
-  end?: number;
-};
+import { SeminarSearchParams } from "../types";
 
 export async function SeminarDataWrapper({
   searchParams,
@@ -21,7 +16,13 @@ export async function SeminarDataWrapper({
 
   const { data } = await sanityFetch({
     query: getSeminarsQuery,
-    params: { category, start, end },
+    params: {
+      category,
+      start,
+      end,
+      filterType: "all",
+      now: new Date().toISOString(),
+    },
   });
   return <SeminarsList data={data} />;
 }

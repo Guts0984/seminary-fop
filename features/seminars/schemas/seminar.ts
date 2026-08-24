@@ -13,15 +13,21 @@ export const seminar = defineType({
       name: "title",
       title: "Заголовок",
       type: "array",
-      of: [richTextBlock({ headings: true, lists: false, quote: false })],
+      of: [richTextBlock()],
       validation: (Rule) => Rule.required(),
     }),
 
     defineField({
       name: "subtitle",
-      title: "Підзаголовок",
+      title: "Підзаголовок (для огляду, короткий опис)",
       type: "array",
-      of: [richTextBlock({ headings: true, lists: false, quote: false })],
+      of: [richTextBlock()],
+    }),
+    defineField({
+      name: "subtitle_main",
+      title: "Підзаголовок (для слагу, довгий опис)",
+      type: "array",
+      of: [richTextBlock()],
     }),
 
     defineField({
@@ -57,6 +63,14 @@ export const seminar = defineType({
     }),
 
     defineField({
+      name: "category",
+      title: "Назва сайдбару",
+      description: "Оберіть назву, що відобразиться у сайдбарі.",
+      type: "string",
+      validation: (Rule) => Rule.required(),
+    }),
+
+    defineField({
       name: "slug",
       title: "Слаг",
       type: "slug",
@@ -69,7 +83,19 @@ export const seminar = defineType({
 
     defineField({
       name: "description",
-      title: "Текст",
+      title: "Програма",
+      type: "array",
+      of: [richTextBlock(), imageBlock],
+    }),
+    defineField({
+      name: "discount",
+      title: "Знижки",
+      type: "array",
+      of: [richTextBlock(), imageBlock],
+    }),
+    defineField({
+      name: "youGet",
+      title: "До вартості входить:",
       type: "array",
       of: [richTextBlock(), imageBlock],
     }),
@@ -78,21 +104,41 @@ export const seminar = defineType({
       name: "eventDates",
       title: "Дата(и) проведення",
       type: "array",
-      of: [{ type: "datetime" }],
+      of: [{ type: "date" }],
       validation: (Rule) => Rule.required().min(1),
       description: "Додайте перелік дат проведення семінарів.",
     }),
 
     defineField({
-      name: "location",
-      title: "Місце проведення (опціонально)",
+      name: "eventTime",
+      title: "Час проведення",
       type: "string",
-      initialValue: "",
+      description: "Наприклад: 10:00 - 13:00",
+      validation: (Rule) =>
+        Rule.regex(
+          /^([01]\d|2[0-3]):[0-5]\d(\s*-\s*([01]\d|2[0-3]):[0-5]\d)?$/,
+          {
+            name: "time format",
+          },
+        ).error("Формат: 10:00 або 10:00 - 13:00"),
+    }),
+
+    defineField({
+      name: "location",
+      title: "Місце проведення",
+      type: "array",
+      of: [richTextBlock()],
+    }),
+    defineField({
+      name: "schedule",
+      title: "Розклад",
+      type: "array",
+      of: [richTextBlock()],
     }),
 
     defineField({
       name: "type",
-      title: "Тип заходу",
+      title: "Тип заходу (всі в архіві автоматично стають записами)",
       type: "array",
       of: [{ type: "string" }],
       options: {
@@ -102,14 +148,6 @@ export const seminar = defineType({
           { title: "Запис", value: "recording" },
         ],
       },
-    }),
-
-    defineField({
-      name: "category",
-      title: "Назва сайдбару",
-      description: "Оберіть назву, що відобразиться у сайдбарі.",
-      type: "string",
-      validation: (Rule) => Rule.required(),
     }),
 
     defineField({
@@ -137,22 +175,9 @@ export const seminar = defineType({
     defineField({
       name: "googleMap",
       title: "Карта (внизу сторінки)",
-      type: "object",
-      fields: [
-        {
-          name: "address",
-          type: "string",
-          title: "Адреса",
-          description: "Наприклад: Київ, вул. Хрещатик, 1",
-        },
-        {
-          name: "embedUrl",
-          type: "url",
-          title: "URL для вбудовування (опціонально)",
-          description:
-            'Якщо потрібна точна мітка: Google Maps → Поділитися → Вставити карту → скопіюйте посилання з src="..."',
-        },
-      ],
+      type: "url",
+      description:
+        'Якщо потрібна точна мітка: Google Maps → Поділитися → Вставити карту → скопіюйте посилання з src="..."',
     }),
   ],
 });

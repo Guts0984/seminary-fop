@@ -1,80 +1,158 @@
+// "use client";
+
+// import Link from "next/link";
+// import { Seminar } from "../types";
+// import { PortableText } from "next-sanity";
+// import { TextFormating } from "@/sanity/helpers/frontend/TextFormating";
+// import Image from "next/image";
+// import { useState } from "react";
+// import { SeminarDate } from "./SeminarDate";
+// import { Button } from "@/components/ui/button";
+// import { ChevronRight } from "lucide-react";
+
+// type SeminarType = "seminar" | "webinar" | "recording";
+
+// const SEMINAR_TYPES: Record<SeminarType, string> = {
+//   seminar: "семінар",
+//   webinar: "вебінар",
+//   recording: "запис",
+// };
+
+// export function SeminarCard({ seminar }: { seminar: Seminar }) {
+//   const [image, setImage] = useState<string>(seminar.image || "/no-image.jpg");
+
+//   console.log(seminar.type);
+//   return (
+//     <div className="flex gap-4">
+//       <div className="flex flex-col h-fit gap-1 space-y-2">
+//         <Link href={`/seminars/${seminar.slug}`}>
+//           <div className="relative h-[85px] w-[130px] shrink-0">
+//             <Image
+//               src={image}
+//               onError={() => {
+//                 setImage("/no-image.jpg");
+//               }}
+//               alt={seminar.slug}
+//               fill={true}
+//               className="object-cover rounded-lg"
+//             />
+//           </div>
+//         </Link>
+
+//         <div>
+//           <p className="text-xs ml-1 font-bold flex justify-center text-secondary-foreground">
+//             {seminar.type
+//               ?.map((type) => SEMINAR_TYPES[type as SeminarType])
+//               .join(" + ")}
+//           </p>
+//         </div>
+
+//         <SeminarDate
+//           eventDates={seminar.eventDates}
+//           eventTime={seminar.eventTime}
+//         />
+
+//         {/* TODO: redo */}
+//         <Link
+//           href={`/register/${seminar.slug}`}
+//           className="flex justify-center"
+//         >
+//           <Button className="group flex items-center gap-1 bg-[#008000] hover:bg-[#008000]/85 text-gray-50 text-xs px-4 cursor-pointer">
+//             <span>Реєстрація</span>
+//             <ChevronRight className="w-4 h-4 transition-transform duration-200 ease-out group-hover:translate-x-1" />
+//           </Button>
+//         </Link>
+//       </div>
+//       <div>
+//         <PortableText value={seminar.title} components={TextFormating} />
+//         <PortableText value={seminar.subtitle} components={TextFormating} />
+//       </div>
+//     </div>
+//   );
+// }
 "use client";
 
-import { useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
-import { Card } from "@/components/ui/card";
-import { GetSeminarBySlugResult } from "@/sanity/types";
-import { PortableText } from "next-sanity";
+import { Seminar } from "../types";
+import { PortableText, PortableTextComponents } from "next-sanity";
 import { TextFormating } from "@/sanity/helpers/frontend/TextFormating";
+import Image from "next/image";
+import { useState } from "react";
+import { SeminarDate } from "./SeminarDate";
+import { Button } from "@/components/ui/button";
+import { ChevronRight } from "lucide-react";
+import SeminarSpeakersOverview from "./SeminarSpeakersOverview";
 
-const MONTHS_GENITIVE_UA = [
-  "січня",
-  "лютого",
-  "березня",
-  "квітня",
-  "травня",
-  "червня",
-  "липня",
-  "серпня",
-  "вересня",
-  "жовтня",
-  "листопада",
-  "грудня",
-];
+type SeminarType = "seminar" | "webinar" | "recording";
 
-const TYPE_LABELS_UA: Record<string, string> = {
-  seminar: "Семінар",
-  webinar: "Вебінар",
-  offline: "Офлайн",
+const SEMINAR_TYPES: Record<SeminarType, string> = {
+  seminar: "семінар",
+  webinar: "вебінар",
+  recording: "запис",
 };
 
-function formatDay(date: Date) {
-  return `${date.getDate()} ${MONTHS_GENITIVE_UA[date.getMonth()]}`;
-}
+export function SeminarCard({ seminar }: { seminar: Seminar }) {
+  const [image, setImage] = useState<string>(seminar.image || "/no-image.jpg");
 
-function formatDateRange(dates: string[]) {
-  if (dates.length === 0) return null;
-  const sorted = [...dates]
-    .map((d) => new Date(d))
-    .sort((a, b) => a.getTime() - b.getTime());
-  const first = sorted[0];
-  const last = sorted[sorted.length - 1];
-
-  if (sorted.length === 1 || first.getTime() === last.getTime()) {
-    return formatDay(first);
-  }
-  return `${formatDay(first)} - ${formatDay(last)}`;
-}
-
-export function SeminarCard({ seminar }: { seminar: GetSeminarBySlugResult }) {
-  const [imgSrc, setImgSrc] = useState(seminar?.image || "/no-image.jpg");
-  const eventTypes = seminar?.type || [];
-  const typeLabel = eventTypes.map((t) => TYPE_LABELS_UA[t] ?? t).join(", ");
-  const dateLabel = formatDateRange(seminar?.eventDates || []);
+  const titleComponents: PortableTextComponents = {
+    ...TextFormating,
+    block: {
+      ...(TextFormating.block as Record<string, unknown>),
+      h2: ({ children }) => (
+        <h2 className="mt-6 mb-2 text-base font-semibold leading-snug tracking-tight first:mt-0 text-primary transition-colors duration-200 hover:text-primary/80">
+          <Link href={`/seminars/${seminar.slug}`}>{children}</Link>
+        </h2>
+      ),
+    },
+  };
 
   return (
-    <Card className="flex flex-row gap-4 overflow-hidden p-0">
-      <div className="shrink-0">
-        <Link href={`/seminars/${seminar?.slug}`}>
-          <Image
-            src={imgSrc}
-            onError={() => setImgSrc("/no-image.jpg")}
-            alt={"Seminar photo"}
-            width={200}
-            height={200}
-            className="w-[120px] rounded-lg lg:w-[130px]"
-          />
-        </Link>
-      </div>
-
-      <div className="flex-1 py-4 pr-4">
-        <Link href={`/seminars/${seminar?.slug}`} className="group block">
-          <div className="space-y-1 transition-colors group-hover:text-primary">
-            <PortableText value={seminar?.title} components={TextFormating} />
+    <div className="flex gap-4">
+      <div className="flex flex-col h-fit gap-1 space-y-2">
+        <Link href={`/seminars/${seminar.slug}`}>
+          <div className="relative h-21.25 w-32.5 shrink-0">
+            <Image
+              src={image}
+              onError={() => {
+                setImage("/no-image.jpg");
+              }}
+              alt={seminar.slug}
+              fill={true}
+              className="object-cover rounded-lg"
+            />
           </div>
         </Link>
+
+        <div>
+          <p className="text-xs ml-1 font-bold flex justify-center text-secondary-foreground">
+            {seminar.type
+              ?.map((type) => SEMINAR_TYPES[type as SeminarType])
+              .join(" + ")}
+          </p>
+        </div>
+
+        <SeminarDate
+          eventDates={seminar.eventDates}
+          eventTime={seminar.eventTime}
+        />
+
+        <Link
+          href={`/register/${seminar.slug}`}
+          className="flex justify-center"
+        >
+          <Button className="group flex items-center gap-1 bg-[#008000] hover:bg-[#008000]/85 text-gray-50 text-xs px-4 cursor-pointer">
+            <span>Реєстрація</span>
+            <ChevronRight className="w-4 h-4 transition-transform duration-200 ease-out group-hover:translate-x-1" />
+          </Button>
+        </Link>
       </div>
-    </Card>
+      <div className="flex flex-col gap-1">
+        <PortableText value={seminar.title} components={titleComponents} />
+        {seminar.speakers?.length ? (
+          <SeminarSpeakersOverview speakers={seminar.speakers ?? []} />
+        ) : null}
+        <PortableText value={seminar.subtitle} components={TextFormating} />
+      </div>
+    </div>
   );
 }

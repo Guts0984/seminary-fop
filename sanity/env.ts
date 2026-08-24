@@ -49,3 +49,7 @@ function assertValue<T>(v: T | undefined, errorMessage: string): T {
 // clean public folder
 // break main components code into folders
 // see nav when scrolled
+// speaker card portable text
+// header goes down with code
+// registre for semianr
+// Make speaker slug better

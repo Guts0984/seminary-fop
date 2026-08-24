@@ -8,12 +8,10 @@ import {
 } from "@/components/ui/card";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
-import type { GetSpeakersQueryResult } from "@/sanity/types";
 import { PortableText } from "next-sanity";
 import { Button } from "@/components/ui/button";
+import { Speaker } from "../types";
 
-export type Speaker = NonNullable<GetSpeakersQueryResult["items"]>[number];
 export type SpeakerSeminar = NonNullable<Speaker["seminars"]>[number];
 
 function getInitials(name: string) {

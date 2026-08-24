@@ -11,17 +11,17 @@ export const TextFormating: PortableTextComponents = {
   types: imageBlockComponent,
   block: {
     normal: ({ children }) => (
-      <p className="text-[15px] font-normal leading-[1.7] text-foreground/90 not-first:mt-3">
+      <p className="text-[14px] font-normal leading-[1.7] text-foreground/90 not-first:mt-3">
         {children}
       </p>
     ),
     h2: ({ children }) => (
-      <h2 className="mt-6 mb-2 text-base font-semibold leading-snug tracking-tight first:mt-0">
+      <h2 className="mt-6 mb-2 text-base font-semibold leading-snug tracking-tight first:mt-0 text-primary hover:text-primary/85">
         {children}
       </h2>
     ),
     h3: ({ children }) => (
-      <h3 className="mt-5 mb-1.5 text-sm font-semibold leading-snug tracking-tight first:mt-0">
+      <h3 className="mt-4 mb-1.5 text-sm font-semibold leading-snug tracking-tight first:mt-0">
         {children}
       </h3>
     ),

@@ -1,6 +1,6 @@
 "use client";
 
-import { Trees } from "lucide-react";
+import { Trees, UsersIcon } from "lucide-react";
 import { theme } from "./theme";
 import { visionTool } from "@sanity/vision";
 import { defineConfig } from "sanity";
@@ -11,6 +11,7 @@ import { ukUALocale } from "@sanity/locale-uk-ua";
 import { apiVersion, dataset, projectId } from "./sanity/env";
 import { schema } from "./sanity/schemaTypes";
 import { structure } from "./sanity/structure";
+import { NewsletterSubscribersTool } from "./sanity/tools/NewsletterSubscribersTool";
 
 export default defineConfig({
   basePath: "/studio",
@@ -23,5 +24,13 @@ export default defineConfig({
     structureTool({ structure }),
     visionTool({ defaultApiVersion: apiVersion }),
     ukUALocale(),
+  ],
+  tools: [
+    {
+      name: "newsletter-subscribers",
+      title: "Підписники",
+      icon: UsersIcon,
+      component: NewsletterSubscribersTool,
+    },
   ],
 });

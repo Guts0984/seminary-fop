@@ -20,7 +20,6 @@ function assertValue<T>(v: T | undefined, errorMessage: string): T {
 }
 
 //TODOS:
-// Get emails to sanity
 // Registration field
 // delete unused data in GROQ queries
 // pagination
@@ -56,5 +55,6 @@ function assertValue<T>(v: T | undefined, errorMessage: string): T {
 // які тематичін розслилоки ви хочете отримувати
 // юристи бухгалера будівнитцо земля
 // окремо семінар newsletter
+// better ui and more features in newsletter
 
 // docker exec -it seminary-fop-postgres-1 psql "postgresql://user:password@localhost:5432/seminars-db"

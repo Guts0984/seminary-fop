@@ -28,7 +28,7 @@ export default function HeaderNav() {
         })}
       </div>
 
-      <div className="md:hidden">
+      <div className="md:hidden mr-5">
         <DropdownMenuIcons />
       </div>
     </>

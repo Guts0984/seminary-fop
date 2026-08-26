@@ -20,8 +20,6 @@ function assertValue<T>(v: T | undefined, errorMessage: string): T {
 }
 
 //TODOS:
-// Contact page
-// DropdownMenuIcons compoennt
 // Get emails to sanity
 // Registration field
 // delete unused data in GROQ queries
@@ -49,3 +47,14 @@ function assertValue<T>(v: T | undefined, errorMessage: string): T {
 // Register button
 // move toast copy to helpers
 // contact also statically generated
+// delete bg seminar slug
+// dropdown header
+// header size
+// seminars in speaker slug below
+// speakers row col in seminar
+// newsletter card add choose for seminar or jew
+// які тематичін розслилоки ви хочете отримувати
+// юристи бухгалера будівнитцо земля
+// окремо семінар newsletter
+
+// docker exec -it seminary-fop-postgres-1 psql "postgresql://user:password@localhost:5432/seminars-db"

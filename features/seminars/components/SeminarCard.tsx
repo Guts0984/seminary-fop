@@ -45,7 +45,7 @@ export function SeminarCard({ seminar }: { seminar: Seminar }) {
         </Link>
 
         <div>
-          <p className="text-xs ml-1 font-bold flex justify-center text-secondary-foreground">
+          <p className="text-xs ml-1 font-bold flex justify-center flex-wrap text-secondary-foreground">
             {seminar.type
               ?.map((type) => SEMINAR_TYPES[type as SeminarType])
               .join(" + ")}

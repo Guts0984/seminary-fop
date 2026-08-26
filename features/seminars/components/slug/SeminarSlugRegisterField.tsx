@@ -7,8 +7,8 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { GetSeminarBySlugResult } from "@/sanity/types";
 import { FaTelegram, FaViber } from "react-icons/fa";
-import { REGISTER_NUMBERS } from "../../helpers/contacts";
 import { cn } from "@/lib/utils";
+import { REGISTER_NUMBERS } from "@/helpers/contacts";
 
 export default function SeminarSlugRegisterField({
   seminar,

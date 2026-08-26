@@ -20,13 +20,6 @@ function assertValue<T>(v: T | undefined, errorMessage: string): T {
 }
 
 //TODOS:
-// Seminar page
-// Delete blog
-// Card component
-// Redo filters
-// Add image edit in filters bottom
-// Finish text editor
-// Make configs of text editor in their own file
 // Contact page
 // DropdownMenuIcons compoennt
 // Get emails to sanity
@@ -55,3 +48,4 @@ function assertValue<T>(v: T | undefined, errorMessage: string): T {
 // Make speaker slug better
 // Register button
 // move toast copy to helpers
+// contact also statically generated

@@ -53,3 +53,5 @@ function assertValue<T>(v: T | undefined, errorMessage: string): T {
 // header goes down with code
 // registre for semianr
 // Make speaker slug better
+// Register button
+// move toast copy to helpers

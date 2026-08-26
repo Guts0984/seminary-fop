@@ -1,9 +1,12 @@
-// app/(frontend)/speakers/[slug]/page.tsx
-import { defineQuery, PortableText } from "next-sanity";
+import { defineQuery } from "next-sanity";
 import { client } from "@/sanity/lib/client";
 import { sanityFetch } from "@/sanity/lib/live";
 import { getSeminarBySlug } from "@/features/seminars/queries/getSeminarBySlug";
 import { notFound } from "next/navigation";
+import SlugSeminarOverview from "@/features/seminars/components/slug/SlugSeminarOverview";
+import SlugSeminarSpeakers from "@/features/seminars/components/slug/SlugSeminarSpeakers";
+import SlugSeminarProgram from "@/features/seminars/components/slug/SlugSeminarProgram";
+import SlugBottomWrapper from "@/features/seminars/components/slug/bottom/SlugBottomWrapper";
 
 const seminarSlugsQuery = defineQuery(
   `*[_type == "seminar" && defined(slug.current)].slug.current`,
@@ -39,8 +42,10 @@ export default async function SeminarSlugPage({
 
   return (
     <div>
-      <PortableText value={seminar?.title} />
-      {/* rest of the seminar detail layout */}
+      <SlugSeminarOverview seminar={seminar} />
+      <SlugSeminarSpeakers seminar={seminar} />
+      <SlugSeminarProgram seminar={seminar} />
+      <SlugBottomWrapper seminar={seminar} />
     </div>
   );
 }

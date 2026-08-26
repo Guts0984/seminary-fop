@@ -1,95 +1,16 @@
-// "use client";
-
-// import Link from "next/link";
-// import { Seminar } from "../types";
-// import { PortableText } from "next-sanity";
-// import { TextFormating } from "@/sanity/helpers/frontend/TextFormating";
-// import Image from "next/image";
-// import { useState } from "react";
-// import { SeminarDate } from "./SeminarDate";
-// import { Button } from "@/components/ui/button";
-// import { ChevronRight } from "lucide-react";
-
-// type SeminarType = "seminar" | "webinar" | "recording";
-
-// const SEMINAR_TYPES: Record<SeminarType, string> = {
-//   seminar: "семінар",
-//   webinar: "вебінар",
-//   recording: "запис",
-// };
-
-// export function SeminarCard({ seminar }: { seminar: Seminar }) {
-//   const [image, setImage] = useState<string>(seminar.image || "/no-image.jpg");
-
-//   console.log(seminar.type);
-//   return (
-//     <div className="flex gap-4">
-//       <div className="flex flex-col h-fit gap-1 space-y-2">
-//         <Link href={`/seminars/${seminar.slug}`}>
-//           <div className="relative h-[85px] w-[130px] shrink-0">
-//             <Image
-//               src={image}
-//               onError={() => {
-//                 setImage("/no-image.jpg");
-//               }}
-//               alt={seminar.slug}
-//               fill={true}
-//               className="object-cover rounded-lg"
-//             />
-//           </div>
-//         </Link>
-
-//         <div>
-//           <p className="text-xs ml-1 font-bold flex justify-center text-secondary-foreground">
-//             {seminar.type
-//               ?.map((type) => SEMINAR_TYPES[type as SeminarType])
-//               .join(" + ")}
-//           </p>
-//         </div>
-
-//         <SeminarDate
-//           eventDates={seminar.eventDates}
-//           eventTime={seminar.eventTime}
-//         />
-
-//         {/* TODO: redo */}
-//         <Link
-//           href={`/register/${seminar.slug}`}
-//           className="flex justify-center"
-//         >
-//           <Button className="group flex items-center gap-1 bg-[#008000] hover:bg-[#008000]/85 text-gray-50 text-xs px-4 cursor-pointer">
-//             <span>Реєстрація</span>
-//             <ChevronRight className="w-4 h-4 transition-transform duration-200 ease-out group-hover:translate-x-1" />
-//           </Button>
-//         </Link>
-//       </div>
-//       <div>
-//         <PortableText value={seminar.title} components={TextFormating} />
-//         <PortableText value={seminar.subtitle} components={TextFormating} />
-//       </div>
-//     </div>
-//   );
-// }
 "use client";
 
 import Link from "next/link";
-import { Seminar } from "../types";
+import { Seminar, SeminarType } from "../types";
 import { PortableText, PortableTextComponents } from "next-sanity";
 import { TextFormating } from "@/sanity/helpers/frontend/TextFormating";
 import Image from "next/image";
 import { useState } from "react";
-import { SeminarDate } from "./SeminarDate";
+import { SeminarDate } from "./slug/SeminarDate";
 import { Button } from "@/components/ui/button";
 import { ChevronRight } from "lucide-react";
 import SeminarSpeakersOverview from "./SeminarSpeakersOverview";
-
-type SeminarType = "seminar" | "webinar" | "recording";
-
-const SEMINAR_TYPES: Record<SeminarType, string> = {
-  seminar: "семінар",
-  webinar: "вебінар",
-  recording: "запис",
-};
+import { SEMINAR_TYPES } from "../helpers/seminar-types";
 
 export function SeminarCard({ seminar }: { seminar: Seminar }) {
   const [image, setImage] = useState<string>(seminar.image || "/no-image.jpg");

@@ -21,7 +21,7 @@ export const TextFormating: PortableTextComponents = {
       </h2>
     ),
     h3: ({ children }) => (
-      <h3 className="mt-4 mb-1.5 text-sm font-semibold leading-snug tracking-tight first:mt-0">
+      <h3 className="mt-4 mb-1.5 text-sm font-semibold leading-snug tracking-tight text-secondary first:mt-0">
         {children}
       </h3>
     ),
@@ -33,12 +33,12 @@ export const TextFormating: PortableTextComponents = {
   },
   list: {
     bullet: ({ children }) => (
-      <ul className="my-3 ml-4 list-disc space-y-1 text-[15px] leading-relaxed marker:text-primary/70">
+      <ul className="my-1 ml-4 list-disc space-y-1 text-[14px] leading-relaxed marker:text-primary/70">
         {children}
       </ul>
     ),
     number: ({ children }) => (
-      <ol className="my-3 ml-4 list-decimal space-y-1 text-[15px] leading-relaxed marker:text-primary/70">
+      <ol className="my-3 ml-4 list-decimal space-y-1 text-[14px] leading-relaxed marker:text-primary/70">
         {children}
       </ol>
     ),

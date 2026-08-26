@@ -177,7 +177,14 @@ export const seminar = defineType({
       title: "Карта (внизу сторінки)",
       type: "url",
       description:
-        'Якщо потрібна точна мітка: Google Maps → Поділитися → Вставити карту → скопіюйте посилання з src="..."',
+        'Google Maps → Поділитися → Вставити карту → скопіюйте посилання з src="..."',
+      validation: (Rule) =>
+        Rule.uri({ scheme: ["https"] }).custom((value) => {
+          if (!value) return true;
+          return value.includes("/maps/embed")
+            ? true
+            : 'Потрібне посилання для вбудовування (з src="..."), а не звичайне посилання на карту.';
+        }),
     }),
   ],
 });

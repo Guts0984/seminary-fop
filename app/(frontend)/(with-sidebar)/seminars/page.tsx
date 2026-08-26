@@ -1,8 +1,6 @@
 import { Suspense } from "react";
-import {
-  SeminarDataWrapper,
-  SeminarSearchParams,
-} from "@/features/seminars/components/SeminarDataWrapper";
+import { SeminarDataWrapper } from "@/features/seminars/components/SeminarDataWrapper";
+import { SeminarSearchParams } from "@/features/seminars/types";
 
 export default async function SeminarPage({
   searchParams,

@@ -3,12 +3,10 @@ import { PortableTextLink } from "./PortableTextLink";
 
 export function createMarks(): PortableTextComponents["marks"] {
   return {
-    strong: ({ children }) => (
-      <strong className="font-bold text-secondary">{children}</strong>
-    ),
+    strong: ({ children }) => <strong className="font-bold">{children}</strong>,
     em: ({ children }) => <em className="italic">{children}</em>,
     underline: ({ children }) => (
-      <span className="underline decoration-primary/50 underline-offset-4">
+      <span className="underline text-secondary decoration-secondary/50 underline-offset-4">
         {children}
       </span>
     ),

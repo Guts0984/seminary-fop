@@ -514,7 +514,7 @@ export type SpeakerSlugsQueryResult = Array<string>;
 
 // Source: features/seminars/queries/getSeminarBySlug.ts
 // Variable: getSeminarBySlug
-// Query: *[_type == "seminar" && slug.current == $slug][0]{    _id,  title,  subtitle,  "slug": slug.current,  description,  eventDates,  eventTime,  location,  type,  category,  schedule,  discount,  googleMap,  "image": image.asset->url,  speakers[]->{    _id,    name,    "slug": slug.current,    title,    company,    bio,    "photoUrl": photo.asset->url  }  }
+// Query: *[_type == "seminar" && slug.current == $slug][0]{    _id,  title,  subtitle,  subtitle_main,  "slug": slug.current,  description,  eventDates,  eventTime,  location,  type,  category,  schedule,  discount,  googleMap,  price,  youGet,  "image": image.asset->url,  speakers[]->{    _id,    name,    "slug": slug.current,    title,    bio,    "photoUrl": photo.asset->url  }  }
 export type GetSeminarBySlugResult = {
   _id: string;
   title: Array<{
@@ -537,6 +537,25 @@ export type GetSeminarBySlugResult = {
     _key: string;
   }>;
   subtitle: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h2" | "h3" | "normal";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      openInNewTab?: boolean;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }> | null;
+  subtitle_main: Array<{
     children?: Array<{
       marks?: Array<string>;
       text?: string;
@@ -673,6 +692,62 @@ export type GetSeminarBySlugResult = {
       }
   > | null;
   googleMap: string | null;
+  price: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "normal";
+    listItem?: never;
+    markDefs?: Array<{
+      href?: string;
+      openInNewTab?: boolean;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }> | null;
+  youGet: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "blockquote" | "h2" | "h3" | "normal";
+        listItem?: "bullet" | "number";
+        markDefs?: Array<{
+          href?: string;
+          openInNewTab?: boolean;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }
+    | {
+        images?: Array<{
+          asset?: SanityImageAssetReference;
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          alt?: string;
+          caption?: string;
+          widthPercent?: number;
+          _type: "image";
+          _key: string;
+        }>;
+        align?: "center" | "left" | "right";
+        _type: "imageBlock";
+        _key: string;
+      }
+  > | null;
   image: string | null;
   speakers: Array<{
     _id: string;
@@ -697,7 +772,6 @@ export type GetSeminarBySlugResult = {
       _type: "block";
       _key: string;
     }> | null;
-    company: null;
     bio: Array<
       | {
           children?: Array<{
@@ -741,7 +815,7 @@ export type GetSeminarBySlugResult = {
 
 // Source: features/seminars/queries/getSeminarsQuery.ts
 // Variable: getSeminarsQuery
-// Query: {    "items": *[      _type == "seminar"      && defined(slug.current)      && (  ($filterType == "future" && count(eventDates[dateTime(@) >= dateTime($now)]) > 0) ||  ($filterType == "past" && count(eventDates[dateTime(@) < dateTime($now)]) == count(eventDates)) ||  (!defined($filterType) || $filterType == "all"))    ] | order(eventDates[0] desc) [$start...$end] {        _id,  title,  subtitle,  "slug": slug.current,  description,  eventDates,  eventTime,  location,  type,  category,  schedule,  discount,  googleMap,  "image": image.asset->url,  speakers[]->{    _id,    name,    "slug": slug.current,    title,    company,    bio,    "photoUrl": photo.asset->url  }    },    "total": count(*[      _type == "seminar"      && defined(slug.current)      && (  ($filterType == "future" && count(eventDates[dateTime(@) >= dateTime($now)]) > 0) ||  ($filterType == "past" && count(eventDates[dateTime(@) < dateTime($now)]) == count(eventDates)) ||  (!defined($filterType) || $filterType == "all"))    ])  }
+// Query: {    "items": *[      _type == "seminar"      && defined(slug.current)      && (  ($filterType == "future" && count(eventDates[dateTime(@) >= dateTime($now)]) > 0) ||  ($filterType == "past" && count(eventDates[dateTime(@) < dateTime($now)]) == count(eventDates)) ||  (!defined($filterType) || $filterType == "all"))    ] | order(eventDates[0] desc) [$start...$end] {        _id,  title,  subtitle,  subtitle_main,  "slug": slug.current,  description,  eventDates,  eventTime,  location,  type,  category,  schedule,  discount,  googleMap,  price,  youGet,  "image": image.asset->url,  speakers[]->{    _id,    name,    "slug": slug.current,    title,    bio,    "photoUrl": photo.asset->url  }    },    "total": count(*[      _type == "seminar"      && defined(slug.current)      && (  ($filterType == "future" && count(eventDates[dateTime(@) >= dateTime($now)]) > 0) ||  ($filterType == "past" && count(eventDates[dateTime(@) < dateTime($now)]) == count(eventDates)) ||  (!defined($filterType) || $filterType == "all"))    ])  }
 export type GetSeminarsQueryResult = {
   items: Array<{
     _id: string;
@@ -765,6 +839,25 @@ export type GetSeminarsQueryResult = {
       _key: string;
     }>;
     subtitle: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "blockquote" | "h2" | "h3" | "normal";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        href?: string;
+        openInNewTab?: boolean;
+        _type: "link";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    }> | null;
+    subtitle_main: Array<{
       children?: Array<{
         marks?: Array<string>;
         text?: string;
@@ -901,6 +994,62 @@ export type GetSeminarsQueryResult = {
         }
     > | null;
     googleMap: string | null;
+    price: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "normal";
+      listItem?: never;
+      markDefs?: Array<{
+        href?: string;
+        openInNewTab?: boolean;
+        _type: "link";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    }> | null;
+    youGet: Array<
+      | {
+          children?: Array<{
+            marks?: Array<string>;
+            text?: string;
+            _type: "span";
+            _key: string;
+          }>;
+          style?: "blockquote" | "h2" | "h3" | "normal";
+          listItem?: "bullet" | "number";
+          markDefs?: Array<{
+            href?: string;
+            openInNewTab?: boolean;
+            _type: "link";
+            _key: string;
+          }>;
+          level?: number;
+          _type: "block";
+          _key: string;
+        }
+      | {
+          images?: Array<{
+            asset?: SanityImageAssetReference;
+            media?: unknown;
+            hotspot?: SanityImageHotspot;
+            crop?: SanityImageCrop;
+            alt?: string;
+            caption?: string;
+            widthPercent?: number;
+            _type: "image";
+            _key: string;
+          }>;
+          align?: "center" | "left" | "right";
+          _type: "imageBlock";
+          _key: string;
+        }
+    > | null;
     image: string | null;
     speakers: Array<{
       _id: string;
@@ -925,7 +1074,6 @@ export type GetSeminarsQueryResult = {
         _type: "block";
         _key: string;
       }> | null;
-      company: null;
       bio: Array<
         | {
             children?: Array<{
@@ -1169,8 +1317,8 @@ declare module "@sanity/client" {
   interface SanityQueries {
     '*[_type == "seminar" && defined(slug.current)].slug.current': SeminarSlugsQueryResult;
     '*[_type == "speaker" && defined(slug.current)].slug.current': SpeakerSlugsQueryResult;
-    '*[_type == "seminar" && slug.current == $slug][0]{\n  \n  _id,\n  title,\n  subtitle,\n  "slug": slug.current,\n  description,\n  eventDates,\n  eventTime,\n  location,\n  type,\n  category,\n  schedule,\n  discount,\n  googleMap,\n  "image": image.asset->url,\n  speakers[]->{\n    _id,\n    name,\n    "slug": slug.current,\n    title,\n    company,\n    bio,\n    "photoUrl": photo.asset->url\n  }\n\n  }\n': GetSeminarBySlugResult;
-    '\n  {\n    "items": *[\n      _type == "seminar"\n      && defined(slug.current)\n      && (\n  ($filterType == "future" && count(eventDates[dateTime(@) >= dateTime($now)]) > 0) ||\n  ($filterType == "past" && count(eventDates[dateTime(@) < dateTime($now)]) == count(eventDates)) ||\n  (!defined($filterType) || $filterType == "all")\n)\n    ] | order(eventDates[0] desc) [$start...$end] {\n      \n  _id,\n  title,\n  subtitle,\n  "slug": slug.current,\n  description,\n  eventDates,\n  eventTime,\n  location,\n  type,\n  category,\n  schedule,\n  discount,\n  googleMap,\n  "image": image.asset->url,\n  speakers[]->{\n    _id,\n    name,\n    "slug": slug.current,\n    title,\n    company,\n    bio,\n    "photoUrl": photo.asset->url\n  }\n\n    },\n    "total": count(*[\n      _type == "seminar"\n      && defined(slug.current)\n      && (\n  ($filterType == "future" && count(eventDates[dateTime(@) >= dateTime($now)]) > 0) ||\n  ($filterType == "past" && count(eventDates[dateTime(@) < dateTime($now)]) == count(eventDates)) ||\n  (!defined($filterType) || $filterType == "all")\n)\n    ])\n  }\n': GetSeminarsQueryResult;
+    '*[_type == "seminar" && slug.current == $slug][0]{\n  \n  _id,\n  title,\n  subtitle,\n  subtitle_main,\n  "slug": slug.current,\n  description,\n  eventDates,\n  eventTime,\n  location,\n  type,\n  category,\n  schedule,\n  discount,\n  googleMap,\n  price,\n  youGet,\n  "image": image.asset->url,\n  speakers[]->{\n    _id,\n    name,\n    "slug": slug.current,\n    title,\n    bio,\n    "photoUrl": photo.asset->url\n  }\n\n  }\n': GetSeminarBySlugResult;
+    '\n  {\n    "items": *[\n      _type == "seminar"\n      && defined(slug.current)\n      && (\n  ($filterType == "future" && count(eventDates[dateTime(@) >= dateTime($now)]) > 0) ||\n  ($filterType == "past" && count(eventDates[dateTime(@) < dateTime($now)]) == count(eventDates)) ||\n  (!defined($filterType) || $filterType == "all")\n)\n    ] | order(eventDates[0] desc) [$start...$end] {\n      \n  _id,\n  title,\n  subtitle,\n  subtitle_main,\n  "slug": slug.current,\n  description,\n  eventDates,\n  eventTime,\n  location,\n  type,\n  category,\n  schedule,\n  discount,\n  googleMap,\n  price,\n  youGet,\n  "image": image.asset->url,\n  speakers[]->{\n    _id,\n    name,\n    "slug": slug.current,\n    title,\n    bio,\n    "photoUrl": photo.asset->url\n  }\n\n    },\n    "total": count(*[\n      _type == "seminar"\n      && defined(slug.current)\n      && (\n  ($filterType == "future" && count(eventDates[dateTime(@) >= dateTime($now)]) > 0) ||\n  ($filterType == "past" && count(eventDates[dateTime(@) < dateTime($now)]) == count(eventDates)) ||\n  (!defined($filterType) || $filterType == "all")\n)\n    ])\n  }\n': GetSeminarsQueryResult;
     '\n  *[_type == "seminar"\n    && defined(slug.current)\n    && (\n      ($filterType == "future" && count(eventDates[dateTime(@) >= dateTime($now)]) > 0) ||\n      ($filterType == "past" && count(eventDates[dateTime(@) < dateTime($now)]) == count(eventDates)) ||\n      (!defined($filterType) || $filterType == "all")\n    )\n  ] | order(eventDates[0] desc) {\n    _id,\n    category,\n    "slug": slug.current\n  }\n': GetSidebarSeminarsQueryResult;
     '\n  *[_type == "speaker" && slug.current == $slug][0]{\n    \n  _id,\n  name,\n  "slug": slug.current,\n  title,\n  bio,\n  "photo": photo.asset->url,\n  "seminars": *[_type == "seminar" && references(^._id)] | order(eventDates[0] desc) {\n    _id,\n    title,\n    "slug": slug.current,\n    eventDates,\n    "image": image.asset->url\n  }\n\n  }\n': GetSpeakerBySlugResult;
     '\n  {\n    "items": *[_type == "speaker"] | order(name asc) [$start...$end] {\n      \n  _id,\n  name,\n  "slug": slug.current,\n  title,\n  bio,\n  "photo": photo.asset->url,\n  "seminars": *[_type == "seminar" && references(^._id)] | order(eventDates[0] desc) {\n    _id,\n    title,\n    "slug": slug.current,\n    eventDates,\n    "image": image.asset->url\n  }\n\n    },\n    "total": count(*[_type == "speaker"])\n  }\n': GetSpeakersQueryResult;

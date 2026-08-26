@@ -4,6 +4,7 @@ export const seminarFields = `
   _id,
   title,
   subtitle,
+  subtitle_main,
   "slug": slug.current,
   description,
   eventDates,
@@ -14,13 +15,14 @@ export const seminarFields = `
   schedule,
   discount,
   googleMap,
+  price,
+  youGet,
   "image": image.asset->url,
   speakers[]->{
     _id,
     name,
     "slug": slug.current,
     title,
-    company,
     bio,
     "photoUrl": photo.asset->url
   }

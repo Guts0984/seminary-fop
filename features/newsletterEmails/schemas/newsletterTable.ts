@@ -18,7 +18,3 @@ export const newsletterSubscribersTable = pgTable("newsletter_subscribers", {
   categories: newsletterCategoryEnum("categories").array().notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
-//які тематичін розслилоки ви хочете отримувати
-
-// юристи бухгалера будівнитцо земля
-// окремо семінар

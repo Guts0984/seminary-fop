@@ -43,7 +43,6 @@ export default function NewsletterForm() {
   };
 
   const onSubmit = async (data: NewsletterFormType) => {
-    console.log("submitting:", data);
     try {
       const result = await saveEmail(data);
       if (!result.success) {
@@ -118,7 +117,7 @@ export default function NewsletterForm() {
         <DialogContent>
           <form onSubmit={handleSubmit(onSubmit)}>
             <DialogHeader>
-              <DialogTitle>Розсилка для:</DialogTitle>
+              <DialogTitle className="text-medium">Розсилка для:</DialogTitle>
             </DialogHeader>
 
             <Controller
@@ -132,6 +131,7 @@ export default function NewsletterForm() {
                       className="flex items-center gap-2 text-sm"
                     >
                       <Checkbox
+                        className="border-2"
                         checked={field.value?.includes(value)}
                         onCheckedChange={(isChecked) => {
                           field.onChange(
@@ -155,7 +155,7 @@ export default function NewsletterForm() {
 
             <DialogFooter>
               <Button type="submit" disabled={isSubmitting}>
-                {isSubmitting ? "..." : "Підтвердити підписку"}
+                {isSubmitting ? "..." : "Підтвердити"}
               </Button>
             </DialogFooter>
           </form>

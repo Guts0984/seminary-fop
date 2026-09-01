@@ -1,6 +1,6 @@
 "use client";
 
-import { Trees, UsersIcon } from "lucide-react";
+import { Trees, UsersIcon, ScrollText } from "lucide-react";
 import { theme } from "./theme";
 import { visionTool } from "@sanity/vision";
 import { defineConfig } from "sanity";
@@ -12,6 +12,7 @@ import { apiVersion, dataset, projectId } from "./sanity/env";
 import { schema } from "./sanity/schemaTypes";
 import { structure } from "./sanity/structure";
 import { NewsletterSubscribersTool } from "./sanity/tools/NewsletterSubscribersTool";
+import { SeminarRegistrationsTool } from "./sanity/tools/SeminarRegistrationsTool";
 
 export default defineConfig({
   basePath: "/studio",
@@ -31,6 +32,12 @@ export default defineConfig({
       title: "Підписники",
       icon: UsersIcon,
       component: NewsletterSubscribersTool,
+    },
+    {
+      name: "seminar-registrations",
+      title: "Реєстрації",
+      icon: ScrollText,
+      component: SeminarRegistrationsTool,
     },
   ],
 });

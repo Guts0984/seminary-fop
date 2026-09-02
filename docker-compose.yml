@@ -19,3 +19,5 @@ services:
 
 volumes:
   postgres_data:
+
+# postgres://user:RCESCXygUy9RvUoWpmgdBOrdo0Ntqq7yFXTtLrmIB9LzEWN6jvhJptWrhGlTKpkv@uz47kcb8npvyhiz7bnx5ttpt:5432/postgres

@@ -120,7 +120,7 @@ export default function RegistrationForm({
         {/* Dynamic Select dropdown */}
         <Field data-invalid={!!errors.type}>
           <label htmlFor="type-trigger" className="text-xs font-medium">
-            Формат участі *
+            Формат участі
           </label>
           <Controller
             control={control}
@@ -128,8 +128,8 @@ export default function RegistrationForm({
             render={({ field }) => (
               <Select
                 onValueChange={field.onChange}
-                value={field.value}
-                defaultValue={field.value}
+                value={defaultTypeLabels[field.value] ?? field.value}
+                defaultValue={defaultTypeLabels[field.value] ?? field.value}
               >
                 <SelectTrigger id="type-trigger" className="w-full">
                   <SelectValue placeholder="Оберіть формат участі" />
@@ -153,7 +153,7 @@ export default function RegistrationForm({
 
         <Field data-invalid={!!errors.name}>
           <label htmlFor="name" className="text-xs font-medium">
-            Контактна особа *
+            Контактна особа
           </label>
           <Input
             id="name"
@@ -170,11 +170,8 @@ export default function RegistrationForm({
 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <Field data-invalid={!!errors.position}>
-            <label
-              htmlFor="position"
-              className="text-xs font-medium text-muted-foreground"
-            >
-              Посада *
+            <label htmlFor="position" className="text-xs font-medium">
+              Посада
             </label>
             <Input
               id="position"
@@ -190,11 +187,8 @@ export default function RegistrationForm({
           </Field>
 
           <Field data-invalid={!!errors.company}>
-            <label
-              htmlFor="company"
-              className="text-xs font-medium text-muted-foreground"
-            >
-              Компанія *
+            <label htmlFor="company" className="text-xs font-medium">
+              Компанія
             </label>
             <Input
               id="company"
@@ -211,11 +205,8 @@ export default function RegistrationForm({
         </div>
 
         <Field data-invalid={!!errors.address}>
-          <label
-            htmlFor="address"
-            className="text-xs font-medium text-muted-foreground"
-          >
-            Адреса для актів *
+          <label htmlFor="address" className="text-xs font-medium">
+            Адреса для актів
           </label>
           <Input
             id="address"
@@ -232,11 +223,8 @@ export default function RegistrationForm({
 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <Field data-invalid={!!errors.phone}>
-            <label
-              htmlFor="phone"
-              className="text-xs font-medium text-muted-foreground"
-            >
-              Телефон *
+            <label htmlFor="phone" className="text-xs font-medium">
+              Телефон
             </label>
             <Input
               id="phone"
@@ -253,11 +241,8 @@ export default function RegistrationForm({
           </Field>
 
           <Field data-invalid={!!errors.email}>
-            <label
-              htmlFor="email"
-              className="text-xs font-medium text-muted-foreground"
-            >
-              Email *
+            <label htmlFor="email" className="text-xs font-medium ">
+              Email
             </label>
             <Input
               id="email"

@@ -20,17 +20,6 @@ function assertValue<T>(v: T | undefined, errorMessage: string): T {
 }
 
 //TODOS:
-// Registration field
-// Посада
-// send email to sp urk net about registration
-// add sorting to newsletter
-// delete unused data in GROQ queries
-// pagination
-// Skeletons
-// 404
-// for jew, for ....
-// better sending emails popup
-// footer rights reserved
 // deployment
 // proper cache
 // recordings
@@ -52,10 +41,14 @@ function assertValue<T>(v: T | undefined, errorMessage: string): T {
 // delete bg seminar slug
 // dropdown header
 // header size
+// pagination
+// max width header
+// smaller footer
 // seminars in speaker slug below
 // speakers row col in seminar
 // newsletter card add choose for seminar or jew
 // які тематичін розслилоки ви хочете отримувати
+// Skeletons
 // юристи бухгалера будівнитцо земля
 // окремо семінар newsletter
 // better ui and more features in newsletter
@@ -63,6 +56,7 @@ function assertValue<T>(v: T | undefined, errorMessage: string): T {
 // add newsletter field to contact page
 // color header
 // register send email
+// send email to sp urk net about registration
 // fix all that ai slop in tools etc
 
 // docker exec -it seminary-fop-postgres-1 psql "postgresql://user:password@localhost:5432/seminars-db"

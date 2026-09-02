@@ -6,7 +6,7 @@
     "node": ">=22.12.0"
   },
   "overrides": {
-    "@sanity/sdk": "$@sanity/sdk"
+    "@sanity/sdk": "3.0.0"
   },
   "scripts": {
     "dev": "next dev",

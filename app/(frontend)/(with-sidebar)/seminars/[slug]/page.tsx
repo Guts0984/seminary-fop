@@ -34,6 +34,7 @@ export default async function SeminarSlugPage({
   const { data: seminar } = await sanityFetch({
     query: getSeminarBySlug,
     params: { slug },
+    stega: false,
   });
 
   if (!seminar) {

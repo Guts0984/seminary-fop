@@ -9,6 +9,7 @@ import {
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { PortableText } from "next-sanity";
+import { InlineTextFormating } from "@/sanity/helpers/frontend/TextFormating";
 import { Button } from "@/components/ui/button";
 import { Speaker } from "../types";
 
@@ -79,7 +80,7 @@ export default function SpeakerCard({ speaker }: { speaker: Speaker }) {
 
         <CardContent className="pt-3">
           <div className="line-clamp-3 text-sm text-secondary-foreground [&_p]:mb-2 [&_p:last-child]:mb-0">
-            <PortableText value={title} />
+            <PortableText value={title} components={InlineTextFormating} />
           </div>
         </CardContent>
 

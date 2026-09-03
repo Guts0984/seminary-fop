@@ -8,6 +8,7 @@ import {
   formatEventDates,
 } from "@/features/seminars/lib/seminarDate";
 import { PortableText } from "next-sanity";
+import { InlineTextFormating } from "@/sanity/helpers/frontend/TextFormating";
 import {
   Carousel,
   CarouselContent,
@@ -101,7 +102,10 @@ export function SpeakerSeminars({ seminars }: { seminars: Seminar[] }) {
 
                     <div className="p-3">
                       <div className="line-clamp-2 font-medium transition-colors group-hover:text-primary">
-                        <PortableText value={seminar.title} />
+                        <PortableText
+                          value={seminar.title}
+                          components={InlineTextFormating}
+                        />
                       </div>
 
                       {/* whitespace-pre-line */}

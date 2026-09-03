@@ -58,7 +58,7 @@ function LoginForm({ onSuccess }: { onSuccess: () => void }) {
 
   return (
     <Card padding={4}>
-      <Stack space={3}>
+      <Stack gap={3}>
         <Text size={2} weight="bold">
           Увійдіть, щоб переглянути підписників
         </Text>
@@ -210,7 +210,7 @@ export function NewsletterSubscribersTool() {
   if (authState === "forbidden") {
     return (
       <Card padding={4} tone="critical">
-        <Stack space={3}>
+        <Stack gap={3}>
           <Text weight="bold">Доступ заборонено</Text>
           <Text size={1}>
             Ваш акаунт не має прав адміністратора для перегляду підписників.
@@ -236,7 +236,7 @@ export function NewsletterSubscribersTool() {
   if (error) {
     return (
       <Card padding={4} tone="critical">
-        <Stack space={3}>
+        <Stack gap={3}>
           <Text>Помилка завантаження: {error}</Text>
           <Button text="Спробувати знову" onClick={fetchSubscribers} />
         </Stack>
@@ -250,7 +250,7 @@ export function NewsletterSubscribersTool() {
 
   return (
     <Card padding={4}>
-      <Stack space={4}>
+      <Stack gap={4}>
         <Flex justify="space-between" align="center">
           <Text size={2} weight="bold">
             Підписники розсилки ({filteredSubscribers.length})
@@ -289,15 +289,15 @@ export function NewsletterSubscribersTool() {
           ))}
         </Flex>
 
-        <Stack space={2}>
+        <Stack gap={2}>
           {filteredSubscribers.map((sub) => (
             <Card key={sub.id} padding={3} radius={2} shadow={1}>
               <Flex justify="space-between" align="center">
-                <Stack space={2}>
+                <Stack gap={2}>
                   <Text weight="semibold">{sub.email}</Text>
                   <Flex gap={2} wrap="wrap">
                     {sub.categories?.map((cat) => (
-                      <Badge key={cat} tone="primary" mode="outline">
+                      <Badge key={cat} tone="primary">
                         {categoryLabel(cat)}
                       </Badge>
                     ))}

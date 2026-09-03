@@ -1,6 +1,5 @@
-import SpeakerCard, {
-  type Speaker,
-} from "@/features/speakers/components/SpeakerCard";
+import SpeakerCard from "@/features/speakers/components/SpeakerCard";
+import type { Speaker } from "@/features/speakers/types";
 import type { GetSpeakersQueryResult } from "@/sanity/types";
 
 export default function SpeakerList({

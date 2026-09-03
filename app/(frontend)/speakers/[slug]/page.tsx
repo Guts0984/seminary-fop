@@ -1,6 +1,5 @@
 import { defineQuery, PortableText } from "next-sanity";
 import { client } from "@/sanity/lib/client";
-import { sanityFetch } from "@/sanity/lib/live";
 import { getSpeakerBySlug } from "@/features/speakers/queries/getSpeakerBySlug";
 import { SpeakerSeminars } from "@/features/speakers/components/SpeakerSeminars";
 import { notFound } from "next/navigation";
@@ -30,10 +29,9 @@ export default async function SpeakerSlugPage({
 }) {
   const { slug } = await params;
 
-  const { data: speaker } = await sanityFetch({
-    query: getSpeakerBySlug,
-    params: { slug },
-  });
+  const speaker = await client
+    .withConfig({ useCdn: false })
+    .fetch(getSpeakerBySlug, { slug });
 
   if (!speaker) {
     notFound();
@@ -56,7 +54,7 @@ export default async function SpeakerSlugPage({
           <h1 className="text-2xl font-semibold lg:text-3xl">{speaker.name}</h1>
           {speaker.title && speaker.title.length > 0 && (
             <div className="text-muted-foreground text-sm lg:text-base">
-              <PortableText value={speaker.title} />
+              <PortableText value={speaker.title} components={TextFormating} />
             </div>
           )}
         </div>

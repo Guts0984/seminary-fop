@@ -5,7 +5,6 @@ import { defineQuery } from "next-sanity";
 import { NextRequest, NextResponse } from "next/server";
 import { eq } from "drizzle-orm";
 import { registrationTable } from "@/db/schema";
-import { Seminar } from "@/sanity/types";
 
 async function requireAdmin(req: NextRequest) {
   const session = await auth.api.getSession({ headers: req.headers });
@@ -40,7 +39,7 @@ export async function GET(req: NextRequest) {
     ? await client.fetch(seminarsByIdsQuery, { ids: seminarIds })
     : [];
 
-  const seminarsById = new Map(seminars.map((s: Seminar) => [s._id, s]));
+  const seminarsById = new Map(seminars.map((s) => [s._id, s]));
 
   const enriched = registrations.map((r) => ({
     ...r,

@@ -85,7 +85,7 @@ function LoginForm({ onSuccess }: { onSuccess: () => void }) {
 
   return (
     <Card padding={4}>
-      <Stack space={3}>
+      <Stack gap={3}>
         <Text size={2} weight="bold">
           Увійдіть, щоб переглянути реєстрації
         </Text>
@@ -237,7 +237,7 @@ export function SeminarRegistrationsTool() {
   if (authState === "forbidden") {
     return (
       <Card padding={4} tone="critical">
-        <Stack space={3}>
+        <Stack gap={3}>
           <Text weight="bold">Доступ заборонено</Text>
           <Text size={1}>
             Ваш акаунт не має прав адміністратора для перегляду реєстрацій.
@@ -263,7 +263,7 @@ export function SeminarRegistrationsTool() {
   if (error) {
     return (
       <Card padding={4} tone="critical">
-        <Stack space={3}>
+        <Stack gap={3}>
           <Text>Помилка завантаження: {error}</Text>
           <Button text="Спробувати знову" onClick={fetchRegistrations} />
         </Stack>
@@ -279,7 +279,7 @@ export function SeminarRegistrationsTool() {
 
   return (
     <Card padding={4}>
-      <Stack space={4}>
+      <Stack gap={4}>
         <Flex justify="space-between" align="center">
           <Text size={2} weight="bold">
             Реєстрації на семінари ({filtered.length})
@@ -319,14 +319,14 @@ export function SeminarRegistrationsTool() {
           ))}
         </Flex>
 
-        <Stack space={3}>
+        <Stack gap={3}>
           {filtered.map((reg) => (
             <Card key={reg.id} padding={3} radius={2} shadow={1}>
               <Flex justify="space-between" align="flex-start" gap={3}>
-                <Stack space={2} flex={1}>
+                <Stack gap={2} flex={1}>
                   <Flex gap={2} align="center" wrap="wrap">
                     <Text weight="semibold">{reg.name}</Text>
-                    <Badge tone="default" mode="outline">
+                    <Badge tone="default">
                       {reg.position}
                     </Badge>
                     {reg.type && (
@@ -346,7 +346,7 @@ export function SeminarRegistrationsTool() {
                     <Text size={1}>{reg.email}</Text>
                   </Flex>
 
-                  <Stack space={1} marginTop={2}>
+                  <Stack gap={1} marginTop={2}>
                     <Text size={1} weight="semibold">
                       Учасники ({reg.participants?.length ?? 0}):
                     </Text>
@@ -357,13 +357,13 @@ export function SeminarRegistrationsTool() {
                     ))}
                   </Stack>
 
-                  <Stack space={1} marginTop={2}>
+                  <Stack gap={1} marginTop={2}>
                     <Text size={1} weight="semibold">
                       Семінар: {seminarTitle(reg.seminar)}
                     </Text>
                     <Flex gap={2} wrap="wrap">
                       {seminarTypeLabels(reg.seminar).map((label) => (
-                        <Badge key={label} tone="primary" mode="outline">
+                        <Badge key={label} tone="primary">
                           {label}
                         </Badge>
                       ))}

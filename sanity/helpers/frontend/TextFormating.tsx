@@ -49,3 +49,15 @@ export const TextFormating: PortableTextComponents = {
   },
   marks: createMarks(),
 };
+
+/**
+ * Same marks as TextFormating, for rich text rendered inside a clickable
+ * card or link — an inner <a> would nest anchors (invalid HTML, hydration
+ * error), so link marks are rendered as plain text.
+ */
+export const InlineTextFormating: PortableTextComponents = {
+  marks: {
+    ...createMarks(),
+    link: ({ children }) => <>{children}</>,
+  },
+};

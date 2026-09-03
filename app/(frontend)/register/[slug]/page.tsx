@@ -1,11 +1,15 @@
 // app/(frontend)/register/[slug]/page.tsx
 import { defineQuery, PortableText } from "next-sanity";
-import { sanityFetch } from "@/sanity/lib/live";
+import { client } from "@/sanity/lib/client";
 import { notFound } from "next/navigation";
 import { TextFormating } from "@/sanity/helpers/frontend/TextFormating";
 import RegistrationForm, {
   SeminarTypeOption,
 } from "@/features/registration/components/RegisterForm";
+
+const seminarSlugsQuery = defineQuery(
+  `*[_type == "seminar" && defined(slug.current)].slug.current`,
+);
 
 const seminarForRegistrationQuery = defineQuery(`
   *[_type == "seminar" && slug.current == $slug][0] {
@@ -15,6 +19,18 @@ const seminarForRegistrationQuery = defineQuery(`
   }
 `);
 
+export async function generateStaticParams() {
+  if (process.env.NODE_ENV === "development") {
+    return [];
+  }
+
+  const slugs = await client
+    .withConfig({ useCdn: false })
+    .fetch(seminarSlugsQuery);
+
+  return slugs.map((slug: string) => ({ slug }));
+}
+
 export default async function RegisterSlugPage({
   params,
 }: {
@@ -22,10 +38,9 @@ export default async function RegisterSlugPage({
 }) {
   const { slug } = await params;
 
-  const { data: seminar } = await sanityFetch({
-    query: seminarForRegistrationQuery,
-    params: { slug },
-  });
+  const seminar = await client
+    .withConfig({ useCdn: false })
+    .fetch(seminarForRegistrationQuery, { slug });
 
   if (!seminar) {
     notFound();

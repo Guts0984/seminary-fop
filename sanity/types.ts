@@ -541,7 +541,7 @@ export type SpeakerSlugsQueryResult = Array<string>;
 
 // Source: app/api/seminar-registrations/route.ts
 // Variable: seminarsByIdsQuery
-// Query: *[_type == "seminar" && _id in $ids] {    _id,    title,    type  }
+// Query: *[_type == "seminar" && _id in $ids] {    _id,    title,    "availableTypes": type  }
 export type SeminarsByIdsQueryResult = Array<{
   _id: string;
   title: Array<{
@@ -563,7 +563,7 @@ export type SeminarsByIdsQueryResult = Array<{
     _type: "block";
     _key: string;
   }>;
-  type: Array<string> | null;
+  availableTypes: Array<string> | null;
 }>;
 
 // Source: features/seminars/queries/getSeminarBySlug.ts
@@ -1372,7 +1372,7 @@ declare module "@sanity/client" {
     '*[_type == "seminar" && defined(slug.current)].slug.current': SeminarSlugsQueryResult;
     '\n  *[_type == "seminar" && slug.current == $slug][0] {\n    _id,\n    title,\n    type\n  }\n': SeminarForRegistrationQueryResult;
     '*[_type == "speaker" && defined(slug.current)].slug.current': SpeakerSlugsQueryResult;
-    '\n  *[_type == "seminar" && _id in $ids] {\n    _id,\n    title,\n    type\n  }\n': SeminarsByIdsQueryResult;
+    '\n  *[_type == "seminar" && _id in $ids] {\n    _id,\n    title,\n    "availableTypes": type\n  }\n': SeminarsByIdsQueryResult;
     '*[_type == "seminar" && slug.current == $slug][0]{\n  \n  _id,\n  title,\n  subtitle,\n  subtitle_main,\n  "slug": slug.current,\n  description,\n  eventDates,\n  eventTime,\n  location,\n  type,\n  category,\n  schedule,\n  discount,\n  googleMap,\n  price,\n  youGet,\n  "image": image.asset->url,\n  speakers[]->{\n    _id,\n    name,\n    "slug": slug.current,\n    title,\n    bio,\n    "photoUrl": photo.asset->url\n  }\n\n  }\n': GetSeminarBySlugResult;
     '\n  {\n    "items": *[\n      _type == "seminar"\n      && defined(slug.current)\n      && (\n  ($filterType == "future" && count(eventDates[dateTime(@) >= dateTime($now)]) > 0) ||\n  ($filterType == "past" && count(eventDates[dateTime(@) < dateTime($now)]) == count(eventDates)) ||\n  (!defined($filterType) || $filterType == "all")\n)\n    ] | order(eventDates[0] desc) [$start...$end] {\n      \n  _id,\n  title,\n  subtitle,\n  subtitle_main,\n  "slug": slug.current,\n  description,\n  eventDates,\n  eventTime,\n  location,\n  type,\n  category,\n  schedule,\n  discount,\n  googleMap,\n  price,\n  youGet,\n  "image": image.asset->url,\n  speakers[]->{\n    _id,\n    name,\n    "slug": slug.current,\n    title,\n    bio,\n    "photoUrl": photo.asset->url\n  }\n\n    },\n    "total": count(*[\n      _type == "seminar"\n      && defined(slug.current)\n      && (\n  ($filterType == "future" && count(eventDates[dateTime(@) >= dateTime($now)]) > 0) ||\n  ($filterType == "past" && count(eventDates[dateTime(@) < dateTime($now)]) == count(eventDates)) ||\n  (!defined($filterType) || $filterType == "all")\n)\n    ])\n  }\n': GetSeminarsQueryResult;
     '\n  *[_type == "seminar"\n    && defined(slug.current)\n    && (\n      ($filterType == "future" && count(eventDates[dateTime(@) >= dateTime($now)]) > 0) ||\n      ($filterType == "past" && count(eventDates[dateTime(@) < dateTime($now)]) == count(eventDates)) ||\n      (!defined($filterType) || $filterType == "all")\n    )\n  ] | order(eventDates[0] desc) {\n    _id,\n    category,\n    "slug": slug.current\n  }\n': GetSidebarSeminarsQueryResult;

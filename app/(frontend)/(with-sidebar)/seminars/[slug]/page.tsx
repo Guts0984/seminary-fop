@@ -1,6 +1,5 @@
 import { defineQuery } from "next-sanity";
 import { client } from "@/sanity/lib/client";
-import { sanityFetch } from "@/sanity/lib/live";
 import { getSeminarBySlug } from "@/features/seminars/queries/getSeminarBySlug";
 import { notFound } from "next/navigation";
 import SlugSeminarOverview from "@/features/seminars/components/slug/SlugSeminarOverview";
@@ -31,11 +30,9 @@ export default async function SeminarSlugPage({
 }) {
   const { slug } = await params;
 
-  const { data: seminar } = await sanityFetch({
-    query: getSeminarBySlug,
-    params: { slug },
-    stega: false,
-  });
+  const seminar = await client
+    .withConfig({ useCdn: false })
+    .fetch(getSeminarBySlug, { slug });
 
   if (!seminar) {
     notFound();

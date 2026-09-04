@@ -20,7 +20,6 @@ function assertValue<T>(v: T | undefined, errorMessage: string): T {
 }
 
 //TODOS:
-// deployment
 // proper cache
 // recordings
 // cleanup english names
@@ -47,6 +46,7 @@ function assertValue<T>(v: T | undefined, errorMessage: string): T {
 // seminars in speaker slug below
 // speakers row col in seminar
 // newsletter card add choose for seminar or jew
+// icon in browser
 // які тематичін розслилоки ви хочете отримувати
 // Skeletons
 // юристи бухгалера будівнитцо земля

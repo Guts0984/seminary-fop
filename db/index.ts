@@ -37,7 +37,7 @@ pool.on("error", (err) => {
   console.error("[DB] Pool error:", err.message);
 });
 
-export const db = drizzle(pool, { schema });
+export const db = drizzle(pool, { schema, logger: true });
 export { pool };
 
 //docker exec -it seminary-fop-postgres-1 psql -U user -d seminars-db

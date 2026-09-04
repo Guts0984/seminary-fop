@@ -1,7 +1,7 @@
 import { Separator } from "@/components/ui/separator";
 import SpeakerList from "@/features/speakers/components/SpeakersList";
 import { getSpeakersQuery } from "@/features/speakers/queries/getSpeakersQuery";
-import { client } from "@/sanity/lib/client";
+import { sanityFetch } from "@/sanity/lib/live";
 import { Suspense } from "react";
 
 type SearchParams = {
@@ -37,6 +37,10 @@ async function SpeakerDataWrapper({
   const start = searchParams.start ? Number(searchParams.start) : 0;
   const end = searchParams.end ? Number(searchParams.end) : 10;
 
-  const data = await client.fetch(getSpeakersQuery, { start, end });
+  const { data } = await sanityFetch({
+    query: getSpeakersQuery,
+    params: { start, end },
+    stega: false,
+  });
   return <SpeakerList data={data} />;
 }

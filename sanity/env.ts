@@ -58,5 +58,6 @@ function assertValue<T>(v: T | undefined, errorMessage: string): T {
 // register send email
 // send email to sp urk net about registration
 // fix all that ai slop in tools etc
+// add tests
 
 // docker exec -it seminary-fop-postgres-1 psql "postgresql://user:password@localhost:5432/seminars-db"

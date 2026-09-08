@@ -10,10 +10,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="flex min-h-screen flex-col font-sans">
+    <div className="flex min-h-screen w-full flex-col font-sans">
       <Contact />
       <Header />
-      <div className="grow w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+      <div className="mx-auto w-full max-w-7xl grow px-4 sm:px-6 lg:px-8 py-8 md:py-12">
         {children}
       </div>
       <Footer />

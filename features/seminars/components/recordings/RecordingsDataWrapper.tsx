@@ -1,15 +1,13 @@
 import { sanityFetch } from "@/sanity/lib/live";
-import { getSeminarsQuery } from "../queries/getSeminarsQuery";
-import { nowBucket } from "../helpers/nowBucket";
-import { SeminarsList } from "./SeminarsList";
-import { FilterType, SeminarSearchParams } from "../types";
+import { SeminarSearchParams } from "../../types";
+import { getSeminarsQuery } from "../../queries/getSeminarsQuery";
+import { nowBucket } from "../../helpers/nowBucket";
+import { SeminarsList } from "../SeminarsList";
 
-export async function SeminarDataWrapper({
+export async function RecordingsDataWrapper({
   searchParams,
-  filterType = "all",
 }: {
   searchParams: SeminarSearchParams;
-  filterType?: FilterType;
 }) {
   const category = searchParams.category
     ? searchParams.category.split(",")
@@ -23,7 +21,7 @@ export async function SeminarDataWrapper({
       category,
       start,
       end,
-      filterType,
+      filterType: "past",
       today: nowBucket().slice(0, 10),
     },
     stega: false,

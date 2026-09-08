@@ -29,8 +29,8 @@ export const seminarFields = `
 `;
 
 const seminarDateFilter = `(
-  ($filterType == "future" && count(eventDates[dateTime(@) >= dateTime($now)]) > 0) ||
-  ($filterType == "past" && count(eventDates[dateTime(@) < dateTime($now)]) == count(eventDates)) ||
+  ($filterType == "upcoming" && count(eventDates[@ >= $today]) > 0) ||
+  ($filterType == "past" && count(eventDates[@ < $today]) == count(eventDates)) ||
   (!defined($filterType) || $filterType == "all")
 )`;
 

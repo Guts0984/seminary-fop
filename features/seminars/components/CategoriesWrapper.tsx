@@ -14,7 +14,7 @@ export default async function CategoriesWrapper({
     query: getSidebarSeminarsQuery,
     params: {
       filterType,
-      now: nowBucket(),
+      today: nowBucket().slice(0, 10),
     },
     stega: false,
   });

@@ -20,6 +20,11 @@ function assertValue<T>(v: T | undefined, errorMessage: string): T {
 }
 
 //TODOS:
+// delete contact
+// chagne contacts into about us
+// change logo
+// make header smaller
+// header drops down
 // recordings
 // cleanup english names
 // handle better typing and break into type files

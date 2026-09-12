@@ -6,6 +6,7 @@ import SlugSeminarOverview from "@/features/seminars/components/slug/SlugSeminar
 import SlugSeminarSpeakers from "@/features/seminars/components/slug/SlugSeminarSpeakers";
 import SlugSeminarProgram from "@/features/seminars/components/slug/SlugSeminarProgram";
 import SlugBottomWrapper from "@/features/seminars/components/slug/bottom/SlugBottomWrapper";
+import { getContactQuery } from "@/features/contacts/queries/getContactQuery";
 
 const seminarSlugsQuery = defineQuery(
   `*[_type == "seminar" && defined(slug.current)].slug.current`,
@@ -30,20 +31,26 @@ export default async function SeminarSlugPage({
 }) {
   const { slug } = await params;
 
-  const seminar = await client
-    .withConfig({ useCdn: false })
-    .fetch(getSeminarBySlug, { slug });
+  const [seminar, contact] = await Promise.all([
+    client.withConfig({ useCdn: false }).fetch(getSeminarBySlug, { slug }),
+    client.withConfig({ useCdn: false }).fetch(getContactQuery),
+  ]);
 
   if (!seminar) {
     notFound();
   }
 
+  const registerNumbers = contact?.registerNumbers ?? [];
+
   return (
     <div>
-      <SlugSeminarOverview seminar={seminar} />
+      <SlugSeminarOverview
+        seminar={seminar}
+        registerNumbers={registerNumbers}
+      />
       <SlugSeminarSpeakers seminar={seminar} />
       <SlugSeminarProgram seminar={seminar} />
-      <SlugBottomWrapper seminar={seminar} />
+      <SlugBottomWrapper seminar={seminar} registerNumbers={registerNumbers} />
     </div>
   );
 }

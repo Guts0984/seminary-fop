@@ -9,8 +9,10 @@ import SeminarSlugRegisterField from "./SeminarSlugRegisterField";
 
 export default function SlugSeminarOverview({
   seminar,
+  registerNumbers,
 }: {
   seminar: GetSeminarBySlugResult;
+  registerNumbers: string[];
 }) {
   if (!seminar) {
     return null;
@@ -40,7 +42,10 @@ export default function SlugSeminarOverview({
           eventDates={seminar.eventDates}
           eventTime={seminar.eventTime}
         />
-        <SeminarSlugRegisterField seminar={seminar} />
+        <SeminarSlugRegisterField
+          seminar={seminar}
+          registerNumbers={registerNumbers}
+        />
       </div>
       <div className="flex flex-col gap-1">
         <PortableText value={seminar.title} components={TextFormating} />

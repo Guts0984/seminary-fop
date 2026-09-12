@@ -19,7 +19,7 @@ export default function HeaderNav() {
           return (
             <Link
               key={link.href}
-              className={`font-medium hover:text-primary/85 transition-colors ${isActive(link.href) ? "text-primary" : "text-secondary-foreground"}`}
+              className={`font-normal text-sm hover:text-white/85 transition-colors text-white ${isActive(link.href) && "text-white/85"}`}
               href={link.href}
             >
               {link.label}

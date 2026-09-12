@@ -15,6 +15,21 @@
 export declare const internalGroqTypeReferenceTo: unique symbol;
 
 // Source: sanity/extract.json
+export type Contact = {
+  _id: string;
+  _type: "contact";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  phone: string;
+  email: string;
+  address?: {
+    title?: string;
+    mapsUrl?: string;
+  };
+  registerNumbers?: Array<string>;
+};
+
 export type SanityImageAssetReference = {
   _ref: string;
   _type: "reference";
@@ -486,6 +501,7 @@ export type Geopoint = {
 };
 
 export type AllSanitySchemaTypes =
+  | Contact
   | SanityImageAssetReference
   | SpeakerReference
   | Seminar
@@ -506,6 +522,11 @@ export type AllSanitySchemaTypes =
 // Variable: seminarSlugsQuery
 // Query: *[_type == "seminar" && defined(slug.current)].slug.current
 export type SeminarSlugsQueryResult = Array<string>;
+
+// Source: app/(frontend)/register/[slug]/page.tsx
+// Variable: seminarRegistrationSlugsQuery
+// Query: *[_type == "seminar" && defined(slug.current)].slug.current
+export type SeminarRegistrationSlugsQueryResult = Array<string>;
 
 // Source: app/(frontend)/register/[slug]/page.tsx
 // Variable: seminarForRegistrationQuery
@@ -565,6 +586,19 @@ export type SeminarsByIdsQueryResult = Array<{
   }>;
   availableTypes: Array<string> | null;
 }>;
+
+// Source: features/contacts/queries/getContactQuery.ts
+// Variable: getContactQuery
+// Query: *[_type == "contact"][0] {    phone,    email,    address,    registerNumbers  }
+export type GetContactQueryResult = {
+  phone: string;
+  email: string;
+  address: {
+    title?: string;
+    mapsUrl?: string;
+  } | null;
+  registerNumbers: Array<string> | null;
+} | null;
 
 // Source: features/seminars/queries/getSeminarBySlug.ts
 // Variable: getSeminarBySlug
@@ -1366,17 +1400,22 @@ export type GetSpeakersQueryResult = {
 };
 
 // Query TypeMap
-import "@sanity/client";
-declare module "@sanity/client" {
+declare global {
   interface SanityQueries {
-    '*[_type == "seminar" && defined(slug.current)].slug.current': SeminarSlugsQueryResult;
+    '*[_type == "seminar" && defined(slug.current)].slug.current':
+      SeminarSlugsQueryResult | SeminarRegistrationSlugsQueryResult;
     '\n  *[_type == "seminar" && slug.current == $slug][0] {\n    _id,\n    title,\n    type\n  }\n': SeminarForRegistrationQueryResult;
     '*[_type == "speaker" && defined(slug.current)].slug.current': SpeakerSlugsQueryResult;
     '\n  *[_type == "seminar" && _id in $ids] {\n    _id,\n    title,\n    "availableTypes": type\n  }\n': SeminarsByIdsQueryResult;
+    '\n  *[_type == "contact"][0] {\n    phone,\n    email,\n    address,\n    registerNumbers\n  }\n': GetContactQueryResult;
     '*[_type == "seminar" && slug.current == $slug][0]{\n  \n  _id,\n  title,\n  subtitle,\n  subtitle_main,\n  "slug": slug.current,\n  description,\n  eventDates,\n  eventTime,\n  location,\n  type,\n  category,\n  schedule,\n  discount,\n  googleMap,\n  price,\n  youGet,\n  "image": image.asset->url,\n  speakers[]->{\n    _id,\n    name,\n    "slug": slug.current,\n    title,\n    bio,\n    "photoUrl": photo.asset->url\n  }\n\n  }\n': GetSeminarBySlugResult;
     '\n  {\n    "items": *[\n      _type == "seminar"\n      && defined(slug.current)\n      && (\n  ($filterType == "upcoming" && count(eventDates[@ >= $today]) > 0) ||\n  ($filterType == "past" && count(eventDates[@ < $today]) == count(eventDates)) ||\n  (!defined($filterType) || $filterType == "all")\n)\n    ] | order(eventDates[0] desc) [$start...$end] {\n      \n  _id,\n  title,\n  subtitle,\n  subtitle_main,\n  "slug": slug.current,\n  description,\n  eventDates,\n  eventTime,\n  location,\n  type,\n  category,\n  schedule,\n  discount,\n  googleMap,\n  price,\n  youGet,\n  "image": image.asset->url,\n  speakers[]->{\n    _id,\n    name,\n    "slug": slug.current,\n    title,\n    bio,\n    "photoUrl": photo.asset->url\n  }\n\n    },\n    "total": count(*[\n      _type == "seminar"\n      && defined(slug.current)\n      && (\n  ($filterType == "upcoming" && count(eventDates[@ >= $today]) > 0) ||\n  ($filterType == "past" && count(eventDates[@ < $today]) == count(eventDates)) ||\n  (!defined($filterType) || $filterType == "all")\n)\n    ])\n  }\n': GetSeminarsQueryResult;
     '\n  *[_type == "seminar"\n    && defined(slug.current)\n    && (\n      ($filterType == "upcoming" && count(eventDates[@ >= $today]) > 0) ||\n      ($filterType == "past" && count(eventDates[@ < $today]) == count(eventDates)) ||\n      (!defined($filterType) || $filterType == "all")\n    )\n  ] | order(eventDates[0] desc) {\n    _id,\n    category,\n    "slug": slug.current\n  }\n': GetSidebarSeminarsQueryResult;
     '\n  *[_type == "speaker" && slug.current == $slug][0]{\n    \n  _id,\n  name,\n  "slug": slug.current,\n  title,\n  bio,\n  "photo": photo.asset->url,\n  "seminars": *[_type == "seminar" && references(^._id)] | order(eventDates[0] desc) {\n    _id,\n    title,\n    "slug": slug.current,\n    eventDates,\n    "image": image.asset->url\n  }\n\n  }\n': GetSpeakerBySlugResult;
     '\n  {\n    "items": *[_type == "speaker"] | order(name asc) [$start...$end] {\n      \n  _id,\n  name,\n  "slug": slug.current,\n  title,\n  bio,\n  "photo": photo.asset->url,\n  "seminars": *[_type == "seminar" && references(^._id)] | order(eventDates[0] desc) {\n    _id,\n    title,\n    "slug": slug.current,\n    eventDates,\n    "image": image.asset->url\n  }\n\n    },\n    "total": count(*[_type == "speaker"])\n  }\n': GetSpeakersQueryResult;
   }
+}
+// Lets @sanity/client releases that predate the global registry read it too
+declare module "@sanity/client" {
+  interface SanityQueries extends globalThis.SanityQueries {}
 }

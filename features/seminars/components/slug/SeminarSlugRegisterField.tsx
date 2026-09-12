@@ -8,13 +8,14 @@ import { Button } from "@/components/ui/button";
 import { GetSeminarBySlugResult } from "@/sanity/types";
 import { FaTelegram, FaViber } from "react-icons/fa";
 import { cn } from "@/lib/utils";
-import { REGISTER_NUMBERS } from "@/helpers/contacts";
 
 export default function SeminarSlugRegisterField({
   seminar,
+  registerNumbers,
   bottom = false,
 }: {
   seminar: GetSeminarBySlugResult;
+  registerNumbers: string[];
   bottom?: boolean;
 }) {
   const handleCopy = async (value: string) => {
@@ -34,7 +35,7 @@ export default function SeminarSlugRegisterField({
           bottom && "flex-row justify-center items-center gap-2",
         )}
       >
-        {REGISTER_NUMBERS.map((item) => (
+        {registerNumbers.map((item) => (
           <button
             key={item}
             type="button"

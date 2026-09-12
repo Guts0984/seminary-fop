@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { NAV_LINKS } from "@/helpers/nav-links";
 import ContactLinks from "./FooterContactLinks";
+import { GetContactQueryResult } from "@/sanity/types";
 
-export default function Footer() {
+export default function Footer({ contact }: { contact: GetContactQueryResult }) {
   return (
     <footer className="bg-[#3C3C3C] text-white">
       <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:pt-8">
@@ -42,7 +43,7 @@ export default function Footer() {
             <h3 className="mb-4 text-xs font-semibold uppercase tracking-wider text-secondary-foreground">
               Контакти
             </h3>
-            <ContactLinks />
+            <ContactLinks contact={contact} />
           </div>
         </div>
 

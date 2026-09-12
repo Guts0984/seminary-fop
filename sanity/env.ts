@@ -20,13 +20,6 @@ function assertValue<T>(v: T | undefined, errorMessage: string): T {
 }
 
 //TODOS:
-// delete contact
-// chagne contacts into about us
-// change logo
-// make header smaller
-// header drops down
-// recordings
-// cleanup english names
 // handle better typing and break into type files
 // clean tailwind stuff
 // check images compression
@@ -43,6 +36,7 @@ function assertValue<T>(v: T | undefined, errorMessage: string): T {
 // contact also statically generated
 // delete bg seminar slug
 // dropdown header
+// favicon
 // header size
 // pagination
 // max width header

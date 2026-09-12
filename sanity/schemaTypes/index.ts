@@ -1,6 +1,7 @@
+import { contact } from "@/features/contacts/schemas/contact";
 import { seminar } from "@/features/seminars/schemas/seminar";
 import { speaker } from "@/features/speakers/schemas/speaker";
 
 export const schema = {
-  types: [speaker, seminar],
+  types: [speaker, seminar, contact],
 };

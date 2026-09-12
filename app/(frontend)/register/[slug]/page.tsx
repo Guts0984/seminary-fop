@@ -7,7 +7,7 @@ import RegistrationForm, {
   SeminarTypeOption,
 } from "@/features/registration/components/RegisterForm";
 
-const seminarSlugsQuery = defineQuery(
+const seminarRegistrationSlugsQuery = defineQuery(
   `*[_type == "seminar" && defined(slug.current)].slug.current`,
 );
 
@@ -26,7 +26,7 @@ export async function generateStaticParams() {
 
   const slugs = await client
     .withConfig({ useCdn: false })
-    .fetch(seminarSlugsQuery);
+    .fetch(seminarRegistrationSlugsQuery);
 
   return slugs.map((slug: string) => ({ slug }));
 }

@@ -59,7 +59,7 @@ export function DropdownMenuIcons() {
         <DropdownMenuItem
           render={
             <Link
-              href="/webinars"
+              href="/recordings"
               className="flex items-center gap-3 px-2.5 py-2 text-xs font-medium rounded-sm hover:bg-accent hover:text-accent-foreground cursor-pointer transition-colors"
             >
               <GlobeCheck className="w-5 h-5 shrink-0 text-muted-foreground" />

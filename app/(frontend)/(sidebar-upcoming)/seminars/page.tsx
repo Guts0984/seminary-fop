@@ -1,5 +1,6 @@
 import CategoriesWrapper from "@/features/seminars/components/CategoriesWrapper";
 import { SeminarDataWrapper } from "@/features/seminars/components/SeminarDataWrapper";
+import { SeminarsListSkeleton } from "@/features/seminars/components/SeminarsListSkeleton";
 import { SeminarSearchParams } from "@/features/seminars/types";
 import { Suspense } from "react";
 
@@ -24,7 +25,7 @@ export default async function SeminarsPage({
         <CategoriesWrapper variant="mobile" filterType="upcoming" />
       </div>
 
-      <Suspense key={JSON.stringify(params)} fallback={<div>Loading...</div>}>
+      <Suspense key={JSON.stringify(params)} fallback={<SeminarsListSkeleton />}>
         <SeminarDataWrapper searchParams={params} filterType="upcoming" />
       </Suspense>
     </section>

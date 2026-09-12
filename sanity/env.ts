@@ -20,43 +20,18 @@ function assertValue<T>(v: T | undefined, errorMessage: string): T {
 }
 
 //TODOS:
-// handle better typing and break into type files
-// clean tailwind stuff
-// check images compression
-// client review for dates in seminar speaker slug
-// clean public folder
-// break main components code into folders
-// see nav when scrolled
-// speaker card portable text
-// header goes down with code
-// registre for semianr
-// Make speaker slug better
-// Register button
-// move toast copy to helpers
-// contact also statically generated
-// delete bg seminar slug
-// dropdown header
-// favicon
-// header size
-// pagination
-// max width header
-// smaller footer
-// seminars in speaker slug below
-// speakers row col in seminar
-// newsletter card add choose for seminar or jew
-// icon in browser
-// які тематичін розслилоки ви хочете отримувати
-// Skeletons
-// юристи бухгалера будівнитцо земля
-// окремо семінар newsletter
-// better ui and more features in newsletter
 // smaller text in newsletter field
 // add newsletter field to contact page
 // color header
 // register send email
 // send email to sp urk net about registration
+// speaker row or col in seminar
 // fix all that ai slop in tools etc
 // add tests
+// Register button
 // archive to main page addon
+// clean tailwind stuff
+// speakers row col in seminar
+// adds below seminars list
 
 // docker exec -it seminary-fop-postgres-1 psql "postgresql://user:password@localhost:5432/seminars-db"

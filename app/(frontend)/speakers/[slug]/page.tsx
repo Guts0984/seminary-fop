@@ -60,13 +60,12 @@ export default async function SpeakerSlugPage({
         </div>
       </div>
 
-      <SpeakerSeminars seminars={speaker.seminars ?? []} />
-
       {speaker.bio && speaker.bio.length > 0 && (
         <div className="prose prose-neutral mt-10 max-w-none">
           <PortableText value={speaker.bio} components={TextFormating} />
         </div>
       )}
+      <SpeakerSeminars seminars={speaker.seminars ?? []} />
     </div>
   );
 }

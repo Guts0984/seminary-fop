@@ -11,9 +11,15 @@ import { Button } from "@/components/ui/button";
 import { ChevronRight } from "lucide-react";
 import SeminarSpeakersOverview from "./SeminarSpeakersOverview";
 import { SEMINAR_TYPES } from "../helpers/seminar-types";
+import { Badge } from "@/components/ui/badge";
 
 export function SeminarCard({ seminar }: { seminar: Seminar }) {
   const [image, setImage] = useState<string>(seminar.image || "/no-image.jpg");
+
+  const today = new Date().toISOString().slice(0, 10);
+  const isPast =
+    seminar.eventDates.length > 0 &&
+    seminar.eventDates.every((date) => date < today);
 
   const titleComponents: PortableTextComponents = {
     ...TextFormating,
@@ -41,6 +47,11 @@ export function SeminarCard({ seminar }: { seminar: Seminar }) {
               fill={true}
               className="object-cover rounded-lg"
             />
+            {isPast && (
+              <Badge className="absolute left-1 top-1 bg-neutral-600/90 text-white">
+                Архів
+              </Badge>
+            )}
           </div>
         </Link>
 

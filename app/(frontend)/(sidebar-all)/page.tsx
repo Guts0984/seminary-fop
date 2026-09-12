@@ -1,6 +1,7 @@
 // app/page.tsx
 import CategoriesWrapper from "@/features/seminars/components/CategoriesWrapper";
 import { SeminarDataWrapper } from "@/features/seminars/components/SeminarDataWrapper";
+import { SeminarsListSkeleton } from "@/features/seminars/components/SeminarsListSkeleton";
 import { SeminarSearchParams } from "@/features/seminars/types";
 import { Suspense } from "react";
 
@@ -25,7 +26,7 @@ export default async function Home({
         <CategoriesWrapper variant="mobile" />
       </div>
 
-      <Suspense key={JSON.stringify(params)} fallback={<div>Loading...</div>}>
+      <Suspense key={JSON.stringify(params)} fallback={<SeminarsListSkeleton />}>
         <SeminarDataWrapper searchParams={params} />
       </Suspense>
     </section>

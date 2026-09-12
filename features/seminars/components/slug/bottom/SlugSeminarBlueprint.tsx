@@ -17,7 +17,7 @@ export default function SlugSeminarBlueprint({
   }
 
   return (
-    <Card className="border-2 border-border bg-primary/10">
+    <Card className="border-2 border-border">
       <CardHeader>
         <CardTitle className="text-lg font-bold text-primary">
           {title}

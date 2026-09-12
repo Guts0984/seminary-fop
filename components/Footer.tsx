@@ -3,12 +3,16 @@ import { NAV_LINKS } from "@/helpers/nav-links";
 import ContactLinks from "./FooterContactLinks";
 import { GetContactQueryResult } from "@/sanity/types";
 
-export default function Footer({ contact }: { contact: GetContactQueryResult }) {
+export default function Footer({
+  contact,
+}: {
+  contact: GetContactQueryResult;
+}) {
   return (
     <footer className="bg-[#3C3C3C] text-white">
-      <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:pt-8">
+      <div className="mx-auto max-w-7xl px-4 py-3 sm:px-6 sm:pt-4">
         {/* Top row: brand */}
-        <div className="border-b border-white/10 pb-8 sm:pb-12">
+        <div className="border-b border-white/10 pb-4 sm:pb-6">
           <div className="max-w-md">
             <h2 className="text-xl font-semibold tracking-tight sm:text-2xl">
               Семінари<span className="text-primary"> / </span>Вебінари
@@ -20,7 +24,7 @@ export default function Footer({ contact }: { contact: GetContactQueryResult }) 
         </div>
 
         {/* Middle: nav / contacts */}
-        <div className="grid grid-cols-1 gap-8 py-8 sm:grid-cols-2 sm:gap-10 sm:py-12">
+        <div className="grid grid-cols-1 gap-8 py-4 sm:grid-cols-2 sm:gap-10 sm:py-6">
           <div>
             <h3 className="mb-4 text-xs font-semibold uppercase tracking-wider text-secondary-foreground">
               Навігація

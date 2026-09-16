@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { NAV_LINKS } from "@/helpers/nav-links";
-import ContactLinks from "./FooterContactLinks";
+import NewsletterForm from "@/features/newsletterEmails/components/NewsletterForm";
+import { Separator } from "@/components/ui/separator";
 import { GetContactQueryResult } from "@/sanity/types";
 
 export default function Footer({
@@ -9,51 +9,50 @@ export default function Footer({
   contact: GetContactQueryResult;
 }) {
   return (
-    <footer className="bg-[#3C3C3C] text-white">
-      <div className="mx-auto max-w-7xl px-4 py-3 sm:px-6 sm:pt-4">
-        {/* Top row: brand */}
-        <div className="border-b border-white/10 pb-4 sm:pb-6">
-          <div className="max-w-md">
-            <h2 className="text-xl font-semibold tracking-tight sm:text-2xl">
-              Семінари<span className="text-primary"> / </span>Вебінари
-            </h2>
-            <p className="mt-3 text-sm leading-relaxed text-secondary-foreground">
-              Знаходьте події, реєструйтесь та отримуйте знання від практиків.
-            </p>
+    <footer className="bg-primary text-white">
+      <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-x-8 gap-y-4 px-4 py-6 sm:px-6">
+        {/* Left: Про нас */}
+        <div className="flex flex-1 flex-col items-start gap-2">
+          <Link
+            href="/contacts"
+            className="inline-block rounded-sm border border-white px-6 py-2 text-sm font-semibold text-white transition-colors hover:bg-white hover:text-primary"
+          >
+            Про нас
+          </Link>
+          <p className="max-w-xs text-[10px] leading-relaxed text-white/50">
+            Дізнайтесь більше про нашу команду, напрямки роботи та способи
+            зв&apos;язку з нами.
+          </p>
+        </div>
+
+        <Separator orientation="vertical" className="bg-white/20" />
+
+        {/* Middle: registration numbers */}
+        <div className="flex flex-col items-center gap-2 text-center">
+          <p className="text-xs font-semibold uppercase tracking-wider text-white/70">
+            Телефони для реєстрації
+          </p>
+          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2">
+            {contact?.registerNumbers?.map((number) => (
+              <a
+                key={number}
+                href={`tel:${number.replace(/[^+\d]/g, "")}`}
+                className="text-sm font-semibold text-white transition-colors hover:text-white/85"
+              >
+                {number}
+              </a>
+            ))}
           </div>
         </div>
 
-        {/* Middle: nav / contacts */}
-        <div className="grid grid-cols-1 gap-8 py-4 sm:grid-cols-2 sm:gap-10 sm:py-6">
-          <div>
-            <h3 className="mb-4 text-xs font-semibold uppercase tracking-wider text-secondary-foreground">
-              Навігація
-            </h3>
-            <ul className="flex flex-wrap gap-x-6 gap-y-3">
-              {NAV_LINKS.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-white transition-colors hover:text-primary"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+        <Separator orientation="vertical" className="bg-white/20" />
 
-          <div>
-            <h3 className="mb-4 text-xs font-semibold uppercase tracking-wider text-secondary-foreground">
-              Контакти
-            </h3>
-            <ContactLinks contact={contact} />
-          </div>
-        </div>
-
-        {/* Bottom bar */}
-        <div className="border-t border-white/10 pt-6 text-center text-xs text-secondary-foreground">
-          <p>© {new Date().getFullYear()} Усі права захищено.</p>
+        {/* Right: newsletter */}
+        <div className="flex flex-1 flex-col items-end gap-2">
+          <NewsletterForm />
+          <p className="text-[10px] text-white/50">
+            Підпишіться на розсилку, щоб першими дізнаватись про нові події.
+          </p>
         </div>
       </div>
     </footer>

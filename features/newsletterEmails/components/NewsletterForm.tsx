@@ -61,7 +61,7 @@ export default function NewsletterForm() {
 
   return (
     <div>
-      <div className="hidden sm:flex items-center">
+      <div className="flex items-center">
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -88,10 +88,10 @@ export default function NewsletterForm() {
                   placeholder="your@example.com"
                   autoComplete="email"
                   aria-invalid={fieldState.invalid}
-                  className={`w-32 md:w-48 text-gray-300 text-xs rounded-sm px-2 h-6 transition-colors focus:outline-none ${
+                  className={`w-32 md:w-48 text-white placeholder:text-white/60 text-xs rounded-sm px-2 h-6 transition-colors focus:outline-none bg-transparent ${
                     fieldState.invalid
                       ? "border-red-500"
-                      : "border-gray-500 focus:border-highlight"
+                      : "border-white focus:border-white/70"
                   }`}
                 />
                 {fieldState.invalid && (
@@ -106,7 +106,7 @@ export default function NewsletterForm() {
           <Button
             type="submit"
             disabled={isSubmitting}
-            className="whitespace-nowrap h-6 px-3 py-0 text-[11px] md:text-xs min-h-0 flex items-center justify-center hover:cursor-pointer rounded-sm w-28"
+            className="whitespace-nowrap h-6 px-3 py-0 text-[11px] md:text-xs min-h-0 flex items-center justify-center hover:cursor-pointer rounded-sm w-28 border border-red-400 bg-red-600 font-semibold text-white shadow-sm shadow-red-900/40 transition-colors hover:bg-red-500 active:bg-red-700"
           >
             {isSubmitting ? "..." : "Підписатися"}
           </Button>

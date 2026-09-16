@@ -12,7 +12,7 @@ export default function SeminarSpeakersOverview({
 
   return (
     <div className="flex flex-wrap items-center gap-1 text-sm">
-      <h3 className="font-medium">
+      <h3 className="font-bold text-primary">
         {speakers.length === 1 ? "Спікер:" : "Спікери:"}
       </h3>
       <div className="flex flex-wrap items-center">

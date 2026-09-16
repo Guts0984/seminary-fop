@@ -29,6 +29,7 @@ function assertValue<T>(v: T | undefined, errorMessage: string): T {
 // add tests
 // Register button
 // addverstisements
+// redo footer
 // archive to main page addon
 // clean tailwind stuff
 // speakers row col in seminar
@@ -36,6 +37,7 @@ function assertValue<T>(v: T | undefined, errorMessage: string): T {
 // fix map
 // subscirbtion before adds
 // about us at the bottom
+// add partners
 // header
 // SEO
 // db backup

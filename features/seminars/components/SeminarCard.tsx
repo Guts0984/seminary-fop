@@ -80,10 +80,10 @@ export function SeminarCard({ seminar }: { seminar: Seminar }) {
       </div>
       <div className="flex flex-col gap-1">
         <PortableText value={seminar.title} components={titleComponents} />
+        <PortableText value={seminar.subtitle} components={TextFormating} />
         {seminar.speakers?.length ? (
           <SeminarSpeakersOverview speakers={seminar.speakers ?? []} />
         ) : null}
-        <PortableText value={seminar.subtitle} components={TextFormating} />
       </div>
     </div>
   );

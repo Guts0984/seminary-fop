@@ -14,7 +14,7 @@ export default function HeaderNav() {
 
   return (
     <>
-      <div className="mr-5 space-x-6 hidden md:flex md:items-center">
+      <div className="mr-5 space-x-6 hidden lg:flex lg:items-center lg:order-2">
         {NAV_LINKS.map((link) => {
           return (
             <Link
@@ -28,7 +28,7 @@ export default function HeaderNav() {
         })}
       </div>
 
-      <div className="md:hidden mr-5">
+      <div className="lg:hidden mr-1 order-3">
         <DropdownMenuIcons />
       </div>
     </>

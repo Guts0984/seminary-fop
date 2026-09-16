@@ -3,5 +3,4 @@ export const NAV_LINKS = [
   { label: "Семінари & Вебінари", href: "/seminars" },
   { label: "Відеозаписи", href: "/recordings" },
   { label: "Експерти", href: "/speakers" },
-  { label: "Контакти", href: "/contacts" },
 ];

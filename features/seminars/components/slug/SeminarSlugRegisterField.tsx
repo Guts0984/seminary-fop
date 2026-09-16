@@ -6,8 +6,9 @@ import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import { GetSeminarBySlugResult } from "@/sanity/types";
-import { FaTelegram, FaViber } from "react-icons/fa";
 import { cn } from "@/lib/utils";
+import Telegram from "@/components/icons/Telegram";
+import Viber from "@/components/icons/Viber";
 
 export default function SeminarSlugRegisterField({
   seminar,
@@ -50,29 +51,8 @@ export default function SeminarSlugRegisterField({
       </div>
 
       <div className="flex gap-2 items-center justify-center">
-        <Link
-          href="viber://chat?number=%2B380503314110"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Написати у Viber"
-        >
-          <FaViber
-            size={30}
-            className="text-[#7360F2] hover:opacity-85 transition-opacity"
-          />
-        </Link>
-
-        <Link
-          href="https://t.me/+380503314110"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Написати у Telegram"
-        >
-          <FaTelegram
-            size={30}
-            className="text-[#0088CC] hover:opacity-85 transition-opacity"
-          />
-        </Link>
+        <Viber size={30} />
+        <Telegram size={30} />
       </div>
 
       <Link href={`/register/${seminar?.slug}`} className="flex justify-center">

@@ -20,7 +20,6 @@ function assertValue<T>(v: T | undefined, errorMessage: string): T {
 }
 
 //TODOS:
-// smaller text in newsletter field
 // add newsletter field to contact page
 // color header
 // register send email
@@ -29,9 +28,16 @@ function assertValue<T>(v: T | undefined, errorMessage: string): T {
 // fix all that ai slop in tools etc
 // add tests
 // Register button
+// addverstisements
 // archive to main page addon
 // clean tailwind stuff
 // speakers row col in seminar
 // adds below seminars list
+// fix map
+// subscirbtion before adds
+// about us at the bottom
+// header
+// SEO
+// db backup
 
 // docker exec -it seminary-fop-postgres-1 psql "postgresql://user:password@localhost:5432/seminars-db"

@@ -15,6 +15,7 @@ export default function ContactsView({
   contact: GetContactQueryResult;
 }) {
   const registerNumbers = contact?.registerNumbers ?? [];
+  const mapUrl = contact?.address?.mapsUrl ?? "";
 
   return (
     <div className="space-y-4">
@@ -157,7 +158,7 @@ export default function ContactsView({
         <CardContent className="p-0 h-[400px] w-full relative">
           <iframe
             title="Офіс на карті"
-            src="https://maps.google.com/maps?q=%D0%91%D0%B5%D1%80%D0%B5%D1%81%D1%82%D0%B5%D0%B9%D1%81%D1%8C%D0%BA%D0%B8%D0%B9+%D0%BF%D1%80%D0%BE%D1%81%D0%BF.,+67,+%D0%9A%D0%B8%D1%97%D0%B2&t=&z=16&ie=UTF8&iwloc=B&output=embed"
+            src={mapUrl}
             width="100%"
             height="100%"
             style={{ border: 0 }}

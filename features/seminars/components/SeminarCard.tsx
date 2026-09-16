@@ -34,7 +34,7 @@ export function SeminarCard({ seminar }: { seminar: Seminar }) {
   };
 
   return (
-    <div className="flex gap-4">
+    <div className="flex gap-2 border-2 border-gray-200 rounded-lg p-2">
       <div className="flex flex-col h-fit gap-1 space-y-2">
         <Link href={`/seminars/${seminar.slug}`}>
           <div className="relative h-21.25 w-32.5 shrink-0">

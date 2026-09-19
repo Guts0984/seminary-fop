@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Clock, Mail, MapPin, Phone, Copy } from "lucide-react";
+import { Clock, Mail, MapPin, Phone } from "lucide-react";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -76,22 +76,14 @@ export default function ContactsView({
                     key={number}
                     className="flex items-center gap-2 group rounded-md p-1.5 hover:bg-muted/50 transition-colors"
                   >
-                    <Button
+                    <button
                       type="button"
-                      variant="ghost"
-                      size="icon"
                       onClick={() => copyToClipboard(number)}
-                      className="h-8 w-8 shrink-0 text-muted-foreground hover:text-primary cursor-pointer"
+                      className="text-sm font-medium hover:text-primary transition-colors cursor-pointer"
                       title="Скопіювати"
                     >
-                      <Copy className="w-4 h-4" />
-                    </Button>
-                    <a
-                      href={`tel:${number}`}
-                      className="text-sm font-medium hover:text-primary transition-colors"
-                    >
                       {number}
-                    </a>
+                    </button>
                   </div>
                 ))}
               </div>
@@ -125,22 +117,14 @@ export default function ContactsView({
                 <CardTitle className="text-lg">E-mail</CardTitle>
               </CardHeader>
               <CardContent className="flex items-center gap-2 flex-1">
-                <Button
+                <button
                   type="button"
-                  variant="ghost"
-                  size="icon"
                   onClick={() => copyToClipboard(contact.email)}
-                  className="h-8 w-8 shrink-0 text-muted-foreground hover:text-primary cursor-pointer"
+                  className="text-sm font-medium hover:text-primary hover:underline transition-colors cursor-pointer"
                   title="Скопіювати"
                 >
-                  <Copy className="w-4 h-4" />
-                </Button>
-                <a
-                  href={`mailto:${contact.email}`}
-                  className="text-sm font-medium hover:text-primary hover:underline transition-colors"
-                >
                   {contact.email}
-                </a>
+                </button>
               </CardContent>
             </Card>
           )}

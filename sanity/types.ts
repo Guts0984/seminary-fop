@@ -15,6 +15,45 @@
 export declare const internalGroqTypeReferenceTo: unique symbol;
 
 // Source: sanity/extract.json
+export type SanityImageAssetReference = {
+  _ref: string;
+  _type: "reference";
+  _weak?: boolean;
+  [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+};
+
+export type Partner = {
+  _id: string;
+  _type: "partner";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  image: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  link: string;
+};
+
+export type SanityImageCrop = {
+  _type: "sanity.imageCrop";
+  top: number;
+  bottom: number;
+  left: number;
+  right: number;
+};
+
+export type SanityImageHotspot = {
+  _type: "sanity.imageHotspot";
+  x: number;
+  y: number;
+  height: number;
+  width: number;
+};
+
 export type Contact = {
   _id: string;
   _type: "contact";
@@ -28,13 +67,6 @@ export type Contact = {
     mapsUrl?: string;
   };
   registerNumbers?: Array<string>;
-};
-
-export type SanityImageAssetReference = {
-  _ref: string;
-  _type: "reference";
-  _weak?: boolean;
-  [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
 };
 
 export type SpeakerReference = {
@@ -308,22 +340,6 @@ export type Seminar = {
   googleMap?: string;
 };
 
-export type SanityImageCrop = {
-  _type: "sanity.imageCrop";
-  top: number;
-  bottom: number;
-  left: number;
-  right: number;
-};
-
-export type SanityImageHotspot = {
-  _type: "sanity.imageHotspot";
-  x: number;
-  y: number;
-  height: number;
-  width: number;
-};
-
 export type Slug = {
   _type: "slug";
   current: string;
@@ -501,12 +517,13 @@ export type Geopoint = {
 };
 
 export type AllSanitySchemaTypes =
-  | Contact
   | SanityImageAssetReference
-  | SpeakerReference
-  | Seminar
+  | Partner
   | SanityImageCrop
   | SanityImageHotspot
+  | Contact
+  | SpeakerReference
+  | Seminar
   | Slug
   | Speaker
   | SanityImagePaletteSwatch
@@ -599,6 +616,14 @@ export type GetContactQueryResult = {
   } | null;
   registerNumbers: Array<string> | null;
 } | null;
+
+// Source: features/partners/queries/getPartnersQuery.ts
+// Variable: getPartnersQuery
+// Query: *[_type == "partner"] {    "image": image.asset->url,    link  }
+export type GetPartnersQueryResult = Array<{
+  image: string | null;
+  link: string;
+}>;
 
 // Source: features/seminars/queries/getSeminarBySlug.ts
 // Variable: getSeminarBySlug
@@ -1408,6 +1433,7 @@ declare global {
     '*[_type == "speaker" && defined(slug.current)].slug.current': SpeakerSlugsQueryResult;
     '\n  *[_type == "seminar" && _id in $ids] {\n    _id,\n    title,\n    "availableTypes": type\n  }\n': SeminarsByIdsQueryResult;
     '\n  *[_type == "contact"][0] {\n    phone,\n    email,\n    address,\n    registerNumbers\n  }\n': GetContactQueryResult;
+    '\n  *[_type == "partner"] {\n    "image": image.asset->url,\n    link\n  }\n': GetPartnersQueryResult;
     '*[_type == "seminar" && slug.current == $slug][0]{\n  \n  _id,\n  title,\n  subtitle,\n  subtitle_main,\n  "slug": slug.current,\n  description,\n  eventDates,\n  eventTime,\n  location,\n  type,\n  category,\n  schedule,\n  discount,\n  googleMap,\n  price,\n  youGet,\n  "image": image.asset->url,\n  speakers[]->{\n    _id,\n    name,\n    "slug": slug.current,\n    title,\n    bio,\n    "photoUrl": photo.asset->url\n  }\n\n  }\n': GetSeminarBySlugResult;
     '\n  {\n    "items": *[\n      _type == "seminar"\n      && defined(slug.current)\n      && (\n  ($filterType == "upcoming" && count(eventDates[@ >= $today]) > 0) ||\n  ($filterType == "past" && count(eventDates[@ < $today]) == count(eventDates)) ||\n  (!defined($filterType) || $filterType == "all")\n)\n    ] | order(eventDates[0] desc) [$start...$end] {\n      \n  _id,\n  title,\n  subtitle,\n  subtitle_main,\n  "slug": slug.current,\n  description,\n  eventDates,\n  eventTime,\n  location,\n  type,\n  category,\n  schedule,\n  discount,\n  googleMap,\n  price,\n  youGet,\n  "image": image.asset->url,\n  speakers[]->{\n    _id,\n    name,\n    "slug": slug.current,\n    title,\n    bio,\n    "photoUrl": photo.asset->url\n  }\n\n    },\n    "total": count(*[\n      _type == "seminar"\n      && defined(slug.current)\n      && (\n  ($filterType == "upcoming" && count(eventDates[@ >= $today]) > 0) ||\n  ($filterType == "past" && count(eventDates[@ < $today]) == count(eventDates)) ||\n  (!defined($filterType) || $filterType == "all")\n)\n    ])\n  }\n': GetSeminarsQueryResult;
     '\n  *[_type == "seminar"\n    && defined(slug.current)\n    && (\n      ($filterType == "upcoming" && count(eventDates[@ >= $today]) > 0) ||\n      ($filterType == "past" && count(eventDates[@ < $today]) == count(eventDates)) ||\n      (!defined($filterType) || $filterType == "all")\n    )\n  ] | order(eventDates[0] desc) {\n    _id,\n    category,\n    "slug": slug.current\n  }\n': GetSidebarSeminarsQueryResult;

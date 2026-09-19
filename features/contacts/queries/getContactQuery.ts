@@ -1,6 +1,6 @@
 import { defineQuery } from "next-sanity";
 
-export const getContactQuery = defineQuery(/* groq */ `
+export const getContactQuery = defineQuery(`
   *[_type == "contact"][0] {
     phone,
     email,

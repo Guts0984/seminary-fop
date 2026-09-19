@@ -1,8 +1,9 @@
-import { getContact } from "@/features/contacts/lib/getContact";
+import { sanityFetch } from "@/sanity/lib/live";
+import { getContactQuery } from "@/features/contacts/queries/getContactQuery";
 import ContactsView from "@/features/contacts/components/ContactsView";
 
 export default async function ContactPage() {
-  const contact = await getContact();
+  const { data: contact } = await sanityFetch({ query: getContactQuery });
 
   return <ContactsView contact={contact} />;
 }

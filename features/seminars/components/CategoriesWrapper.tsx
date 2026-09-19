@@ -3,8 +3,8 @@ import { getSidebarSeminarsQuery } from "../queries/getSidebarSeminarsQuery";
 import { nowBucket } from "../helpers/nowBucket";
 import CategoriesSidebarList from "./CategoriesSidebarList";
 import CategoriesMobileCarousel from "./CategoriesMobileCarousel";
-import { Separator } from "@/components/ui/separator";
 import { CategoriesWrapperProps } from "../types";
+import PartnersList from "@/features/partners/components/PartnersList";
 
 export default async function CategoriesWrapper({
   variant = "sidebar",
@@ -27,11 +27,8 @@ export default async function CategoriesWrapper({
 
   return (
     <div className="space-y-6">
-      <div className="space-y-2">
-        <h3 className="font-medium text-lg">Семінари / Вебінари</h3>
-        <Separator className="data-horizontal:h-1 bg-primary" />
-      </div>
       <CategoriesSidebarList categories={data} />
+      <PartnersList />
     </div>
   );
 }

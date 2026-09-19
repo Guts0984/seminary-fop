@@ -1,5 +1,6 @@
 import Link from "next/link";
 import NewsletterForm from "@/features/newsletterEmails/components/NewsletterForm";
+import FooterRegisterNumbers from "./FooterRegisterNumbers";
 import { Separator } from "@/components/ui/separator";
 import { GetContactQueryResult } from "@/sanity/types";
 
@@ -32,17 +33,7 @@ export default function Footer({
           <p className="text-xs font-semibold uppercase tracking-wider text-white/70">
             Телефони для реєстрації
           </p>
-          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2">
-            {contact?.registerNumbers?.map((number) => (
-              <a
-                key={number}
-                href={`tel:${number.replace(/[^+\d]/g, "")}`}
-                className="text-sm font-semibold text-white transition-colors hover:text-white/85"
-              >
-                {number}
-              </a>
-            ))}
-          </div>
+          <FooterRegisterNumbers contact={contact} />
         </div>
 
         <Separator orientation="vertical" className="bg-white/20" />

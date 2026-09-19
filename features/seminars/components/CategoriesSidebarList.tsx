@@ -1,6 +1,7 @@
 // @/features/seminars/components/CategoriesSidebarList.tsx
 "use client";
 
+import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import { GetSidebarSeminarsQueryResult } from "@/sanity/types";
 import Link from "next/link";
@@ -16,29 +17,37 @@ export default function CategoriesSidebarList({
   const pathname = usePathname();
 
   return (
-    <div className="flex flex-col w-full border-2 border-gray-200 rounded-xl overflow-hidden">
-      {categories.map((category) => {
-        if (!category.slug) return null;
+    <>
+      <div className="flex flex-col w-full border-2 border-gray-200 rounded-xl overflow-hidden">
+        <div className="space-y-2 p-2 flex flex-col ml-1.5">
+          <h3 className="font-medium text-primary text-md">
+            Семінари / Вебінари
+          </h3>
+          <Separator className="data-horizontal:h-1 bg-primary max-w-48" />
+        </div>
+        {categories.map((category) => {
+          if (!category.slug) return null;
 
-        // Adjust route path if your route is /category/[slug] or /[slug]
-        const href = `/seminars/${category.slug}`;
-        const isActive = pathname === href;
+          // Adjust route path if your route is /category/[slug] or /[slug]
+          const href = `/seminars/${category.slug}`;
+          const isActive = pathname === href;
 
-        return (
-          <Link
-            key={category._id}
-            href={href}
-            className={cn(
-              "w-full text-left px-2.5 py-2  text-sm font-medium transition-all",
-              isActive
-                ? "bg-hover text-primary font-semibold"
-                : " text-gray-700 hover:bg-gray-200 hover:text-gray-900",
-            )}
-          >
-            {category.category}
-          </Link>
-        );
-      })}
-    </div>
+          return (
+            <Link
+              key={category._id}
+              href={href}
+              className={cn(
+                "w-full text-left px-2.5 py-2  text-sm font-medium transition-all",
+                isActive
+                  ? "bg-hover text-primary font-semibold"
+                  : " text-gray-700 hover:bg-gray-200 hover:text-gray-900",
+              )}
+            >
+              {category.category}
+            </Link>
+          );
+        })}
+      </div>
+    </>
   );
 }

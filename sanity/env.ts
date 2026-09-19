@@ -20,19 +20,7 @@ function assertValue<T>(v: T | undefined, errorMessage: string): T {
 }
 
 //TODOS:
-// addverstisements
-// redo footer
-// archive to main page addon
-// clean tailwind stuff
-// speakers row col in seminar
-// adds below seminars list
-// fix map
-// subscirbtion before adds
-// about us at the bottom
-// add partners
-// header
 // SEO
 // db backup
-// add tests
 
 // docker exec -it seminary-fop-postgres-1 psql "postgresql://user:password@localhost:5432/seminars-db"

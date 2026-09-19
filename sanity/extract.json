@@ -2265,6 +2265,23 @@
         },
         "optional": true
       },
+      "speakerLayout": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "union",
+          "of": [
+            {
+              "type": "string",
+              "value": "1"
+            },
+            {
+              "type": "string",
+              "value": "2"
+            }
+          ]
+        },
+        "optional": true
+      },
       "image": {
         "type": "objectAttribute",
         "value": {

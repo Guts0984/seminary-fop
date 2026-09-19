@@ -311,6 +311,7 @@ export type Seminar = {
       _key: string;
     } & SpeakerReference
   >;
+  speakerLayout?: "1" | "2";
   image?: {
     asset?: SanityImageAssetReference;
     media?: unknown;
@@ -627,7 +628,7 @@ export type GetPartnersQueryResult = Array<{
 
 // Source: features/seminars/queries/getSeminarBySlug.ts
 // Variable: getSeminarBySlug
-// Query: *[_type == "seminar" && slug.current == $slug][0]{    _id,  title,  subtitle,  subtitle_main,  "slug": slug.current,  description,  eventDates,  eventTime,  location,  type,  category,  schedule,  discount,  googleMap,  price,  youGet,  "image": image.asset->url,  speakers[]->{    _id,    name,    "slug": slug.current,    title,    bio,    "photoUrl": photo.asset->url  }  }
+// Query: *[_type == "seminar" && slug.current == $slug][0]{    _id,  title,  subtitle,  subtitle_main,  "slug": slug.current,  description,  eventDates,  eventTime,  speakerLayout,  location,  type,  category,  schedule,  discount,  googleMap,  price,  youGet,  "image": image.asset->url,  speakers[]->{    _id,    name,    "slug": slug.current,    title,    bio,    "photoUrl": photo.asset->url  }  }
 export type GetSeminarBySlugResult = {
   _id: string;
   title: Array<{
@@ -727,6 +728,7 @@ export type GetSeminarBySlugResult = {
   > | null;
   eventDates: Array<string>;
   eventTime: string | null;
+  speakerLayout: "1" | "2" | null;
   location: Array<{
     children?: Array<{
       marks?: Array<string>;
@@ -928,7 +930,7 @@ export type GetSeminarBySlugResult = {
 
 // Source: features/seminars/queries/getSeminarsQuery.ts
 // Variable: getSeminarsQuery
-// Query: {    "items": *[      _type == "seminar"      && defined(slug.current)      && (  ($filterType == "upcoming" && count(eventDates[@ >= $today]) > 0) ||  ($filterType == "past" && count(eventDates[@ < $today]) == count(eventDates)) ||  (!defined($filterType) || $filterType == "all"))    ] | order(eventDates[0] desc) [$start...$end] {        _id,  title,  subtitle,  subtitle_main,  "slug": slug.current,  description,  eventDates,  eventTime,  location,  type,  category,  schedule,  discount,  googleMap,  price,  youGet,  "image": image.asset->url,  speakers[]->{    _id,    name,    "slug": slug.current,    title,    bio,    "photoUrl": photo.asset->url  }    },    "total": count(*[      _type == "seminar"      && defined(slug.current)      && (  ($filterType == "upcoming" && count(eventDates[@ >= $today]) > 0) ||  ($filterType == "past" && count(eventDates[@ < $today]) == count(eventDates)) ||  (!defined($filterType) || $filterType == "all"))    ])  }
+// Query: {    "items": *[      _type == "seminar"      && defined(slug.current)      && (  ($filterType == "upcoming" && count(eventDates[@ >= $today]) > 0) ||  ($filterType == "past" && count(eventDates[@ < $today]) == count(eventDates)) ||  (!defined($filterType) || $filterType == "all"))    ] | order(eventDates[0] desc) [$start...$end] {        _id,  title,  subtitle,  subtitle_main,  "slug": slug.current,  description,  eventDates,  eventTime,  speakerLayout,  location,  type,  category,  schedule,  discount,  googleMap,  price,  youGet,  "image": image.asset->url,  speakers[]->{    _id,    name,    "slug": slug.current,    title,    bio,    "photoUrl": photo.asset->url  }    },    "total": count(*[      _type == "seminar"      && defined(slug.current)      && (  ($filterType == "upcoming" && count(eventDates[@ >= $today]) > 0) ||  ($filterType == "past" && count(eventDates[@ < $today]) == count(eventDates)) ||  (!defined($filterType) || $filterType == "all"))    ])  }
 export type GetSeminarsQueryResult = {
   items: Array<{
     _id: string;
@@ -1029,6 +1031,7 @@ export type GetSeminarsQueryResult = {
     > | null;
     eventDates: Array<string>;
     eventTime: string | null;
+    speakerLayout: "1" | "2" | null;
     location: Array<{
       children?: Array<{
         marks?: Array<string>;
@@ -1434,8 +1437,8 @@ declare global {
     '\n  *[_type == "seminar" && _id in $ids] {\n    _id,\n    title,\n    "availableTypes": type\n  }\n': SeminarsByIdsQueryResult;
     '\n  *[_type == "contact"][0] {\n    phone,\n    email,\n    address,\n    registerNumbers\n  }\n': GetContactQueryResult;
     '\n  *[_type == "partner"] {\n    "image": image.asset->url,\n    link\n  }\n': GetPartnersQueryResult;
-    '*[_type == "seminar" && slug.current == $slug][0]{\n  \n  _id,\n  title,\n  subtitle,\n  subtitle_main,\n  "slug": slug.current,\n  description,\n  eventDates,\n  eventTime,\n  location,\n  type,\n  category,\n  schedule,\n  discount,\n  googleMap,\n  price,\n  youGet,\n  "image": image.asset->url,\n  speakers[]->{\n    _id,\n    name,\n    "slug": slug.current,\n    title,\n    bio,\n    "photoUrl": photo.asset->url\n  }\n\n  }\n': GetSeminarBySlugResult;
-    '\n  {\n    "items": *[\n      _type == "seminar"\n      && defined(slug.current)\n      && (\n  ($filterType == "upcoming" && count(eventDates[@ >= $today]) > 0) ||\n  ($filterType == "past" && count(eventDates[@ < $today]) == count(eventDates)) ||\n  (!defined($filterType) || $filterType == "all")\n)\n    ] | order(eventDates[0] desc) [$start...$end] {\n      \n  _id,\n  title,\n  subtitle,\n  subtitle_main,\n  "slug": slug.current,\n  description,\n  eventDates,\n  eventTime,\n  location,\n  type,\n  category,\n  schedule,\n  discount,\n  googleMap,\n  price,\n  youGet,\n  "image": image.asset->url,\n  speakers[]->{\n    _id,\n    name,\n    "slug": slug.current,\n    title,\n    bio,\n    "photoUrl": photo.asset->url\n  }\n\n    },\n    "total": count(*[\n      _type == "seminar"\n      && defined(slug.current)\n      && (\n  ($filterType == "upcoming" && count(eventDates[@ >= $today]) > 0) ||\n  ($filterType == "past" && count(eventDates[@ < $today]) == count(eventDates)) ||\n  (!defined($filterType) || $filterType == "all")\n)\n    ])\n  }\n': GetSeminarsQueryResult;
+    '*[_type == "seminar" && slug.current == $slug][0]{\n  \n  _id,\n  title,\n  subtitle,\n  subtitle_main,\n  "slug": slug.current,\n  description,\n  eventDates,\n  eventTime,\n  speakerLayout,\n  location,\n  type,\n  category,\n  schedule,\n  discount,\n  googleMap,\n  price,\n  youGet,\n  "image": image.asset->url,\n  speakers[]->{\n    _id,\n    name,\n    "slug": slug.current,\n    title,\n    bio,\n    "photoUrl": photo.asset->url\n  }\n\n  }\n': GetSeminarBySlugResult;
+    '\n  {\n    "items": *[\n      _type == "seminar"\n      && defined(slug.current)\n      && (\n  ($filterType == "upcoming" && count(eventDates[@ >= $today]) > 0) ||\n  ($filterType == "past" && count(eventDates[@ < $today]) == count(eventDates)) ||\n  (!defined($filterType) || $filterType == "all")\n)\n    ] | order(eventDates[0] desc) [$start...$end] {\n      \n  _id,\n  title,\n  subtitle,\n  subtitle_main,\n  "slug": slug.current,\n  description,\n  eventDates,\n  eventTime,\n  speakerLayout,\n  location,\n  type,\n  category,\n  schedule,\n  discount,\n  googleMap,\n  price,\n  youGet,\n  "image": image.asset->url,\n  speakers[]->{\n    _id,\n    name,\n    "slug": slug.current,\n    title,\n    bio,\n    "photoUrl": photo.asset->url\n  }\n\n    },\n    "total": count(*[\n      _type == "seminar"\n      && defined(slug.current)\n      && (\n  ($filterType == "upcoming" && count(eventDates[@ >= $today]) > 0) ||\n  ($filterType == "past" && count(eventDates[@ < $today]) == count(eventDates)) ||\n  (!defined($filterType) || $filterType == "all")\n)\n    ])\n  }\n': GetSeminarsQueryResult;
     '\n  *[_type == "seminar"\n    && defined(slug.current)\n    && (\n      ($filterType == "upcoming" && count(eventDates[@ >= $today]) > 0) ||\n      ($filterType == "past" && count(eventDates[@ < $today]) == count(eventDates)) ||\n      (!defined($filterType) || $filterType == "all")\n    )\n  ] | order(eventDates[0] desc) {\n    _id,\n    category,\n    "slug": slug.current\n  }\n': GetSidebarSeminarsQueryResult;
     '\n  *[_type == "speaker" && slug.current == $slug][0]{\n    \n  _id,\n  name,\n  "slug": slug.current,\n  title,\n  bio,\n  "photo": photo.asset->url,\n  "seminars": *[_type == "seminar" && references(^._id)] | order(eventDates[0] desc) {\n    _id,\n    title,\n    "slug": slug.current,\n    eventDates,\n    "image": image.asset->url\n  }\n\n  }\n': GetSpeakerBySlugResult;
     '\n  {\n    "items": *[_type == "speaker"] | order(name asc) [$start...$end] {\n      \n  _id,\n  name,\n  "slug": slug.current,\n  title,\n  bio,\n  "photo": photo.asset->url,\n  "seminars": *[_type == "seminar" && references(^._id)] | order(eventDates[0] desc) {\n    _id,\n    title,\n    "slug": slug.current,\n    eventDates,\n    "image": image.asset->url\n  }\n\n    },\n    "total": count(*[_type == "speaker"])\n  }\n': GetSpeakersQueryResult;

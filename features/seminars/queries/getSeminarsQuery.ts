@@ -9,6 +9,7 @@ export const seminarFields = `
   description,
   eventDates,
   eventTime,
+  speakerLayout,
   location,
   type,
   category,

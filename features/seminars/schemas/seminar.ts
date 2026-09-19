@@ -158,6 +158,21 @@ export const seminar = defineType({
     }),
 
     defineField({
+      name: "speakerLayout",
+      title: "Розташування спікерів",
+      type: "string",
+      options: {
+        list: [
+          { title: "1 в рядку", value: "1" },
+          { title: "Безліч", value: "2" },
+        ],
+        layout: "radio",
+        direction: "vertical",
+      },
+      initialValue: "2",
+    }),
+
+    defineField({
       name: "image",
       title: "Фото",
       type: "image",

@@ -12,7 +12,7 @@ export default function SlugSeminarProgram({
   }
 
   return (
-    <div className="mt-10 space-y-6">
+    <div className="space-y-3">
       <h3 className="text-center font-medium text-primary">Програма:</h3>
       <div>
         <PortableText value={seminar.description} components={TextFormating} />

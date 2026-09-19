@@ -13,13 +13,6 @@ export default async function SeminarsPage({
 
   return (
     <section aria-labelledby="events-heading" className="space-y-6">
-      <header className="space-y-2 text-center md:text-left">
-        <h1 id="events-heading" className="text-3xl font-medium">
-          СЕМІНАРИ & ВЕБІНАРИ
-        </h1>
-        <p className="text-secondary-foreground">Найближчі події</p>
-      </header>
-
       {/* Mobile Horizontal Carousel */}
       <div className="block md:hidden border-y py-3">
         <CategoriesWrapper variant="mobile" filterType="upcoming" />
@@ -28,6 +21,13 @@ export default async function SeminarsPage({
       <Suspense key={JSON.stringify(params)} fallback={<SeminarsListSkeleton />}>
         <SeminarDataWrapper searchParams={params} filterType="upcoming" />
       </Suspense>
+
+      <header className="space-y-2 text-center md:text-left -mt-4">
+        <h1 id="events-heading" className="text-3xl font-medium">
+          СЕМІНАРИ & ВЕБІНАРИ
+        </h1>
+        <p className="text-secondary-foreground">Найближчі події</p>
+      </header>
     </section>
   );
 }

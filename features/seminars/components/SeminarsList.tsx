@@ -24,13 +24,7 @@ export function SeminarsList({ data }: { data: GetSeminarsQueryResult }) {
 
   return (
     <div>
-      <div className="mb-6">
-        <p className="text-sm text-secondary-foreground">
-          Знайдено {data.total} {getSeminarPlural(data.total)}
-        </p>
-      </div>
-
-      <div className="flex flex-col gap-8">
+      <div className="flex flex-col gap-3">
         {data.total > 0 ? (
           data.items.map((event) => (
             <SeminarCard key={event._id} seminar={event} />
@@ -40,6 +34,12 @@ export function SeminarsList({ data }: { data: GetSeminarsQueryResult }) {
             No seminars found.
           </div>
         )}
+      </div>
+
+      <div className="mt-6">
+        <p className="text-sm text-secondary-foreground">
+          Знайдено {data.total} {getSeminarPlural(data.total)}
+        </p>
       </div>
     </div>
   );

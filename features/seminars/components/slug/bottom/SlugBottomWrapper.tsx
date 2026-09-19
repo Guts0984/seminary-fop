@@ -6,15 +6,17 @@ import SeminarSlugRegisterField from "../SeminarSlugRegisterField";
 export default function SlugBottomWrapper({
   seminar,
   registerNumbers,
+  phone,
 }: {
   seminar: GetSeminarBySlugResult;
   registerNumbers: string[];
+  phone?: string | null;
 }) {
   if (!seminar) {
     return null;
   }
   return (
-    <div className="mt-5 space-y-4">
+    <div className=" space-y-2">
       <SlugSeminarBlueprint title={"Вартість участі"} content={seminar.price} />
 
       <SlugSeminarBlueprint title={"Знижки"} content={seminar.discount} />
@@ -34,6 +36,7 @@ export default function SlugBottomWrapper({
       <SeminarSlugRegisterField
         seminar={seminar}
         registerNumbers={registerNumbers}
+        phone={phone}
         bottom={true}
       />
 

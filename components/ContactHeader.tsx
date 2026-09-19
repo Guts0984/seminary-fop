@@ -34,10 +34,12 @@ export default function ContactHeader({
           </button>
         )}
       </div>
-      <div className="flex gap-1">
-        <Telegram size={24} color="white" />
-        <Viber size={24} color="white" />
-      </div>
+      {contact?.phone && (
+        <div className="flex gap-1">
+          <Telegram phone={contact.phone} size={24} color="white" />
+          <Viber phone={contact.phone} size={24} color="white" />
+        </div>
+      )}
     </div>
   );
 }

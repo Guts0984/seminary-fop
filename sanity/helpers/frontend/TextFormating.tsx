@@ -16,29 +16,29 @@ export const TextFormating: PortableTextComponents = {
       </p>
     ),
     h2: ({ children }) => (
-      <h2 className="mt-1 mb-1 text-base font-semibold leading-snug tracking-tight first:mt-0 text-primary hover:text-primary/85">
+      <h2 className="mt-1 text-base font-semibold leading-snug tracking-tight first:mt-0 text-primary hover:text-primary/85">
         {children}
       </h2>
     ),
     h3: ({ children }) => (
-      <h3 className="mt-1 mb-1 text-sm font-semibold leading-snug tracking-tight text-secondary first:mt-0">
+      <h3 className="mt-1 text-sm font-semibold leading-snug tracking-tight text-secondary first:mt-0">
         {children}
       </h3>
     ),
     blockquote: ({ children }) => (
-      <blockquote className="my-1 border-l-2 border-primary/60 pl-3 text-sm italic leading-relaxed text-foreground/70">
+      <blockquote className="mt-1 border-l-2 border-primary/60 pl-3 text-sm italic leading-relaxed text-foreground/70">
         {children}
       </blockquote>
     ),
   },
   list: {
     bullet: ({ children }) => (
-      <ul className="my-1 ml-4 list-disc space-y-1 text-[14px] leading-relaxed marker:text-primary/70">
+      <ul className="mt-1 ml-4 list-disc space-y-1 text-[14px] leading-relaxed marker:text-primary/70">
         {children}
       </ul>
     ),
     number: ({ children }) => (
-      <ol className="my-1 ml-4 list-decimal space-y-1 text-[14px] leading-relaxed marker:text-primary/70">
+      <ol className="m-1 ml-4 list-decimal space-y-1 text-[14px] leading-relaxed marker:text-primary/70">
         {children}
       </ol>
     ),

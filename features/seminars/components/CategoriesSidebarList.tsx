@@ -1,7 +1,6 @@
 // @/features/seminars/components/CategoriesSidebarList.tsx
 "use client";
 
-import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import { GetSidebarSeminarsQueryResult } from "@/sanity/types";
 import Link from "next/link";
@@ -19,12 +18,9 @@ export default function CategoriesSidebarList({
   return (
     <>
       <div className="flex flex-col w-full border-2 border-gray-200 rounded-xl overflow-hidden">
-        <div className="space-y-2 p-2 flex flex-col ml-1.5">
-          <h3 className="font-medium text-primary text-md">
-            Семінари / Вебінари
-          </h3>
-          <Separator className="data-horizontal:h-1 bg-primary max-w-48" />
-        </div>
+        <h3 className="w-full bg-primary px-3 py-2 font-medium text-md text-white">
+          Семінари / Вебінари
+        </h3>
         {categories.map((category) => {
           if (!category.slug) return null;
 

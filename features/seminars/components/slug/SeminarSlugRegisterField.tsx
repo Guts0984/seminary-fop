@@ -13,10 +13,12 @@ import Viber from "@/components/icons/Viber";
 export default function SeminarSlugRegisterField({
   seminar,
   registerNumbers,
+  phone,
   bottom = false,
 }: {
   seminar: GetSeminarBySlugResult;
   registerNumbers: string[];
+  phone?: string | null;
   bottom?: boolean;
 }) {
   const handleCopy = async (value: string) => {
@@ -50,10 +52,12 @@ export default function SeminarSlugRegisterField({
         ))}
       </div>
 
-      <div className="flex gap-2 items-center justify-center">
-        <Viber size={30} />
-        <Telegram size={30} />
-      </div>
+      {phone && (
+        <div className="flex gap-2 items-center justify-center">
+          <Viber phone={phone} size={30} />
+          <Telegram phone={phone} size={30} />
+        </div>
+      )}
 
       <Link href={`/register/${seminar?.slug}`} className="flex justify-center">
         <Button className="group flex items-center gap-1 bg-[#008000] hover:bg-[#008000]/85 text-gray-50 text-xs px-4 cursor-pointer">

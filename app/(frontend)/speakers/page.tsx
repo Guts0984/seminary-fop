@@ -18,14 +18,14 @@ export default async function SpeakerPage({
   const params = await searchParams;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-2">
+      <Suspense key={JSON.stringify(params)} fallback={<SpeakersListSkeleton />}>
+        <SpeakerDataWrapper searchParams={params} />
+      </Suspense>
       <div className="space-y-2">
         <h3 className="font-medium text-lg">Доповідачі</h3>
         <Separator className="data-horizontal:h-1 bg-primary max-w-30" />
       </div>
-      <Suspense key={JSON.stringify(params)} fallback={<SpeakersListSkeleton />}>
-        <SpeakerDataWrapper searchParams={params} />
-      </Suspense>
     </div>
   );
 }

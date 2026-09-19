@@ -43,14 +43,19 @@ export default async function SeminarSlugPage({
   const registerNumbers = contact?.registerNumbers ?? [];
 
   return (
-    <div>
+    <div className="space-y-3">
       <SlugSeminarOverview
         seminar={seminar}
         registerNumbers={registerNumbers}
+        phone={contact?.phone}
       />
       <SlugSeminarSpeakers seminar={seminar} />
       <SlugSeminarProgram seminar={seminar} />
-      <SlugBottomWrapper seminar={seminar} registerNumbers={registerNumbers} />
+      <SlugBottomWrapper
+        seminar={seminar}
+        registerNumbers={registerNumbers}
+        phone={contact?.phone}
+      />
     </div>
   );
 }

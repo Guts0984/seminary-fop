@@ -41,15 +41,15 @@ export default function SpeakerList({
 
   return (
     <div>
-      <div className="mb-4">
-        <p className="text-sm text-secondary-foreground">
-          Знайдено {data.total} {getSpeakerPlural(data.total)}
-        </p>
-      </div>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 xl:grid-cols-4">
         {items.map((speaker) => (
           <SpeakerCard key={speaker._id} speaker={speaker} />
         ))}
+      </div>
+      <div className="mt-4">
+        <p className="text-sm text-secondary-foreground">
+          Знайдено {data.total} {getSpeakerPlural(data.total)}
+        </p>
       </div>
     </div>
   );

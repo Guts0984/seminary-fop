@@ -26,7 +26,7 @@ export function SeminarCard({ seminar }: { seminar: Seminar }) {
     block: {
       ...(TextFormating.block as Record<string, unknown>),
       h2: ({ children }) => (
-        <h2 className="mt-6 mb-2 text-base font-semibold leading-snug tracking-tight first:mt-0 text-primary transition-colors duration-200 hover:text-primary/80">
+        <h2 className="mt-1 mb-0.5 text-base font-semibold leading-snug tracking-tight first:mt-0 text-primary transition-colors duration-200 hover:text-primary/80">
           <Link href={`/seminars/${seminar.slug}`}>{children}</Link>
         </h2>
       ),
@@ -35,7 +35,7 @@ export function SeminarCard({ seminar }: { seminar: Seminar }) {
 
   return (
     <div className="flex gap-2 border-2 border-gray-200 rounded-lg p-2">
-      <div className="flex flex-col h-fit gap-1 space-y-2">
+      <div className="flex flex-col h-fit gap-1 space-y-2 w-32.5 shrink-0">
         <Link href={`/seminars/${seminar.slug}`}>
           <div className="relative h-21.25 w-32.5 shrink-0">
             <Image
@@ -56,7 +56,7 @@ export function SeminarCard({ seminar }: { seminar: Seminar }) {
         </Link>
 
         <div>
-          <p className="text-xs ml-1 font-bold flex justify-center flex-wrap text-secondary-foreground">
+          <p className="text-xs ml-1 font-bold text-center text-secondary-foreground">
             {seminar.type
               ?.map((type) => SEMINAR_TYPES[type as SeminarType])
               .join(" + ")}
@@ -78,7 +78,7 @@ export function SeminarCard({ seminar }: { seminar: Seminar }) {
           </Button>
         </Link>
       </div>
-      <div className="flex flex-col gap-1">
+      <div className="flex flex-col gap-0.5">
         <PortableText value={seminar.title} components={titleComponents} />
         <PortableText value={seminar.subtitle} components={TextFormating} />
         {seminar.speakers?.length ? (

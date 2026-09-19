@@ -10,7 +10,7 @@ export default function PartnersCard({ image, link }: PartnersCardProps) {
 
   return (
     <a href={link} target="_blank" rel="noopener noreferrer">
-      <div className="relative h-40 w-full">
+      <div className="relative h-52 w-full">
         <Image
           src={image}
           alt="Partner logo"

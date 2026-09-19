@@ -22,5 +22,6 @@ function assertValue<T>(v: T | undefined, errorMessage: string): T {
 //TODOS:
 // SEO
 // db backup
+// info@seminar-webinar.com.ua
 
 // docker exec -it seminary-fop-postgres-1 psql "postgresql://user:password@localhost:5432/seminars-db"

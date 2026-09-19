@@ -10,9 +10,11 @@ import SeminarSlugRegisterField from "./SeminarSlugRegisterField";
 export default function SlugSeminarOverview({
   seminar,
   registerNumbers,
+  phone,
 }: {
   seminar: GetSeminarBySlugResult;
   registerNumbers: string[];
+  phone?: string | null;
 }) {
   if (!seminar) {
     return null;
@@ -20,7 +22,7 @@ export default function SlugSeminarOverview({
 
   return (
     <div className="flex gap-3">
-      <div className="flex flex-col h-fit gap-1 space-y-2">
+      <div className="flex flex-col h-fit gap-1 space-y-2 w-32.5 shrink-0">
         <div className="relative h-21.25 w-32.5 shrink-0">
           <Image
             src={seminar.image || "/no-image.jpg"}
@@ -31,7 +33,7 @@ export default function SlugSeminarOverview({
         </div>
 
         <div>
-          <p className="text-xs ml-1 font-bold flex justify-center text-secondary-foreground">
+          <p className="text-xs ml-1 font-bold text-center text-secondary-foreground">
             {seminar.type
               ?.map((type) => SEMINAR_TYPES[type as SeminarType])
               .join(" + ")}
@@ -45,6 +47,7 @@ export default function SlugSeminarOverview({
         <SeminarSlugRegisterField
           seminar={seminar}
           registerNumbers={registerNumbers}
+          phone={phone}
         />
       </div>
       <div className="flex flex-col gap-1">

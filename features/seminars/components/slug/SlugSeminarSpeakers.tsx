@@ -15,7 +15,7 @@ export default function SlugSeminarSpeakers({
   const { speakers } = seminar;
 
   return (
-    <div className="mt-10 space-y-6">
+    <div className="space-y-2">
       <div className="mb-4 space-y-2">
         <h3 className="text-center font-medium text-primary">
           {speakers?.length === 1
@@ -26,8 +26,8 @@ export default function SlugSeminarSpeakers({
       <div
         className={
           seminar.speakerLayout === "1"
-            ? "grid grid-cols-1 gap-6"
-            : "grid gap-6 lg:grid-cols-2"
+            ? "grid grid-cols-1 gap-3"
+            : "grid gap-3 lg:grid-cols-2"
         }
       >
         {speakers.map((speaker) => (
@@ -75,7 +75,7 @@ export default function SlugSeminarSpeakers({
               </h4>
 
               {speaker.title && (
-                <div className="mt-2 text-sm text-foreground/90">
+                <div className="mt-1 text-sm text-foreground/90">
                   <PortableText
                     value={speaker.title}
                     components={TextFormating}

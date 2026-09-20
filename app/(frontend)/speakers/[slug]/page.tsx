@@ -3,12 +3,47 @@ import { client } from "@/sanity/lib/client";
 import { getSpeakerBySlug } from "@/features/speakers/queries/getSpeakerBySlug";
 import { SpeakerSeminars } from "@/features/speakers/components/SpeakerSeminars";
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
+import { urlFor } from "@/sanity/lib/image";
 import Image from "next/image";
 import { TextFormating } from "@/sanity/helpers/frontend/TextFormating";
 
 const speakerSlugsQuery = defineQuery(
   `*[_type == "speaker" && defined(slug.current)].slug.current`,
 );
+
+type RouteProps = {
+  params: Promise<{ slug: string }>;
+};
+
+const getSpeaker = async (params: RouteProps["params"]) =>
+  client.withConfig({ useCdn: false }).fetch(getSpeakerBySlug, await params);
+
+export async function generateMetadata({
+  params,
+}: RouteProps): Promise<Metadata> {
+  const { slug } = await params;
+  const speaker = await getSpeaker(params);
+
+  if (!speaker) {
+    return {};
+  }
+
+  return {
+    title: speaker.seo.title,
+    description: speaker.seo.description,
+    alternates: { canonical: `/speakers/${slug}` },
+    openGraph: {
+      images: {
+        url: speaker.seo.image
+          ? urlFor(speaker.seo.image).width(1200).height(630).url()
+          : `/api/og?id=${speaker._id}`,
+        width: 1200,
+        height: 630,
+      },
+    },
+  };
+}
 
 export async function generateStaticParams() {
   if (process.env.NODE_ENV === "development") {
@@ -22,16 +57,8 @@ export async function generateStaticParams() {
   return slugs.map((slug: string) => ({ slug }));
 }
 
-export default async function SpeakerSlugPage({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
-  const { slug } = await params;
-
-  const speaker = await client
-    .withConfig({ useCdn: false })
-    .fetch(getSpeakerBySlug, { slug });
+export default async function SpeakerSlugPage({ params }: RouteProps) {
+  const speaker = await getSpeaker(params);
 
   if (!speaker) {
     notFound();

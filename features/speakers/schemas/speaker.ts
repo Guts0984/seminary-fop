@@ -49,6 +49,13 @@ export const speaker = defineType({
         hotspot: true,
       },
     }),
+
+    defineField({
+      name: "seo",
+      title:
+        "SEO (Заповнювати лише у випадку, коли потрібно переписати створену автоматичну інформацію, в інших випадках лишити пусті поля)",
+      type: "seo",
+    }),
   ],
   preview: {
     select: {

@@ -67,7 +67,7 @@ export default function NewsletterForm() {
             e.preventDefault();
             handleOpenModal();
           }}
-          className="flex flex-row items-center gap-2"
+          className="flex flex-col items-center gap-2 lg:flex-row"
         >
           <Controller
             name="email"

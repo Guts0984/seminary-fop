@@ -1,4 +1,12 @@
+import type { Metadata } from "next";
 import CategoriesWrapper from "@/features/seminars/components/CategoriesWrapper";
+
+export const metadata: Metadata = {
+  title: "Семінари та вебінари",
+  description:
+    "Найближчі семінари та вебінари для спеціалістів: актуальні теми, досвідчені спікери, практичні відповіді.",
+  alternates: { canonical: "/seminars" },
+};
 import { SeminarDataWrapper } from "@/features/seminars/components/SeminarDataWrapper";
 import { SeminarsListSkeleton } from "@/features/seminars/components/SeminarsListSkeleton";
 import { SeminarSearchParams } from "@/features/seminars/types";

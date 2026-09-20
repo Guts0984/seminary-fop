@@ -21,7 +21,9 @@ function assertValue<T>(v: T | undefined, errorMessage: string): T {
 
 //TODOS:
 // SEO
+// optimization
 // db backup
+// After deploy, manual steps left (I can't do these): submit https://<domain>/sitemap.xml in Google Search Console,
 // info@seminar-webinar.com.ua
 
 // docker exec -it seminary-fop-postgres-1 psql "postgresql://user:password@localhost:5432/seminars-db"

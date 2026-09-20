@@ -1,4 +1,12 @@
+import type { Metadata } from "next";
 import CategoriesWrapper from "@/features/seminars/components/CategoriesWrapper";
+
+export const metadata: Metadata = {
+  title: "Записи семінарів",
+  description:
+    "Записи минулих семінарів і вебінарів для спеціалістів — отримайте повний доступ до матеріалів.",
+  alternates: { canonical: "/recordings" },
+};
 import { SeminarDataWrapper } from "@/features/seminars/components/SeminarDataWrapper";
 import { SeminarsListSkeleton } from "@/features/seminars/components/SeminarsListSkeleton";
 import { SeminarSearchParams } from "@/features/seminars/types";

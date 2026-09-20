@@ -1,4 +1,12 @@
+import type { Metadata } from "next";
 import { Separator } from "@/components/ui/separator";
+
+export const metadata: Metadata = {
+  title: "Спікери",
+  description:
+    "Наші доповідачі — практикуючі експерти з податків, права та ведення бізнесу.",
+  alternates: { canonical: "/speakers" },
+};
 import SpeakerList from "@/features/speakers/components/SpeakersList";
 import { SpeakersListSkeleton } from "@/features/speakers/components/SpeakersListSkeleton";
 import { getSpeakersQuery } from "@/features/speakers/queries/getSpeakersQuery";

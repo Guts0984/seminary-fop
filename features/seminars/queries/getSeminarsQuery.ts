@@ -19,6 +19,11 @@ export const seminarFields = `
   price,
   youGet,
   "image": image.asset->url,
+  "seo": {
+    "title": coalesce(seo.title, pt::text(title), ""),
+    "description": coalesce(seo.description, pt::text(subtitle), ""),
+    "image": seo.image
+  },
   speakers[]->{
     _id,
     name,

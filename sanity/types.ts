@@ -22,6 +22,19 @@ export type SanityImageAssetReference = {
   [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
 };
 
+export type Seo = {
+  _type: "seo";
+  title?: string;
+  description?: string;
+  image?: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+};
+
 export type Partner = {
   _id: string;
   _type: "partner";
@@ -339,6 +352,7 @@ export type Seminar = {
     _key: string;
   }>;
   googleMap?: string;
+  seo?: Seo;
 };
 
 export type Slug = {
@@ -418,6 +432,7 @@ export type Speaker = {
     crop?: SanityImageCrop;
     _type: "image";
   };
+  seo?: Seo;
 };
 
 export type SanityImagePaletteSwatch = {
@@ -519,6 +534,7 @@ export type Geopoint = {
 
 export type AllSanitySchemaTypes =
   | SanityImageAssetReference
+  | Seo
   | Partner
   | SanityImageCrop
   | SanityImageHotspot
@@ -578,6 +594,21 @@ export type SeminarForRegistrationQueryResult = {
 // Query: *[_type == "speaker" && defined(slug.current)].slug.current
 export type SpeakerSlugsQueryResult = Array<string>;
 
+// Source: app/api/og/route.tsx
+// Variable: ogImageQuery
+// Query: *[_id == $id && _type in ["seminar", "speaker"]][0]{    "title": coalesce(      seo.title,      select(_type == "seminar" => pt::text(title), _type == "speaker" => name),      ""    ),    "image": coalesce(      seo.image,      select(_type == "seminar" => image, _type == "speaker" => photo)    ),    "palette": coalesce(      seo.image,      select(_type == "seminar" => image, _type == "speaker" => photo)    ).asset->metadata.palette  }
+export type OgImageQueryResult = {
+  title: string;
+  image: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  } | null;
+  palette: SanityImagePalette | null;
+} | null;
+
 // Source: app/api/seminar-registrations/route.ts
 // Variable: seminarsByIdsQuery
 // Query: *[_type == "seminar" && _id in $ids] {    _id,    title,    "availableTypes": type  }
@@ -628,7 +659,7 @@ export type GetPartnersQueryResult = Array<{
 
 // Source: features/seminars/queries/getSeminarBySlug.ts
 // Variable: getSeminarBySlug
-// Query: *[_type == "seminar" && slug.current == $slug][0]{    _id,  title,  subtitle,  subtitle_main,  "slug": slug.current,  description,  eventDates,  eventTime,  speakerLayout,  location,  type,  category,  schedule,  discount,  googleMap,  price,  youGet,  "image": image.asset->url,  speakers[]->{    _id,    name,    "slug": slug.current,    title,    bio,    "photoUrl": photo.asset->url  }  }
+// Query: *[_type == "seminar" && slug.current == $slug][0]{    _id,  title,  subtitle,  subtitle_main,  "slug": slug.current,  description,  eventDates,  eventTime,  speakerLayout,  location,  type,  category,  schedule,  discount,  googleMap,  price,  youGet,  "image": image.asset->url,  "seo": {    "title": coalesce(seo.title, pt::text(title), ""),    "description": coalesce(seo.description, pt::text(subtitle), ""),    "image": seo.image  },  speakers[]->{    _id,    name,    "slug": slug.current,    title,    bio,    "photoUrl": photo.asset->url  }  }
 export type GetSeminarBySlugResult = {
   _id: string;
   title: Array<{
@@ -864,6 +895,17 @@ export type GetSeminarBySlugResult = {
       }
   > | null;
   image: string | null;
+  seo: {
+    title: string;
+    description: string;
+    image: {
+      asset?: SanityImageAssetReference;
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    } | null;
+  };
   speakers: Array<{
     _id: string;
     name: string;
@@ -930,7 +972,7 @@ export type GetSeminarBySlugResult = {
 
 // Source: features/seminars/queries/getSeminarsQuery.ts
 // Variable: getSeminarsQuery
-// Query: {    "items": *[      _type == "seminar"      && defined(slug.current)      && (  ($filterType == "upcoming" && count(eventDates[@ >= $today]) > 0) ||  ($filterType == "past" && count(eventDates[@ < $today]) == count(eventDates)) ||  (!defined($filterType) || $filterType == "all"))    ] | order(eventDates[0] desc) [$start...$end] {        _id,  title,  subtitle,  subtitle_main,  "slug": slug.current,  description,  eventDates,  eventTime,  speakerLayout,  location,  type,  category,  schedule,  discount,  googleMap,  price,  youGet,  "image": image.asset->url,  speakers[]->{    _id,    name,    "slug": slug.current,    title,    bio,    "photoUrl": photo.asset->url  }    },    "total": count(*[      _type == "seminar"      && defined(slug.current)      && (  ($filterType == "upcoming" && count(eventDates[@ >= $today]) > 0) ||  ($filterType == "past" && count(eventDates[@ < $today]) == count(eventDates)) ||  (!defined($filterType) || $filterType == "all"))    ])  }
+// Query: {    "items": *[      _type == "seminar"      && defined(slug.current)      && (  ($filterType == "upcoming" && count(eventDates[@ >= $today]) > 0) ||  ($filterType == "past" && count(eventDates[@ < $today]) == count(eventDates)) ||  (!defined($filterType) || $filterType == "all"))    ] | order(eventDates[0] desc) [$start...$end] {        _id,  title,  subtitle,  subtitle_main,  "slug": slug.current,  description,  eventDates,  eventTime,  speakerLayout,  location,  type,  category,  schedule,  discount,  googleMap,  price,  youGet,  "image": image.asset->url,  "seo": {    "title": coalesce(seo.title, pt::text(title), ""),    "description": coalesce(seo.description, pt::text(subtitle), ""),    "image": seo.image  },  speakers[]->{    _id,    name,    "slug": slug.current,    title,    bio,    "photoUrl": photo.asset->url  }    },    "total": count(*[      _type == "seminar"      && defined(slug.current)      && (  ($filterType == "upcoming" && count(eventDates[@ >= $today]) > 0) ||  ($filterType == "past" && count(eventDates[@ < $today]) == count(eventDates)) ||  (!defined($filterType) || $filterType == "all"))    ])  }
 export type GetSeminarsQueryResult = {
   items: Array<{
     _id: string;
@@ -1167,6 +1209,17 @@ export type GetSeminarsQueryResult = {
         }
     > | null;
     image: string | null;
+    seo: {
+      title: string;
+      description: string;
+      image: {
+        asset?: SanityImageAssetReference;
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      } | null;
+    };
     speakers: Array<{
       _id: string;
       name: string;
@@ -1244,7 +1297,7 @@ export type GetSidebarSeminarsQueryResult = Array<{
 
 // Source: features/speakers/queries/getSpeakerBySlug.tsx
 // Variable: getSpeakerBySlug
-// Query: *[_type == "speaker" && slug.current == $slug][0]{      _id,  name,  "slug": slug.current,  title,  bio,  "photo": photo.asset->url,  "seminars": *[_type == "seminar" && references(^._id)] | order(eventDates[0] desc) {    _id,    title,    "slug": slug.current,    eventDates,    "image": image.asset->url  }  }
+// Query: *[_type == "speaker" && slug.current == $slug][0]{      _id,  name,  "slug": slug.current,  title,  bio,  "photo": photo.asset->url,  "seo": {    "title": coalesce(seo.title, name, ""),    "description": coalesce(seo.description, pt::text(title), ""),    "image": seo.image  },  "seminars": *[_type == "seminar" && references(^._id)] | order(eventDates[0] desc) {    _id,    title,    "slug": slug.current,    eventDates,    "image": image.asset->url  }  }
 export type GetSpeakerBySlugResult = {
   _id: string;
   name: string;
@@ -1306,6 +1359,17 @@ export type GetSpeakerBySlugResult = {
       }
   > | null;
   photo: string | null;
+  seo: {
+    title: string;
+    description: string;
+    image: {
+      asset?: SanityImageAssetReference;
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    } | null;
+  };
   seminars: Array<{
     _id: string;
     title: Array<{
@@ -1335,7 +1399,7 @@ export type GetSpeakerBySlugResult = {
 
 // Source: features/speakers/queries/getSpeakersQuery.tsx
 // Variable: getSpeakersQuery
-// Query: {    "items": *[_type == "speaker"] | order(name asc) [$start...$end] {        _id,  name,  "slug": slug.current,  title,  bio,  "photo": photo.asset->url,  "seminars": *[_type == "seminar" && references(^._id)] | order(eventDates[0] desc) {    _id,    title,    "slug": slug.current,    eventDates,    "image": image.asset->url  }    },    "total": count(*[_type == "speaker"])  }
+// Query: {    "items": *[_type == "speaker"] | order(name asc) [$start...$end] {        _id,  name,  "slug": slug.current,  title,  bio,  "photo": photo.asset->url,  "seo": {    "title": coalesce(seo.title, name, ""),    "description": coalesce(seo.description, pt::text(title), ""),    "image": seo.image  },  "seminars": *[_type == "seminar" && references(^._id)] | order(eventDates[0] desc) {    _id,    title,    "slug": slug.current,    eventDates,    "image": image.asset->url  }    },    "total": count(*[_type == "speaker"])  }
 export type GetSpeakersQueryResult = {
   items: Array<{
     _id: string;
@@ -1398,6 +1462,17 @@ export type GetSpeakersQueryResult = {
         }
     > | null;
     photo: string | null;
+    seo: {
+      title: string;
+      description: string;
+      image: {
+        asset?: SanityImageAssetReference;
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      } | null;
+    };
     seminars: Array<{
       _id: string;
       title: Array<{
@@ -1427,6 +1502,22 @@ export type GetSpeakersQueryResult = {
   total: number;
 };
 
+// Source: sanity/lib/queries.ts
+// Variable: sitemapQuery
+// Query: *[_type in ["seminar", "speaker"] && defined(slug.current)] {    "href": select(      _type == "seminar" => "/seminars/" + slug.current,      _type == "speaker" => "/speakers/" + slug.current    ),    _type,    _updatedAt  }
+export type SitemapQueryResult = Array<
+  | {
+      href: string;
+      _type: "seminar";
+      _updatedAt: string;
+    }
+  | {
+      href: string;
+      _type: "speaker";
+      _updatedAt: string;
+    }
+>;
+
 // Query TypeMap
 declare global {
   interface SanityQueries {
@@ -1434,14 +1525,16 @@ declare global {
       SeminarSlugsQueryResult | SeminarRegistrationSlugsQueryResult;
     '\n  *[_type == "seminar" && slug.current == $slug][0] {\n    _id,\n    title,\n    type\n  }\n': SeminarForRegistrationQueryResult;
     '*[_type == "speaker" && defined(slug.current)].slug.current': SpeakerSlugsQueryResult;
+    '\n  *[_id == $id && _type in ["seminar", "speaker"]][0]{\n    "title": coalesce(\n      seo.title,\n      select(_type == "seminar" => pt::text(title), _type == "speaker" => name),\n      ""\n    ),\n    "image": coalesce(\n      seo.image,\n      select(_type == "seminar" => image, _type == "speaker" => photo)\n    ),\n    "palette": coalesce(\n      seo.image,\n      select(_type == "seminar" => image, _type == "speaker" => photo)\n    ).asset->metadata.palette\n  }\n': OgImageQueryResult;
     '\n  *[_type == "seminar" && _id in $ids] {\n    _id,\n    title,\n    "availableTypes": type\n  }\n': SeminarsByIdsQueryResult;
     '\n  *[_type == "contact"][0] {\n    phone,\n    email,\n    address,\n    registerNumbers\n  }\n': GetContactQueryResult;
     '\n  *[_type == "partner"] {\n    "image": image.asset->url,\n    link\n  }\n': GetPartnersQueryResult;
-    '*[_type == "seminar" && slug.current == $slug][0]{\n  \n  _id,\n  title,\n  subtitle,\n  subtitle_main,\n  "slug": slug.current,\n  description,\n  eventDates,\n  eventTime,\n  speakerLayout,\n  location,\n  type,\n  category,\n  schedule,\n  discount,\n  googleMap,\n  price,\n  youGet,\n  "image": image.asset->url,\n  speakers[]->{\n    _id,\n    name,\n    "slug": slug.current,\n    title,\n    bio,\n    "photoUrl": photo.asset->url\n  }\n\n  }\n': GetSeminarBySlugResult;
-    '\n  {\n    "items": *[\n      _type == "seminar"\n      && defined(slug.current)\n      && (\n  ($filterType == "upcoming" && count(eventDates[@ >= $today]) > 0) ||\n  ($filterType == "past" && count(eventDates[@ < $today]) == count(eventDates)) ||\n  (!defined($filterType) || $filterType == "all")\n)\n    ] | order(eventDates[0] desc) [$start...$end] {\n      \n  _id,\n  title,\n  subtitle,\n  subtitle_main,\n  "slug": slug.current,\n  description,\n  eventDates,\n  eventTime,\n  speakerLayout,\n  location,\n  type,\n  category,\n  schedule,\n  discount,\n  googleMap,\n  price,\n  youGet,\n  "image": image.asset->url,\n  speakers[]->{\n    _id,\n    name,\n    "slug": slug.current,\n    title,\n    bio,\n    "photoUrl": photo.asset->url\n  }\n\n    },\n    "total": count(*[\n      _type == "seminar"\n      && defined(slug.current)\n      && (\n  ($filterType == "upcoming" && count(eventDates[@ >= $today]) > 0) ||\n  ($filterType == "past" && count(eventDates[@ < $today]) == count(eventDates)) ||\n  (!defined($filterType) || $filterType == "all")\n)\n    ])\n  }\n': GetSeminarsQueryResult;
+    '*[_type == "seminar" && slug.current == $slug][0]{\n  \n  _id,\n  title,\n  subtitle,\n  subtitle_main,\n  "slug": slug.current,\n  description,\n  eventDates,\n  eventTime,\n  speakerLayout,\n  location,\n  type,\n  category,\n  schedule,\n  discount,\n  googleMap,\n  price,\n  youGet,\n  "image": image.asset->url,\n  "seo": {\n    "title": coalesce(seo.title, pt::text(title), ""),\n    "description": coalesce(seo.description, pt::text(subtitle), ""),\n    "image": seo.image\n  },\n  speakers[]->{\n    _id,\n    name,\n    "slug": slug.current,\n    title,\n    bio,\n    "photoUrl": photo.asset->url\n  }\n\n  }\n': GetSeminarBySlugResult;
+    '\n  {\n    "items": *[\n      _type == "seminar"\n      && defined(slug.current)\n      && (\n  ($filterType == "upcoming" && count(eventDates[@ >= $today]) > 0) ||\n  ($filterType == "past" && count(eventDates[@ < $today]) == count(eventDates)) ||\n  (!defined($filterType) || $filterType == "all")\n)\n    ] | order(eventDates[0] desc) [$start...$end] {\n      \n  _id,\n  title,\n  subtitle,\n  subtitle_main,\n  "slug": slug.current,\n  description,\n  eventDates,\n  eventTime,\n  speakerLayout,\n  location,\n  type,\n  category,\n  schedule,\n  discount,\n  googleMap,\n  price,\n  youGet,\n  "image": image.asset->url,\n  "seo": {\n    "title": coalesce(seo.title, pt::text(title), ""),\n    "description": coalesce(seo.description, pt::text(subtitle), ""),\n    "image": seo.image\n  },\n  speakers[]->{\n    _id,\n    name,\n    "slug": slug.current,\n    title,\n    bio,\n    "photoUrl": photo.asset->url\n  }\n\n    },\n    "total": count(*[\n      _type == "seminar"\n      && defined(slug.current)\n      && (\n  ($filterType == "upcoming" && count(eventDates[@ >= $today]) > 0) ||\n  ($filterType == "past" && count(eventDates[@ < $today]) == count(eventDates)) ||\n  (!defined($filterType) || $filterType == "all")\n)\n    ])\n  }\n': GetSeminarsQueryResult;
     '\n  *[_type == "seminar"\n    && defined(slug.current)\n    && (\n      ($filterType == "upcoming" && count(eventDates[@ >= $today]) > 0) ||\n      ($filterType == "past" && count(eventDates[@ < $today]) == count(eventDates)) ||\n      (!defined($filterType) || $filterType == "all")\n    )\n  ] | order(eventDates[0] desc) {\n    _id,\n    category,\n    "slug": slug.current\n  }\n': GetSidebarSeminarsQueryResult;
-    '\n  *[_type == "speaker" && slug.current == $slug][0]{\n    \n  _id,\n  name,\n  "slug": slug.current,\n  title,\n  bio,\n  "photo": photo.asset->url,\n  "seminars": *[_type == "seminar" && references(^._id)] | order(eventDates[0] desc) {\n    _id,\n    title,\n    "slug": slug.current,\n    eventDates,\n    "image": image.asset->url\n  }\n\n  }\n': GetSpeakerBySlugResult;
-    '\n  {\n    "items": *[_type == "speaker"] | order(name asc) [$start...$end] {\n      \n  _id,\n  name,\n  "slug": slug.current,\n  title,\n  bio,\n  "photo": photo.asset->url,\n  "seminars": *[_type == "seminar" && references(^._id)] | order(eventDates[0] desc) {\n    _id,\n    title,\n    "slug": slug.current,\n    eventDates,\n    "image": image.asset->url\n  }\n\n    },\n    "total": count(*[_type == "speaker"])\n  }\n': GetSpeakersQueryResult;
+    '\n  *[_type == "speaker" && slug.current == $slug][0]{\n    \n  _id,\n  name,\n  "slug": slug.current,\n  title,\n  bio,\n  "photo": photo.asset->url,\n  "seo": {\n    "title": coalesce(seo.title, name, ""),\n    "description": coalesce(seo.description, pt::text(title), ""),\n    "image": seo.image\n  },\n  "seminars": *[_type == "seminar" && references(^._id)] | order(eventDates[0] desc) {\n    _id,\n    title,\n    "slug": slug.current,\n    eventDates,\n    "image": image.asset->url\n  }\n\n  }\n': GetSpeakerBySlugResult;
+    '\n  {\n    "items": *[_type == "speaker"] | order(name asc) [$start...$end] {\n      \n  _id,\n  name,\n  "slug": slug.current,\n  title,\n  bio,\n  "photo": photo.asset->url,\n  "seo": {\n    "title": coalesce(seo.title, name, ""),\n    "description": coalesce(seo.description, pt::text(title), ""),\n    "image": seo.image\n  },\n  "seminars": *[_type == "seminar" && references(^._id)] | order(eventDates[0] desc) {\n    _id,\n    title,\n    "slug": slug.current,\n    eventDates,\n    "image": image.asset->url\n  }\n\n    },\n    "total": count(*[_type == "speaker"])\n  }\n': GetSpeakersQueryResult;
+    '\n  *[_type in ["seminar", "speaker"] && defined(slug.current)] {\n    "href": select(\n      _type == "seminar" => "/seminars/" + slug.current,\n      _type == "speaker" => "/speakers/" + slug.current\n    ),\n    _type,\n    _updatedAt\n  }\n': SitemapQueryResult;
   }
 }
 // Lets @sanity/client releases that predate the global registry read it too

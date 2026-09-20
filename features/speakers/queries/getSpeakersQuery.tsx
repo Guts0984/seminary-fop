@@ -7,6 +7,11 @@ export const speakerFields = `
   title,
   bio,
   "photo": photo.asset->url,
+  "seo": {
+    "title": coalesce(seo.title, name, ""),
+    "description": coalesce(seo.description, pt::text(title), ""),
+    "image": seo.image
+  },
   "seminars": *[_type == "seminar" && references(^._id)] | order(eventDates[0] desc) {
     _id,
     title,

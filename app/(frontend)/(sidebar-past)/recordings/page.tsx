@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import CategoriesWrapper from "@/features/seminars/components/CategoriesWrapper";
+import { SeminarDataWrapper } from "@/features/seminars/components/SeminarDataWrapper";
+import { SeminarsListSkeleton } from "@/features/seminars/components/SeminarsListSkeleton";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Записи семінарів",
@@ -7,18 +10,12 @@ export const metadata: Metadata = {
     "Записи минулих семінарів і вебінарів для спеціалістів — отримайте повний доступ до матеріалів.",
   alternates: { canonical: "/recordings" },
 };
-import { SeminarDataWrapper } from "@/features/seminars/components/SeminarDataWrapper";
-import { SeminarsListSkeleton } from "@/features/seminars/components/SeminarsListSkeleton";
-import { SeminarSearchParams } from "@/features/seminars/types";
-import { Suspense } from "react";
 
-export default async function Home({
-  searchParams,
-}: {
-  searchParams: Promise<SeminarSearchParams>;
-}) {
-  const params = await searchParams;
+// Upcoming/past split depends on the current date, so re-render at least
+// daily even when no Studio change triggers the revalidate webhook.
+export const revalidate = 86400;
 
+export default async function RecordingsPage() {
   return (
     <section aria-labelledby="events-heading" className="space-y-6">
       {/* Mobile Horizontal Carousel */}
@@ -26,8 +23,8 @@ export default async function Home({
         <CategoriesWrapper variant="mobile" filterType="past" />
       </div>
 
-      <Suspense key={JSON.stringify(params)} fallback={<SeminarsListSkeleton />}>
-        <SeminarDataWrapper searchParams={params} filterType="past" />
+      <Suspense fallback={<SeminarsListSkeleton />}>
+        <SeminarDataWrapper filterType="past" />
       </Suspense>
 
       <header className="space-y-2 text-center md:text-left -mt-4">

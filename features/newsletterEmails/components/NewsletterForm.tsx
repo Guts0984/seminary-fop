@@ -106,7 +106,7 @@ export default function NewsletterForm() {
           <Button
             type="submit"
             disabled={isSubmitting}
-            className="whitespace-nowrap h-6 px-3 py-0 text-[11px] md:text-xs min-h-0 flex items-center justify-center hover:cursor-pointer rounded-sm w-28 border border-red-400 bg-primary/85 font-semibold text-white shadow-sm shadow-red-900/40 transition-colors hover:bg-primary/90 active:bg-red-700"
+            className="whitespace-nowrap h-6 px-3 py-0 text-[11px] md:text-xs min-h-0 flex items-center justify-center hover:cursor-pointer rounded-sm w-28 border border-red-400 bg-secondary/85 font-semibold text-white shadow-sm shadow-red-900/40 transition-colors hover:bg-secondary/90 active:bg-red-700"
           >
             {isSubmitting ? "..." : "Підписатися"}
           </Button>

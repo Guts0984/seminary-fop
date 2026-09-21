@@ -46,7 +46,7 @@ export const getSeminarsQuery = defineQuery(`
       _type == "seminar"
       && defined(slug.current)
       && ${seminarDateFilter}
-    ] | order(eventDates[0] desc) [$start...$end] {
+    ] | order(eventDates[0] desc) {
       ${seminarFields}
     },
     "total": count(*[

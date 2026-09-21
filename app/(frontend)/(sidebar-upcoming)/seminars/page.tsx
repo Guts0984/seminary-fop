@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import CategoriesWrapper from "@/features/seminars/components/CategoriesWrapper";
+import { SeminarDataWrapper } from "@/features/seminars/components/SeminarDataWrapper";
+import { SeminarsListSkeleton } from "@/features/seminars/components/SeminarsListSkeleton";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Семінари та вебінари",
@@ -7,18 +10,12 @@ export const metadata: Metadata = {
     "Найближчі семінари та вебінари для спеціалістів: актуальні теми, досвідчені спікери, практичні відповіді.",
   alternates: { canonical: "/seminars" },
 };
-import { SeminarDataWrapper } from "@/features/seminars/components/SeminarDataWrapper";
-import { SeminarsListSkeleton } from "@/features/seminars/components/SeminarsListSkeleton";
-import { SeminarSearchParams } from "@/features/seminars/types";
-import { Suspense } from "react";
 
-export default async function SeminarsPage({
-  searchParams,
-}: {
-  searchParams: Promise<SeminarSearchParams>;
-}) {
-  const params = await searchParams;
+// Upcoming/past split depends on the current date, so re-render at least
+// daily even when no Studio change triggers the revalidate webhook.
+export const revalidate = 86400;
 
+export default async function SeminarsPage() {
   return (
     <section aria-labelledby="events-heading" className="space-y-6">
       {/* Mobile Horizontal Carousel */}
@@ -26,8 +23,8 @@ export default async function SeminarsPage({
         <CategoriesWrapper variant="mobile" filterType="upcoming" />
       </div>
 
-      <Suspense key={JSON.stringify(params)} fallback={<SeminarsListSkeleton />}>
-        <SeminarDataWrapper searchParams={params} filterType="upcoming" />
+      <Suspense fallback={<SeminarsListSkeleton />}>
+        <SeminarDataWrapper filterType="upcoming" />
       </Suspense>
 
       <header className="space-y-2 text-center md:text-left -mt-4">

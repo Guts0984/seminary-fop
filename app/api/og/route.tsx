@@ -1,5 +1,7 @@
 import { defineQuery } from "next-sanity";
 import { ImageResponse } from "next/og";
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 import { client } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
 
@@ -21,20 +23,15 @@ const ogImageQuery = defineQuery(`
   }
 `);
 
-async function loadFont(text: string) {
-  const url = `https://fonts.googleapis.com/css?family=Inter:wght@700&text=${encodeURIComponent(text)}`;
-  const css = await (await fetch(url)).text();
-  const resource = css.match(
-    /src: url\((.+)\) format\('(opentype|truetype)'\)/,
-  );
-  if (!resource) {
-    throw new Error("failed to load font data");
+// Read once from disk — no runtime dependency on Google Fonts.
+let fontData: Buffer | null = null;
+async function loadFont() {
+  if (!fontData) {
+    fontData = await readFile(
+      join(process.cwd(), "public/fonts/Inter-Bold.ttf"),
+    );
   }
-  const response = await fetch(resource[1]);
-  if (response.status !== 200) {
-    throw new Error("failed to load font data");
-  }
-  return response.arrayBuffer();
+  return fontData;
 }
 
 function truncate(text: string, max: number) {
@@ -47,12 +44,52 @@ function titleFontSize(length: number) {
   return 40;
 }
 
+async function brandCard() {
+  const text = "Seminars & Webinars";
+  const subtext = "Семінари та вебінари для спеціалістів";
+
+  return new ImageResponse(
+    (
+      <div
+        tw="flex w-full h-full relative"
+        style={{
+          background: "linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%)",
+        }}
+      >
+        <div tw="flex flex-col w-full h-full items-center justify-center px-14">
+          <h1
+            tw="text-white"
+            style={{ fontSize: 80, lineHeight: 1.1, letterSpacing: "-0.02em" }}
+          >
+            {text}
+          </h1>
+          <p tw="text-white/80 mt-6" style={{ fontSize: 36 }}>
+            {subtext}
+          </p>
+        </div>
+      </div>
+    ),
+    {
+      width: 1200,
+      height: 630,
+      fonts: [
+        {
+          name: "Inter",
+          data: await loadFont(),
+          weight: 700,
+          style: "normal",
+        },
+      ],
+    },
+  );
+}
+
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const id = searchParams.get("id");
 
   if (!id) {
-    return new Response("Missing id parameter", { status: 400 });
+    return brandCard();
   }
 
   const data = await client.fetch(ogImageQuery, { id });
@@ -106,7 +143,7 @@ export async function GET(request: Request) {
       fonts: [
         {
           name: "Inter",
-          data: await loadFont(text),
+          data: await loadFont(),
           weight: 700,
           style: "normal",
         },

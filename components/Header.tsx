@@ -10,7 +10,7 @@ export default function Header({
   contact: GetContactQueryResult;
 }) {
   return (
-    <header className="w-full bg-primary sticky top-0 z-50 ">
+    <header className="w-full bg-secondary sticky top-0 z-50 ">
       <div className="mx-auto flex h-20 w-full max-w-7xl flex-row items-center justify-between pr-4 lg:pr-12">
         <div className="ml-5">
           <Logo />

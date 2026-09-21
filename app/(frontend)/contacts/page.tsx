@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { sanityFetch } from "@/sanity/lib/live";
+import { client } from "@/sanity/lib/client";
+import { sanityCacheOptions } from "@/sanity/lib/cache";
 import { getContactQuery } from "@/features/contacts/queries/getContactQuery";
 import ContactsView from "@/features/contacts/components/ContactsView";
 
@@ -11,7 +12,7 @@ export const metadata: Metadata = {
 };
 
 export default async function ContactPage() {
-  const { data: contact } = await sanityFetch({ query: getContactQuery });
+  const contact = await client.fetch(getContactQuery, {}, sanityCacheOptions);
 
   return <ContactsView contact={contact} />;
 }

@@ -9,13 +9,6 @@ export type CategoriesWrapperProps = {
   filterType?: FilterType;
 };
 
-export type SeminarSearchParams = {
-  category?: string;
-  start?: number;
-  end?: number;
-  filterType?: FilterType;
-};
-
 export type SeminarSpeaker = NonNullable<
   NonNullable<GetSeminarsQueryResult["items"]>[number]["speakers"]
 >[number];

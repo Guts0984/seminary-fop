@@ -23,7 +23,9 @@ function assertValue<T>(v: T | undefined, errorMessage: string): T {
 // SEO
 // optimization
 // db backup
+// metadata dont work
 // After deploy, manual steps left (I can't do these): submit https://<domain>/sitemap.xml in Google Search Console,
+// fix revalidate webhook
 // info@seminar-webinar.com.ua
 
 // docker exec -it seminary-fop-postgres-1 psql "postgresql://user:password@localhost:5432/seminars-db"

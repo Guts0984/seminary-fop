@@ -8,12 +8,12 @@ export default function Logo() {
 
   const handleMouseEnter = () => {
     const el = ampRef.current;
-    if (!el || el.classList.contains("amp-swoosh")) return;
-    el.classList.add("amp-swoosh");
+    if (!el || el.classList.contains("amp-jump")) return;
+    el.classList.add("amp-jump");
   };
 
   const handleAnimationEnd = () => {
-    ampRef.current?.classList.remove("amp-swoosh");
+    ampRef.current?.classList.remove("amp-jump");
   };
 
   return (

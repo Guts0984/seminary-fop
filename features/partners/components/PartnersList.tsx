@@ -1,12 +1,10 @@
-import { sanityFetch } from "@/sanity/lib/live";
+import { client } from "@/sanity/lib/client";
+import { sanityCacheOptions } from "@/sanity/lib/cache";
 import { getPartnersQuery } from "../queries/getPartnersQuery";
 import PartnersCard from "./PartnersCard";
 
 export default async function PartnersList() {
-  const { data: partners } = await sanityFetch({
-    query: getPartnersQuery,
-    stega: false,
-  });
+  const partners = await client.fetch(getPartnersQuery, {}, sanityCacheOptions);
 
   if (!partners?.length) return null;
 

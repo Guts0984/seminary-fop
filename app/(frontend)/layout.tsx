@@ -1,6 +1,7 @@
 import Header from "@/components/Header";
-import { sanityFetch, SanityLive } from "@/sanity/lib/live";
 import Footer from "@/components/Footer";
+import { client } from "@/sanity/lib/client";
+import { sanityCacheOptions } from "@/sanity/lib/cache";
 import { getContactQuery } from "@/features/contacts/queries/getContactQuery";
 import "./globals.css";
 
@@ -9,7 +10,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { data: contact } = await sanityFetch({ query: getContactQuery });
+  const contact = await client.fetch(getContactQuery, {}, sanityCacheOptions);
 
   return (
     <div className="flex min-h-screen w-full flex-col font-sans">
@@ -18,7 +19,6 @@ export default async function RootLayout({
         {children}
       </div>
       <Footer contact={contact} />
-      <SanityLive />
     </div>
   );
 }

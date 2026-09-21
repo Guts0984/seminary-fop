@@ -23,7 +23,7 @@ export const speakerFields = `
 
 export const getSpeakersQuery = defineQuery(`
   {
-    "items": *[_type == "speaker"] | order(name asc) [$start...$end] {
+    "items": *[_type == "speaker"] | order(name asc) {
       ${speakerFields}
     },
     "total": count(*[_type == "speaker"])

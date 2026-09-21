@@ -10,7 +10,7 @@ export default function Footer({
   contact: GetContactQueryResult;
 }) {
   return (
-    <footer className="bg-primary text-white">
+    <footer className="bg-secondary text-white">
       <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-x-8 gap-y-4 px-4 py-6 sm:px-6">
         {/* Left: Про нас */}
         <div className="flex flex-1 flex-col items-start gap-2">

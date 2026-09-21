@@ -1,4 +1,5 @@
-import { sanityFetch } from "@/sanity/lib/live";
+import { client } from "@/sanity/lib/client";
+import { sanityCacheOptions } from "@/sanity/lib/cache";
 import { getSidebarSeminarsQuery } from "../queries/getSidebarSeminarsQuery";
 import { nowBucket } from "../helpers/nowBucket";
 import CategoriesSidebarList from "./CategoriesSidebarList";
@@ -10,14 +11,14 @@ export default async function CategoriesWrapper({
   variant = "sidebar",
   filterType = "all",
 }: CategoriesWrapperProps) {
-  const { data } = await sanityFetch({
-    query: getSidebarSeminarsQuery,
-    params: {
+  const data = await client.fetch(
+    getSidebarSeminarsQuery,
+    {
       filterType,
       today: nowBucket().slice(0, 10),
     },
-    stega: false,
-  });
+    sanityCacheOptions,
+  );
 
   if (!data?.length) return null;
 

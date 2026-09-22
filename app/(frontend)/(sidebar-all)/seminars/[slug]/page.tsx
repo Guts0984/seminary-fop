@@ -1,14 +1,14 @@
-import { defineQuery } from "next-sanity";
-import { client } from "@/sanity/lib/client";
-import { getSeminarBySlug } from "@/features/seminars/queries/getSeminarBySlug";
-import { notFound } from "next/navigation";
-import type { Metadata } from "next";
-import { urlFor } from "@/sanity/lib/image";
-import SlugSeminarOverview from "@/features/seminars/components/slug/SlugSeminarOverview";
-import SlugSeminarSpeakers from "@/features/seminars/components/slug/SlugSeminarSpeakers";
-import SlugSeminarProgram from "@/features/seminars/components/slug/SlugSeminarProgram";
-import SlugBottomWrapper from "@/features/seminars/components/slug/bottom/SlugBottomWrapper";
 import { getContactQuery } from "@/features/contacts/queries/getContactQuery";
+import SlugSeminarOverview from "@/features/seminars/components/slug/SlugSeminarOverview";
+import SlugSeminarProgram from "@/features/seminars/components/slug/SlugSeminarProgram";
+import SlugSeminarSpeakers from "@/features/seminars/components/slug/SlugSeminarSpeakers";
+import SlugBottomWrapper from "@/features/seminars/components/slug/bottom/SlugBottomWrapper";
+import { getSeminarBySlug } from "@/features/seminars/queries/getSeminarBySlug";
+import { client } from "@/sanity/lib/client";
+import { urlFor } from "@/sanity/lib/image";
+import type { Metadata } from "next";
+import { defineQuery } from "next-sanity";
+import { notFound } from "next/navigation";
 
 const seminarSlugsQuery = defineQuery(
   `*[_type == "seminar" && defined(slug.current)].slug.current`,
@@ -19,9 +19,7 @@ type RouteProps = {
 };
 
 const getSeminar = async (params: RouteProps["params"]) =>
-  client
-    .withConfig({ useCdn: false })
-    .fetch(getSeminarBySlug, await params);
+  client.withConfig({ useCdn: false }).fetch(getSeminarBySlug, await params);
 
 export async function generateMetadata({
   params,

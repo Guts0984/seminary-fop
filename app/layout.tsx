@@ -45,13 +45,17 @@ export const metadata: Metadata = {
     default: "Seminars & Webinars",
     template: "%s | Seminars & Webinars",
   },
-  description: "Практичні семінари, вебінари та записи тренінгів для спеціалістів",
+  description:
+    "Практичні семінари, вебінари та записи тренінгів для спеціалістів",
   openGraph: {
     images: {
       url: "/api/og",
       width: 1200,
       height: 630,
     },
+  },
+  verification: {
+    google: "BAI1kdn-59rM3jh9_2DhGJ6idUAyFfQ-tosxmSxA_bc",
   },
 };
 

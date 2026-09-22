@@ -11,9 +11,9 @@ export default function Footer({
 }) {
   return (
     <footer className="bg-secondary text-white">
-      <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-x-8 gap-y-4 px-4 py-6 sm:px-6">
-        {/* Left: Про нас */}
-        <div className="flex flex-1 flex-col items-start gap-2">
+      <div className="mx-auto flex max-w-7xl flex-col items-center gap-6 px-4 py-6 text-center sm:px-6 md:flex-row md:items-center md:gap-8 md:text-left">
+        {/* 1: Про нас */}
+        <div className="flex w-full min-w-0 flex-col items-center gap-2 text-center md:w-auto md:flex-1 md:items-start md:text-left">
           <Link
             href="/contacts"
             className="inline-block rounded-sm border border-white px-6 py-2 text-sm font-semibold text-white transition-colors hover:bg-white hover:text-primary"
@@ -26,20 +26,28 @@ export default function Footer({
           </p>
         </div>
 
-        <Separator orientation="vertical" className="bg-white/20" />
+        <Separator className="bg-white/20 md:hidden" />
+        <Separator
+          orientation="vertical"
+          className="hidden bg-white/20 md:block md:self-stretch"
+        />
 
-        {/* Middle: registration numbers */}
-        <div className="flex flex-col items-center gap-2 text-center">
+        {/* 2: registration numbers */}
+        <div className="flex w-full min-w-0 flex-col items-center gap-2 text-center md:w-auto">
           <p className="text-xs font-semibold uppercase tracking-wider text-white/70">
             Телефони для реєстрації
           </p>
           <FooterRegisterNumbers contact={contact} />
         </div>
 
-        <Separator orientation="vertical" className="bg-white/20" />
+        <Separator className="bg-white/20 md:hidden" />
+        <Separator
+          orientation="vertical"
+          className="hidden bg-white/20 md:block md:self-stretch"
+        />
 
-        {/* Right: newsletter */}
-        <div className="flex flex-1 flex-col items-end gap-2">
+        {/* 3: newsletter */}
+        <div className="flex w-full min-w-0 flex-col items-center gap-2 text-center md:w-auto md:flex-1 md:items-end md:text-right">
           <NewsletterForm />
           <p className="text-[10px] text-white/50">
             Підпишіться на розсилку, щоб першими дізнаватись про нові події.

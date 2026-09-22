@@ -11,14 +11,14 @@ export default function ContactHeader({
   contact: GetContactQueryResult;
 }) {
   return (
-    <div className="order-2 lg:order-3 ml-10 lg:ml-0 flex items-center gap-1 text-white">
+    <div className="order-2 lg:order-3 ml-2 lg:ml-0 flex items-center gap-1 mr-1 md:mr-0 text-white">
       <div className="flex flex-col items-start">
         {contact?.phone && (
           <div className="flex items-center gap-1">
             <button
               type="button"
               onClick={() => copyToClipboard(contact.phone)}
-              className="font-bold ml-1 text-sm text-white hover:text-white/85 transition-colors cursor-pointer"
+              className="font-bold ml-1 text-xs text-white md:text-sm hover:text-white/85 transition-colors cursor-pointer"
             >
               {contact.phone}
             </button>
@@ -28,7 +28,7 @@ export default function ContactHeader({
           <button
             type="button"
             onClick={() => copyToClipboard(contact.email)}
-            className="font-bold ml-1 text-left text-sm text-white hover:text-white/85 transition-colors cursor-pointer"
+            className="font-bold ml-1 text-left text-xs text-white hover:text-white/85 transition-colors md:text-sm cursor-pointer"
           >
             {contact.email}
           </button>

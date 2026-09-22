@@ -20,7 +20,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ message: "Invalid secret" }, { status: 401 });
   }
 
-  revalidateTag("sanity", "max");
+  revalidateTag("sanity", { expire: 0 });
   revalidatePath("/", "layout");
 
   return NextResponse.json({ revalidated: true, now: Date.now() });

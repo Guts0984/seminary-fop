@@ -88,6 +88,12 @@ export const seminar = defineType({
       of: [richTextBlock(), imageBlock],
     }),
     defineField({
+      name: "price",
+      title: "Ціна",
+      type: "array",
+      of: [richTextBlock({ headings: false, lists: false, quote: false })],
+    }),
+    defineField({
       name: "discount",
       title: "Знижки",
       type: "array",
@@ -96,6 +102,14 @@ export const seminar = defineType({
     defineField({
       name: "youGet",
       title: "До вартості входить:",
+      type: "array",
+      of: [richTextBlock(), imageBlock],
+    }),
+    defineField({
+      name: "youGetRight",
+      title: "До вартості входить (права колонка)",
+      description:
+        "Якщо заповнено, блок відобразиться у дві колонки 50/50: основний текст зліва, цей — справа",
       type: "array",
       of: [richTextBlock(), imageBlock],
     }),
@@ -109,6 +123,12 @@ export const seminar = defineType({
       description: "Додайте перелік дат проведення семінарів.",
     }),
 
+    defineField({
+      name: "schedule",
+      title: "Розклад",
+      type: "array",
+      of: [richTextBlock()],
+    }),
     defineField({
       name: "eventTime",
       title: "Час проведення",
@@ -126,12 +146,6 @@ export const seminar = defineType({
     defineField({
       name: "location",
       title: "Місце проведення",
-      type: "array",
-      of: [richTextBlock()],
-    }),
-    defineField({
-      name: "schedule",
-      title: "Розклад",
       type: "array",
       of: [richTextBlock()],
     }),
@@ -181,12 +195,6 @@ export const seminar = defineType({
       },
     }),
 
-    defineField({
-      name: "price",
-      title: "Ціна",
-      type: "array",
-      of: [richTextBlock({ headings: false, lists: false, quote: false })],
-    }),
     defineField({
       name: "googleMap",
       title: "Карта (внизу сторінки)",

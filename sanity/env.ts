@@ -20,14 +20,7 @@ function assertValue<T>(v: T | undefined, errorMessage: string): T {
 }
 
 //TODOS:
-// SEO
-// optimization
 // db backup
-// metadata dont work
-// After deploy, manual steps left (I can't do these): submit https://<domain>/sitemap.xml in Google Search Console,
 // fix revalidate webhook
-// to price split column
-// bg for details cards in slug
-// change order of schema elemtns
 
 // docker exec -it seminary-fop-postgres-1 psql "postgresql://user:password@localhost:5432/seminars-db"

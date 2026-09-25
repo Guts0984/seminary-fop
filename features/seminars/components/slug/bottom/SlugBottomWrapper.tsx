@@ -24,6 +24,7 @@ export default function SlugBottomWrapper({
       <SlugSeminarBlueprint
         title={"До вартості входить"}
         content={seminar.youGet}
+        contentRight={seminar.youGetRight}
       />
 
       <SlugSeminarBlueprint

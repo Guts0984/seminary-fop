@@ -4,6 +4,7 @@ import { client } from "@/sanity/lib/client";
 import { sanityCacheOptions } from "@/sanity/lib/cache";
 import { getContactQuery } from "@/features/contacts/queries/getContactQuery";
 import "./globals.css";
+import { UpButton } from "@/components/UpButton";
 
 export default async function RootLayout({
   children,
@@ -19,6 +20,7 @@ export default async function RootLayout({
         {children}
       </div>
       <Footer contact={contact} />
+      <UpButton />
     </div>
   );
 }

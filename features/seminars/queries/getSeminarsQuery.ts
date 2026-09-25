@@ -18,6 +18,7 @@ export const seminarFields = `
   googleMap,
   price,
   youGet,
+  youGetRight,
   "image": image.asset->url,
   "seo": {
     "title": coalesce(seo.title, pt::text(title), ""),

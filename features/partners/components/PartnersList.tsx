@@ -9,12 +9,17 @@ export default async function PartnersList() {
   if (!partners?.length) return null;
 
   return (
-    <ul className="space-y-4">
-      {partners.map((partner) => (
-        <li key={partner.link}>
-          <PartnersCard image={partner.image} link={partner.link} />
-        </li>
-      ))}
-    </ul>
+    <div className="flex flex-col w-full border-2 border-gray-200 rounded-xl overflow-hidden">
+      <h3 className="w-full bg-secondary border-b-2 border-gray-200 px-3 py-2 font-medium text-md text-zinc-900">
+        Партнери
+      </h3>
+      <ul>
+        {partners.map((partner) => (
+          <li key={partner.link}>
+            <PartnersCard image={partner.image} link={partner.link} />
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }

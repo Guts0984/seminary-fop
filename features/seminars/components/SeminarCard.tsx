@@ -34,18 +34,19 @@ export function SeminarCard({ seminar }: { seminar: Seminar }) {
   };
 
   return (
-    <div className="flex gap-2 border-2 border-gray-200 rounded-lg p-2">
+    <div className="flex gap-2.5 border-2 border-gray-200 rounded-lg p-2">
       <div className="flex flex-col h-fit gap-1 space-y-2 w-32.5 shrink-0">
         <Link href={`/seminars/${seminar.slug}`}>
-          <div className="relative h-21.25 w-32.5 shrink-0">
+          <div className="relative w-32.5 shrink-0">
             <Image
               src={image}
               onError={() => {
                 setImage("/no-image.jpg");
               }}
               alt={seminar.slug}
-              fill={true}
-              className="object-cover rounded-lg"
+              width={130}
+              height={85}
+              className="w-full h-auto rounded-md"
             />
             {isPast && (
               <Badge className="absolute left-1 top-1 bg-neutral-600/90 text-white">
@@ -55,6 +56,10 @@ export function SeminarCard({ seminar }: { seminar: Seminar }) {
           </div>
         </Link>
 
+        <SeminarDate
+          eventDates={seminar.eventDates}
+          eventTime={seminar.eventTime}
+        />
         <div>
           <p className="text-xs ml-1 font-bold text-center text-secondary-foreground">
             {seminar.type
@@ -62,11 +67,6 @@ export function SeminarCard({ seminar }: { seminar: Seminar }) {
               .join(" + ")}
           </p>
         </div>
-
-        <SeminarDate
-          eventDates={seminar.eventDates}
-          eventTime={seminar.eventTime}
-        />
 
         <Link
           href={`/register/${seminar.slug}`}

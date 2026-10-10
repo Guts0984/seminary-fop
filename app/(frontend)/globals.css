@@ -5,8 +5,8 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --font-sans: var(--font-e-ukraine);
-  --font-heading: var(--font-e-ukraine);
+  --font-sans: var(--font-inter), Arial, sans-serif;
+  --font-heading: var(--font-inter), Arial, sans-serif;
   --font-montserrat: var(--font-montserrat);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
@@ -61,7 +61,7 @@
   --primary: #00008b;
   --amber: #ffbf00;
   --primary-foreground: oklch(0.985 0 0);
-  --secondary: #740000;
+  --secondary: #d4d4d8;
   --secondary-foreground: #7d8597;
   --muted: oklch(0.97 0 0);
   --muted-foreground: oklch(0.556 0 0);

@@ -88,14 +88,14 @@ export default function NewsletterForm() {
                   placeholder="your@example.com"
                   autoComplete="email"
                   aria-invalid={fieldState.invalid}
-                  className={`w-32 md:w-48 text-white placeholder:text-white/60 text-xs rounded-sm px-2 h-6 transition-colors focus:outline-none bg-transparent ${
+                  className={`w-32 md:w-48 text-zinc-900 placeholder:text-zinc-400 text-xs rounded-sm px-2 h-6 transition-colors focus:outline-none bg-transparent ${
                     fieldState.invalid
                       ? "border-red-500"
-                      : "border-white focus:border-white/70"
+                      : "border-zinc-400 focus:border-zinc-600"
                   }`}
                 />
                 {fieldState.invalid && (
-                  <span className="text-red-400 text-[10px] absolute -bottom-4 left-0 whitespace-nowrap">
+                  <span className="text-red-600 text-[10px] absolute -bottom-4 left-0 whitespace-nowrap">
                     {fieldState.error?.message}
                   </span>
                 )}
@@ -106,7 +106,7 @@ export default function NewsletterForm() {
           <Button
             type="submit"
             disabled={isSubmitting}
-            className="whitespace-nowrap h-6 px-3 py-0 text-[11px] md:text-xs min-h-0 flex items-center justify-center hover:cursor-pointer rounded-sm w-28 border border-red-400 bg-secondary/85 font-semibold text-white shadow-sm shadow-red-900/40 transition-colors hover:bg-secondary/90 active:bg-red-700"
+            className="whitespace-nowrap h-6 px-3 py-0 text-[11px] md:text-xs min-h-0 flex items-center justify-center hover:cursor-pointer rounded-sm w-28 border border-zinc-900 bg-zinc-900 font-semibold text-zinc-100 shadow-sm transition-colors hover:bg-zinc-700 active:bg-zinc-800"
           >
             {isSubmitting ? "..." : "Підписатися"}
           </Button>
@@ -145,7 +145,7 @@ export default function NewsletterForm() {
                     </label>
                   ))}
                   {fieldState.invalid && (
-                    <span className="text-red-400 text-xs">
+                    <span className="text-red-600 text-xs">
                       {fieldState.error?.message}
                     </span>
                   )}

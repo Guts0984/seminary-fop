@@ -10,15 +10,14 @@ export default function PartnersCard({ image, link }: PartnersCardProps) {
 
   return (
     <a href={link} target="_blank" rel="noopener noreferrer">
-      <div className="relative h-52 w-full">
-        <Image
-          src={image}
-          alt="Partner logo"
-          fill
-          className="object-contain"
-          sizes="(max-width: 768px) 100vw, 300px"
-        />
-      </div>
+      <Image
+        src={image}
+        alt="Partner logo"
+        width={0}
+        height={0}
+        sizes="224px"
+        className="block w-full h-auto"
+      />
     </a>
   );
 }

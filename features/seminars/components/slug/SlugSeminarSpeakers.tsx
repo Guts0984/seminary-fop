@@ -74,10 +74,10 @@ export default function SlugSeminarSpeakers({
                 )}
               </h4>
 
-              {speaker.title && (
+              {speaker.bio && (
                 <div className="mt-1 text-sm text-foreground/90">
                   <PortableText
-                    value={speaker.title}
+                    value={speaker.bio}
                     components={TextFormating}
                   />
                 </div>

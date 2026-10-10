@@ -79,19 +79,15 @@ export default async function SpeakerSlugPage({ params }: RouteProps) {
 
         <div className="flex flex-col gap-1">
           <h1 className="text-2xl font-semibold lg:text-3xl">{speaker.name}</h1>
-          {speaker.title && speaker.title.length > 0 && (
-            <div className="text-muted-foreground text-sm lg:text-base">
-              <PortableText value={speaker.title} components={TextFormating} />
+
+          {speaker.bio && speaker.bio.length > 0 && (
+            <div className="prose prose-neutral mt-2 max-w-none">
+              <PortableText value={speaker.bio} components={TextFormating} />
             </div>
           )}
         </div>
       </div>
 
-      {speaker.bio && speaker.bio.length > 0 && (
-        <div className="prose prose-neutral mt-10 max-w-none">
-          <PortableText value={speaker.bio} components={TextFormating} />
-        </div>
-      )}
       <SpeakerSeminars seminars={speaker.seminars ?? []} />
     </div>
   );

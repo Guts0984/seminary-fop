@@ -9,6 +9,12 @@ export function createMarks(): PortableTextComponents["marks"] {
       <strong className="font-semibold">{children}</strong>
     ),
     em: ({ children }) => <em className="italic">{children}</em>,
+    textPrimary: ({ children }) => (
+      <span className="text-primary">{children}</span>
+    ),
+    textSecondary: ({ children }) => (
+      <span className="text-secondary-foreground">{children}</span>
+    ),
     underline: ({ children }) => (
       <span className="underline decoration-gray-400 underline-offset-4">
         {children}

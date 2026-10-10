@@ -11,14 +11,14 @@ export default function ContactHeader({
   contact: GetContactQueryResult;
 }) {
   return (
-    <div className="order-2 lg:order-3 ml-2 lg:ml-0 flex items-center gap-1 mr-1 md:mr-0 text-white">
+    <div className="order-2 lg:order-3 ml-2 lg:ml-0 flex items-center gap-1 mr-1 md:mr-0 text-zinc-900">
       <div className="flex flex-col items-start">
         {contact?.phone && (
           <div className="flex items-center gap-1">
             <button
               type="button"
               onClick={() => copyToClipboard(contact.phone)}
-              className="font-bold ml-1 text-xs text-white md:text-sm hover:text-white/85 transition-colors cursor-pointer"
+              className="font-bold ml-1 text-xs text-zinc-900 md:text-sm hover:text-zinc-500 transition-colors cursor-pointer"
             >
               {contact.phone}
             </button>
@@ -28,7 +28,7 @@ export default function ContactHeader({
           <button
             type="button"
             onClick={() => copyToClipboard(contact.email)}
-            className="font-bold ml-1 text-left text-xs text-white hover:text-white/85 transition-colors md:text-sm cursor-pointer"
+            className="font-bold ml-1 text-left text-xs text-zinc-900 hover:text-zinc-500 transition-colors md:text-sm cursor-pointer"
           >
             {contact.email}
           </button>
@@ -36,8 +36,8 @@ export default function ContactHeader({
       </div>
       {contact?.phone && (
         <div className="flex gap-1">
-          <Telegram phone={contact.phone} size={24} color="white" />
-          <Viber phone={contact.phone} size={24} color="white" />
+          <Telegram phone={contact.phone} size={24} />
+          <Viber phone={contact.phone} size={24} />
         </div>
       )}
     </div>

@@ -35,9 +35,19 @@ export default function SeminarSlugRegisterField({
       <div
         className={cn(
           "flex flex-col",
-          bottom && "flex-row justify-center items-center gap-2",
+          bottom && "items-center gap-2",
+          bottom && registerNumbers.length > 1 && "flex-row justify-center",
         )}
       >
+        <Link
+          href={`/register/${seminar?.slug}`}
+          className="flex justify-center"
+        >
+          <Button className="group flex items-center gap-1 bg-[#008000] hover:bg-[#008000]/85 text-gray-50 text-xs px-4 cursor-pointer">
+            <span>Реєстрація</span>
+            <ChevronRight className="w-4 h-4 transition-transform duration-200 ease-out group-hover:translate-x-1" />
+          </Button>
+        </Link>
         {registerNumbers.map((item) => (
           <button
             key={item}
@@ -58,13 +68,6 @@ export default function SeminarSlugRegisterField({
           <Telegram phone={phone} size={30} />
         </div>
       )}
-
-      <Link href={`/register/${seminar?.slug}`} className="flex justify-center">
-        <Button className="group flex items-center gap-1 bg-[#008000] hover:bg-[#008000]/85 text-gray-50 text-xs px-4 cursor-pointer">
-          <span>Реєстрація</span>
-          <ChevronRight className="w-4 h-4 transition-transform duration-200 ease-out group-hover:translate-x-1" />
-        </Button>
-      </Link>
     </div>
   );
 }

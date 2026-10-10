@@ -7,7 +7,7 @@ type PortableTextLinkProps = {
 
 export function PortableTextLink({ children, value }: PortableTextLinkProps) {
   const className =
-    "text-secondary underline decoration-secondary/40 underline-offset-4 transition-colors hover:text-secondary/50 hover:cursor-pointer hover:decoration-hover";
+    "text-primary underline decoration-primary/40 underline-offset-4 transition-colors hover:text-primary/60 hover:cursor-pointer hover:decoration-hover";
 
   if (value?.openInNewTab) {
     return (

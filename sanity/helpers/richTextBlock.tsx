@@ -2,10 +2,18 @@ type RichTextOptions = {
   headings?: boolean;
   lists?: boolean;
   quote?: boolean;
+  alignment?: boolean;
+  colors?: boolean;
 };
 
 export function richTextBlock(options: RichTextOptions = {}) {
-  const { headings = true, lists = true, quote = true } = options;
+  const {
+    headings = true,
+    lists = true,
+    quote = true,
+    alignment = true,
+    colors = true,
+  } = options;
 
   return {
     type: "block",
@@ -18,6 +26,12 @@ export function richTextBlock(options: RichTextOptions = {}) {
           ]
         : []),
       ...(quote ? [{ title: "Quote", value: "blockquote" }] : []),
+      ...(alignment
+        ? [
+            { title: "По центру", value: "textCenter" },
+            { title: "Праворуч", value: "textRight" },
+          ]
+        : []),
     ],
     lists: lists
       ? [
@@ -31,6 +45,24 @@ export function richTextBlock(options: RichTextOptions = {}) {
         { title: "Italic", value: "em" },
         { title: "Underline", value: "underline" },
         { title: "Code", value: "code" },
+        ...(colors
+          ? [
+              {
+                title: "Blue",
+                value: "textPrimary",
+                icon: () => (
+                  <span style={{ color: "#00008b", fontWeight: 700 }}>A</span>
+                ),
+              },
+              {
+                title: "Red",
+                value: "textSecondary",
+                icon: () => (
+                  <span style={{ color: "#740000", fontWeight: 700 }}>A</span>
+                ),
+              },
+            ]
+          : []),
       ],
       annotations: [
         {

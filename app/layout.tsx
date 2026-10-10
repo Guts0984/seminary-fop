@@ -1,29 +1,11 @@
 import type { Metadata } from "next";
-import { Geist_Mono, Montserrat } from "next/font/google";
+import { Geist_Mono, Inter, Montserrat } from "next/font/google";
 
-import localFont from "next/font/local";
 import { Toaster } from "@/components/ui/sonner";
 
-const eUkraine = localFont({
-  src: [
-    {
-      path: "../public/fonts/e-Ukraine-Regular.woff2",
-      weight: "400",
-      style: "normal",
-    },
-    {
-      path: "../public/fonts/e-Ukraine-Medium.woff2",
-      weight: "500",
-      style: "normal",
-    },
-    {
-      path: "../public/fonts/e-Ukraine-Bold.woff2",
-      weight: "700",
-      style: "normal",
-    },
-  ],
-  variable: "--font-e-ukraine",
-  display: "swap",
+const inter = Inter({
+  variable: "--font-inter",
+  subsets: ["latin", "cyrillic"],
 });
 
 const geistMono = Geist_Mono({
@@ -67,7 +49,7 @@ export default function RootLayout({
   return (
     <html lang="uk" className="h-full antialiased">
       <body
-        className={`${eUkraine.variable} ${geistMono.variable} ${montserrat.variable} min-h-full flex flex-col font-sans bg-background`}
+        className={`${inter.variable} ${geistMono.variable} ${montserrat.variable} min-h-full flex flex-col font-sans bg-background`}
       >
         {children}
         <Toaster />

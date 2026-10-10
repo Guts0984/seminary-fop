@@ -23,15 +23,20 @@ export default function SlugSeminarOverview({
   return (
     <div className="flex gap-3">
       <div className="flex flex-col h-fit gap-1 space-y-2 w-32.5 shrink-0">
-        <div className="relative h-21.25 w-32.5 shrink-0">
+        <div className="relative w-32.5 shrink-0">
           <Image
             src={seminar.image || "/no-image.jpg"}
             alt={seminar.slug}
-            fill={true}
-            className="object-cover rounded-lg"
+            width={130}
+            height={85}
+            className="w-full h-auto rounded-md"
           />
         </div>
 
+        <SeminarDate
+          eventDates={seminar.eventDates}
+          eventTime={seminar.eventTime}
+        />
         <div>
           <p className="text-xs ml-1 font-bold text-center text-secondary-foreground">
             {seminar.type
@@ -39,11 +44,6 @@ export default function SlugSeminarOverview({
               .join(" + ")}
           </p>
         </div>
-
-        <SeminarDate
-          eventDates={seminar.eventDates}
-          eventTime={seminar.eventTime}
-        />
         <SeminarSlugRegisterField
           seminar={seminar}
           registerNumbers={registerNumbers}

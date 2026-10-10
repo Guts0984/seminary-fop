@@ -2,7 +2,7 @@ import { PortableTextComponents } from "next-sanity";
 import { imageBlockComponent } from "./imageBlockComponent";
 import { createMarks } from "./marks";
 
-const BASE_TEXT = "text-[13px] font-normal leading-[1.5] text-gray-900";
+const BASE_TEXT = "text-[14px] font-normal leading-[1.5] text-gray-900";
 
 export const TextFormating: PortableTextComponents = {
   types: imageBlockComponent,
@@ -10,13 +10,19 @@ export const TextFormating: PortableTextComponents = {
     normal: ({ children }) => (
       <p className={`${BASE_TEXT} not-first:mt-1`}>{children}</p>
     ),
+    textCenter: ({ children }) => (
+      <p className={`${BASE_TEXT} not-first:mt-1 text-center`}>{children}</p>
+    ),
+    textRight: ({ children }) => (
+      <p className={`${BASE_TEXT} not-first:mt-1 text-right`}>{children}</p>
+    ),
     h2: ({ children }) => (
-      <h2 className="mt-1 text-base font-semibold leading-snug tracking-tight first:mt-0 text-primary hover:text-primary/85">
+      <h2 className="mt-1 text-[17px] font-semibold leading-snug tracking-tight first:mt-0 text-primary hover:text-primary/85">
         {children}
       </h2>
     ),
     h3: ({ children }) => (
-      <h3 className="mt-1 text-sm font-semibold leading-snug tracking-tight text-secondary first:mt-1">
+      <h3 className="my-3.5 text-[17px] font-bold leading-snug tracking-tight text-gray-900 first:mt-1">
         {children}
       </h3>
     ),

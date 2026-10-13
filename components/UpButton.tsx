@@ -26,7 +26,7 @@ export function UpButton({ threshold = 300 }: { threshold?: number }) {
       aria-label="Scroll to top"
       className={cn(
         "fixed bottom-6 right-6 z-50 h-10 w-10 rounded-full shadow-lg transition-all duration-300",
-        "bg-primary/75 text-white hover:bg-primary/90 cursor-pointer",
+        "bg-secondary/75 text-white hover:bg-secondary/90 cursor-pointer",
         visible
           ? "opacity-100 translate-y-0"
           : "pointer-events-none opacity-0 translate-y-2",

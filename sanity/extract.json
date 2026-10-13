@@ -508,6 +508,14 @@
                     {
                       "type": "string",
                       "value": "blockquote"
+                    },
+                    {
+                      "type": "string",
+                      "value": "textCenter"
+                    },
+                    {
+                      "type": "string",
+                      "value": "textRight"
                     }
                   ]
                 },
@@ -678,6 +686,14 @@
                     {
                       "type": "string",
                       "value": "blockquote"
+                    },
+                    {
+                      "type": "string",
+                      "value": "textCenter"
+                    },
+                    {
+                      "type": "string",
+                      "value": "textRight"
                     }
                   ]
                 },
@@ -848,6 +864,14 @@
                     {
                       "type": "string",
                       "value": "blockquote"
+                    },
+                    {
+                      "type": "string",
+                      "value": "textCenter"
+                    },
+                    {
+                      "type": "string",
+                      "value": "textRight"
                     }
                   ]
                 },
@@ -1127,6 +1151,14 @@
                         {
                           "type": "string",
                           "value": "blockquote"
+                        },
+                        {
+                          "type": "string",
+                          "value": "textCenter"
+                        },
+                        {
+                          "type": "string",
+                          "value": "textRight"
                         }
                       ]
                     },
@@ -1351,6 +1383,163 @@
         },
         "optional": true
       },
+      "price": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "array",
+          "of": {
+            "type": "object",
+            "attributes": {
+              "children": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "array",
+                  "of": {
+                    "type": "object",
+                    "attributes": {
+                      "marks": {
+                        "type": "objectAttribute",
+                        "value": {
+                          "type": "array",
+                          "of": {
+                            "type": "string"
+                          }
+                        },
+                        "optional": true
+                      },
+                      "text": {
+                        "type": "objectAttribute",
+                        "value": {
+                          "type": "string"
+                        },
+                        "optional": true
+                      },
+                      "_type": {
+                        "type": "objectAttribute",
+                        "value": {
+                          "type": "string",
+                          "value": "span"
+                        }
+                      }
+                    },
+                    "rest": {
+                      "type": "object",
+                      "attributes": {
+                        "_key": {
+                          "type": "objectAttribute",
+                          "value": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "optional": true
+              },
+              "style": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "union",
+                  "of": [
+                    {
+                      "type": "string",
+                      "value": "normal"
+                    },
+                    {
+                      "type": "string",
+                      "value": "textCenter"
+                    },
+                    {
+                      "type": "string",
+                      "value": "textRight"
+                    }
+                  ]
+                },
+                "optional": true
+              },
+              "listItem": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "union",
+                  "of": []
+                },
+                "optional": true
+              },
+              "markDefs": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "array",
+                  "of": {
+                    "type": "object",
+                    "attributes": {
+                      "href": {
+                        "type": "objectAttribute",
+                        "value": {
+                          "type": "string"
+                        },
+                        "optional": true
+                      },
+                      "openInNewTab": {
+                        "type": "objectAttribute",
+                        "value": {
+                          "type": "boolean"
+                        },
+                        "optional": true
+                      },
+                      "_type": {
+                        "type": "objectAttribute",
+                        "value": {
+                          "type": "string",
+                          "value": "link"
+                        }
+                      }
+                    },
+                    "rest": {
+                      "type": "object",
+                      "attributes": {
+                        "_key": {
+                          "type": "objectAttribute",
+                          "value": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "optional": true
+              },
+              "level": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "number"
+                },
+                "optional": true
+              },
+              "_type": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "string",
+                  "value": "block"
+                }
+              }
+            },
+            "rest": {
+              "type": "object",
+              "attributes": {
+                "_key": {
+                  "type": "objectAttribute",
+                  "value": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "optional": true
+      },
       "discount": {
         "type": "objectAttribute",
         "value": {
@@ -1428,6 +1617,14 @@
                         {
                           "type": "string",
                           "value": "blockquote"
+                        },
+                        {
+                          "type": "string",
+                          "value": "textCenter"
+                        },
+                        {
+                          "type": "string",
+                          "value": "textRight"
                         }
                       ]
                     },
@@ -1729,6 +1926,14 @@
                         {
                           "type": "string",
                           "value": "blockquote"
+                        },
+                        {
+                          "type": "string",
+                          "value": "textCenter"
+                        },
+                        {
+                          "type": "string",
+                          "value": "textRight"
                         }
                       ]
                     },
@@ -2030,6 +2235,14 @@
                         {
                           "type": "string",
                           "value": "blockquote"
+                        },
+                        {
+                          "type": "string",
+                          "value": "textCenter"
+                        },
+                        {
+                          "type": "string",
+                          "value": "textRight"
                         }
                       ]
                     },
@@ -2264,14 +2477,7 @@
         },
         "optional": false
       },
-      "eventTime": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "string"
-        },
-        "optional": true
-      },
-      "location": {
+      "schedule": {
         "type": "objectAttribute",
         "value": {
           "type": "array",
@@ -2345,6 +2551,14 @@
                     {
                       "type": "string",
                       "value": "blockquote"
+                    },
+                    {
+                      "type": "string",
+                      "value": "textCenter"
+                    },
+                    {
+                      "type": "string",
+                      "value": "textRight"
                     }
                   ]
                 },
@@ -2441,7 +2655,14 @@
         },
         "optional": true
       },
-      "schedule": {
+      "eventTime": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
+      "location": {
         "type": "objectAttribute",
         "value": {
           "type": "array",
@@ -2515,6 +2736,14 @@
                     {
                       "type": "string",
                       "value": "blockquote"
+                    },
+                    {
+                      "type": "string",
+                      "value": "textCenter"
+                    },
+                    {
+                      "type": "string",
+                      "value": "textRight"
                     }
                   ]
                 },
@@ -2707,155 +2936,6 @@
         },
         "optional": true
       },
-      "price": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "array",
-          "of": {
-            "type": "object",
-            "attributes": {
-              "children": {
-                "type": "objectAttribute",
-                "value": {
-                  "type": "array",
-                  "of": {
-                    "type": "object",
-                    "attributes": {
-                      "marks": {
-                        "type": "objectAttribute",
-                        "value": {
-                          "type": "array",
-                          "of": {
-                            "type": "string"
-                          }
-                        },
-                        "optional": true
-                      },
-                      "text": {
-                        "type": "objectAttribute",
-                        "value": {
-                          "type": "string"
-                        },
-                        "optional": true
-                      },
-                      "_type": {
-                        "type": "objectAttribute",
-                        "value": {
-                          "type": "string",
-                          "value": "span"
-                        }
-                      }
-                    },
-                    "rest": {
-                      "type": "object",
-                      "attributes": {
-                        "_key": {
-                          "type": "objectAttribute",
-                          "value": {
-                            "type": "string"
-                          }
-                        }
-                      }
-                    }
-                  }
-                },
-                "optional": true
-              },
-              "style": {
-                "type": "objectAttribute",
-                "value": {
-                  "type": "union",
-                  "of": [
-                    {
-                      "type": "string",
-                      "value": "normal"
-                    }
-                  ]
-                },
-                "optional": true
-              },
-              "listItem": {
-                "type": "objectAttribute",
-                "value": {
-                  "type": "union",
-                  "of": []
-                },
-                "optional": true
-              },
-              "markDefs": {
-                "type": "objectAttribute",
-                "value": {
-                  "type": "array",
-                  "of": {
-                    "type": "object",
-                    "attributes": {
-                      "href": {
-                        "type": "objectAttribute",
-                        "value": {
-                          "type": "string"
-                        },
-                        "optional": true
-                      },
-                      "openInNewTab": {
-                        "type": "objectAttribute",
-                        "value": {
-                          "type": "boolean"
-                        },
-                        "optional": true
-                      },
-                      "_type": {
-                        "type": "objectAttribute",
-                        "value": {
-                          "type": "string",
-                          "value": "link"
-                        }
-                      }
-                    },
-                    "rest": {
-                      "type": "object",
-                      "attributes": {
-                        "_key": {
-                          "type": "objectAttribute",
-                          "value": {
-                            "type": "string"
-                          }
-                        }
-                      }
-                    }
-                  }
-                },
-                "optional": true
-              },
-              "level": {
-                "type": "objectAttribute",
-                "value": {
-                  "type": "number"
-                },
-                "optional": true
-              },
-              "_type": {
-                "type": "objectAttribute",
-                "value": {
-                  "type": "string",
-                  "value": "block"
-                }
-              }
-            },
-            "rest": {
-              "type": "object",
-              "attributes": {
-                "_key": {
-                  "type": "objectAttribute",
-                  "value": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "optional": true
-      },
       "googleMap": {
         "type": "objectAttribute",
         "value": {
@@ -3030,6 +3110,14 @@
                         {
                           "type": "string",
                           "value": "blockquote"
+                        },
+                        {
+                          "type": "string",
+                          "value": "textCenter"
+                        },
+                        {
+                          "type": "string",
+                          "value": "textRight"
                         }
                       ]
                     },
@@ -3316,6 +3404,14 @@
                     {
                       "type": "string",
                       "value": "normal"
+                    },
+                    {
+                      "type": "string",
+                      "value": "textCenter"
+                    },
+                    {
+                      "type": "string",
+                      "value": "textRight"
                     }
                   ]
                 },

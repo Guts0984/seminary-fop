@@ -102,7 +102,7 @@ export type Seminar = {
       _type: "span";
       _key: string;
     }>;
-    style?: "normal" | "h2" | "h3" | "blockquote";
+    style?: "normal" | "h2" | "h3" | "blockquote" | "textCenter" | "textRight";
     listItem?: "bullet" | "number";
     markDefs?: Array<{
       href?: string;
@@ -121,7 +121,7 @@ export type Seminar = {
       _type: "span";
       _key: string;
     }>;
-    style?: "normal" | "h2" | "h3" | "blockquote";
+    style?: "normal" | "h2" | "h3" | "blockquote" | "textCenter" | "textRight";
     listItem?: "bullet" | "number";
     markDefs?: Array<{
       href?: string;
@@ -140,7 +140,7 @@ export type Seminar = {
       _type: "span";
       _key: string;
     }>;
-    style?: "normal" | "h2" | "h3" | "blockquote";
+    style?: "normal" | "h2" | "h3" | "blockquote" | "textCenter" | "textRight";
     listItem?: "bullet" | "number";
     markDefs?: Array<{
       href?: string;
@@ -175,7 +175,8 @@ export type Seminar = {
           _type: "span";
           _key: string;
         }>;
-        style?: "normal" | "h2" | "h3" | "blockquote";
+        style?:
+          "normal" | "h2" | "h3" | "blockquote" | "textCenter" | "textRight";
         listItem?: "bullet" | "number";
         markDefs?: Array<{
           href?: string;
@@ -204,6 +205,25 @@ export type Seminar = {
         _key: string;
       }
   >;
+  price?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "normal" | "textCenter" | "textRight";
+    listItem?: never;
+    markDefs?: Array<{
+      href?: string;
+      openInNewTab?: boolean;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }>;
   discount?: Array<
     | {
         children?: Array<{
@@ -212,7 +232,8 @@ export type Seminar = {
           _type: "span";
           _key: string;
         }>;
-        style?: "normal" | "h2" | "h3" | "blockquote";
+        style?:
+          "normal" | "h2" | "h3" | "blockquote" | "textCenter" | "textRight";
         listItem?: "bullet" | "number";
         markDefs?: Array<{
           href?: string;
@@ -249,7 +270,8 @@ export type Seminar = {
           _type: "span";
           _key: string;
         }>;
-        style?: "normal" | "h2" | "h3" | "blockquote";
+        style?:
+          "normal" | "h2" | "h3" | "blockquote" | "textCenter" | "textRight";
         listItem?: "bullet" | "number";
         markDefs?: Array<{
           href?: string;
@@ -286,7 +308,8 @@ export type Seminar = {
           _type: "span";
           _key: string;
         }>;
-        style?: "normal" | "h2" | "h3" | "blockquote";
+        style?:
+          "normal" | "h2" | "h3" | "blockquote" | "textCenter" | "textRight";
         listItem?: "bullet" | "number";
         markDefs?: Array<{
           href?: string;
@@ -316,15 +339,14 @@ export type Seminar = {
       }
   >;
   eventDates: Array<string>;
-  eventTime?: string;
-  location?: Array<{
+  schedule?: Array<{
     children?: Array<{
       marks?: Array<string>;
       text?: string;
       _type: "span";
       _key: string;
     }>;
-    style?: "normal" | "h2" | "h3" | "blockquote";
+    style?: "normal" | "h2" | "h3" | "blockquote" | "textCenter" | "textRight";
     listItem?: "bullet" | "number";
     markDefs?: Array<{
       href?: string;
@@ -336,14 +358,15 @@ export type Seminar = {
     _type: "block";
     _key: string;
   }>;
-  schedule?: Array<{
+  eventTime?: string;
+  location?: Array<{
     children?: Array<{
       marks?: Array<string>;
       text?: string;
       _type: "span";
       _key: string;
     }>;
-    style?: "normal" | "h2" | "h3" | "blockquote";
+    style?: "normal" | "h2" | "h3" | "blockquote" | "textCenter" | "textRight";
     listItem?: "bullet" | "number";
     markDefs?: Array<{
       href?: string;
@@ -369,25 +392,6 @@ export type Seminar = {
     crop?: SanityImageCrop;
     _type: "image";
   };
-  price?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "normal";
-    listItem?: never;
-    markDefs?: Array<{
-      href?: string;
-      openInNewTab?: boolean;
-      _type: "link";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  }>;
   googleMap?: string;
   seo?: Seo;
 };
@@ -414,7 +418,8 @@ export type Speaker = {
           _type: "span";
           _key: string;
         }>;
-        style?: "normal" | "h2" | "h3" | "blockquote";
+        style?:
+          "normal" | "h2" | "h3" | "blockquote" | "textCenter" | "textRight";
         listItem?: "bullet" | "number";
         markDefs?: Array<{
           href?: string;
@@ -450,7 +455,7 @@ export type Speaker = {
       _type: "span";
       _key: string;
     }>;
-    style?: "normal";
+    style?: "normal" | "textCenter" | "textRight";
     listItem?: never;
     markDefs?: Array<{
       href?: string;
@@ -611,7 +616,7 @@ export type SeminarForRegistrationQueryResult = {
       _type: "span";
       _key: string;
     }>;
-    style?: "blockquote" | "h2" | "h3" | "normal";
+    style?: "blockquote" | "h2" | "h3" | "normal" | "textCenter" | "textRight";
     listItem?: "bullet" | "number";
     markDefs?: Array<{
       href?: string;
@@ -658,7 +663,7 @@ export type SeminarsByIdsQueryResult = Array<{
       _type: "span";
       _key: string;
     }>;
-    style?: "blockquote" | "h2" | "h3" | "normal";
+    style?: "blockquote" | "h2" | "h3" | "normal" | "textCenter" | "textRight";
     listItem?: "bullet" | "number";
     markDefs?: Array<{
       href?: string;
@@ -706,7 +711,7 @@ export type GetSeminarBySlugResult = {
       _type: "span";
       _key: string;
     }>;
-    style?: "blockquote" | "h2" | "h3" | "normal";
+    style?: "blockquote" | "h2" | "h3" | "normal" | "textCenter" | "textRight";
     listItem?: "bullet" | "number";
     markDefs?: Array<{
       href?: string;
@@ -725,7 +730,7 @@ export type GetSeminarBySlugResult = {
       _type: "span";
       _key: string;
     }>;
-    style?: "blockquote" | "h2" | "h3" | "normal";
+    style?: "blockquote" | "h2" | "h3" | "normal" | "textCenter" | "textRight";
     listItem?: "bullet" | "number";
     markDefs?: Array<{
       href?: string;
@@ -744,7 +749,7 @@ export type GetSeminarBySlugResult = {
       _type: "span";
       _key: string;
     }>;
-    style?: "blockquote" | "h2" | "h3" | "normal";
+    style?: "blockquote" | "h2" | "h3" | "normal" | "textCenter" | "textRight";
     listItem?: "bullet" | "number";
     markDefs?: Array<{
       href?: string;
@@ -765,7 +770,8 @@ export type GetSeminarBySlugResult = {
           _type: "span";
           _key: string;
         }>;
-        style?: "blockquote" | "h2" | "h3" | "normal";
+        style?:
+          "blockquote" | "h2" | "h3" | "normal" | "textCenter" | "textRight";
         listItem?: "bullet" | "number";
         markDefs?: Array<{
           href?: string;
@@ -804,7 +810,7 @@ export type GetSeminarBySlugResult = {
       _type: "span";
       _key: string;
     }>;
-    style?: "blockquote" | "h2" | "h3" | "normal";
+    style?: "blockquote" | "h2" | "h3" | "normal" | "textCenter" | "textRight";
     listItem?: "bullet" | "number";
     markDefs?: Array<{
       href?: string;
@@ -825,7 +831,7 @@ export type GetSeminarBySlugResult = {
       _type: "span";
       _key: string;
     }>;
-    style?: "blockquote" | "h2" | "h3" | "normal";
+    style?: "blockquote" | "h2" | "h3" | "normal" | "textCenter" | "textRight";
     listItem?: "bullet" | "number";
     markDefs?: Array<{
       href?: string;
@@ -845,7 +851,8 @@ export type GetSeminarBySlugResult = {
           _type: "span";
           _key: string;
         }>;
-        style?: "blockquote" | "h2" | "h3" | "normal";
+        style?:
+          "blockquote" | "h2" | "h3" | "normal" | "textCenter" | "textRight";
         listItem?: "bullet" | "number";
         markDefs?: Array<{
           href?: string;
@@ -882,7 +889,7 @@ export type GetSeminarBySlugResult = {
       _type: "span";
       _key: string;
     }>;
-    style?: "normal";
+    style?: "normal" | "textCenter" | "textRight";
     listItem?: never;
     markDefs?: Array<{
       href?: string;
@@ -902,7 +909,8 @@ export type GetSeminarBySlugResult = {
           _type: "span";
           _key: string;
         }>;
-        style?: "blockquote" | "h2" | "h3" | "normal";
+        style?:
+          "blockquote" | "h2" | "h3" | "normal" | "textCenter" | "textRight";
         listItem?: "bullet" | "number";
         markDefs?: Array<{
           href?: string;
@@ -939,7 +947,8 @@ export type GetSeminarBySlugResult = {
           _type: "span";
           _key: string;
         }>;
-        style?: "blockquote" | "h2" | "h3" | "normal";
+        style?:
+          "blockquote" | "h2" | "h3" | "normal" | "textCenter" | "textRight";
         listItem?: "bullet" | "number";
         markDefs?: Array<{
           href?: string;
@@ -991,7 +1000,7 @@ export type GetSeminarBySlugResult = {
         _type: "span";
         _key: string;
       }>;
-      style?: "normal";
+      style?: "normal" | "textCenter" | "textRight";
       listItem?: never;
       markDefs?: Array<{
         href?: string;
@@ -1011,7 +1020,8 @@ export type GetSeminarBySlugResult = {
             _type: "span";
             _key: string;
           }>;
-          style?: "blockquote" | "h2" | "h3" | "normal";
+          style?:
+            "blockquote" | "h2" | "h3" | "normal" | "textCenter" | "textRight";
           listItem?: "bullet" | "number";
           markDefs?: Array<{
             href?: string;
@@ -1046,7 +1056,7 @@ export type GetSeminarBySlugResult = {
 
 // Source: features/seminars/queries/getSeminarsQuery.ts
 // Variable: getSeminarsQuery
-// Query: {    "items": *[      _type == "seminar"      && defined(slug.current)      && (  ($filterType == "upcoming" && count(eventDates[@ >= $today]) > 0) ||  ($filterType == "past" && count(eventDates[@ < $today]) == count(eventDates)) ||  (!defined($filterType) || $filterType == "all"))    ] | order(eventDates[0] desc) {        _id,  title,  subtitle,  subtitle_main,  "slug": slug.current,  description,  eventDates,  eventTime,  speakerLayout,  location,  type,  category,  schedule,  discount,  googleMap,  price,  youGet,  youGetRight,  "image": image.asset->url,  "seo": {    "title": coalesce(seo.title, pt::text(title), ""),    "description": coalesce(seo.description, pt::text(subtitle), ""),    "image": seo.image  },  speakers[]->{    _id,    name,    "slug": slug.current,    title,    bio,    "photoUrl": photo.asset->url  }    },    "total": count(*[      _type == "seminar"      && defined(slug.current)      && (  ($filterType == "upcoming" && count(eventDates[@ >= $today]) > 0) ||  ($filterType == "past" && count(eventDates[@ < $today]) == count(eventDates)) ||  (!defined($filterType) || $filterType == "all"))    ])  }
+// Query: {    "items": *[      _type == "seminar"      && defined(slug.current)      && (  ($filterType == "upcoming" && count(eventDates[@ >= $today]) > 0) ||  ($filterType == "past" && (    count(eventDates[@ < $today]) == count(eventDates) ||    "recording" in type  )) ||  (!defined($filterType) || $filterType == "all"))    ] | order(eventDates[0] desc) {        _id,  title,  subtitle,  subtitle_main,  "slug": slug.current,  description,  eventDates,  eventTime,  speakerLayout,  location,  type,  category,  schedule,  discount,  googleMap,  price,  youGet,  youGetRight,  "image": image.asset->url,  "seo": {    "title": coalesce(seo.title, pt::text(title), ""),    "description": coalesce(seo.description, pt::text(subtitle), ""),    "image": seo.image  },  speakers[]->{    _id,    name,    "slug": slug.current,    title,    bio,    "photoUrl": photo.asset->url  }    },    "total": count(*[      _type == "seminar"      && defined(slug.current)      && (  ($filterType == "upcoming" && count(eventDates[@ >= $today]) > 0) ||  ($filterType == "past" && (    count(eventDates[@ < $today]) == count(eventDates) ||    "recording" in type  )) ||  (!defined($filterType) || $filterType == "all"))    ])  }
 export type GetSeminarsQueryResult = {
   items: Array<{
     _id: string;
@@ -1057,7 +1067,8 @@ export type GetSeminarsQueryResult = {
         _type: "span";
         _key: string;
       }>;
-      style?: "blockquote" | "h2" | "h3" | "normal";
+      style?:
+        "blockquote" | "h2" | "h3" | "normal" | "textCenter" | "textRight";
       listItem?: "bullet" | "number";
       markDefs?: Array<{
         href?: string;
@@ -1076,7 +1087,8 @@ export type GetSeminarsQueryResult = {
         _type: "span";
         _key: string;
       }>;
-      style?: "blockquote" | "h2" | "h3" | "normal";
+      style?:
+        "blockquote" | "h2" | "h3" | "normal" | "textCenter" | "textRight";
       listItem?: "bullet" | "number";
       markDefs?: Array<{
         href?: string;
@@ -1095,7 +1107,8 @@ export type GetSeminarsQueryResult = {
         _type: "span";
         _key: string;
       }>;
-      style?: "blockquote" | "h2" | "h3" | "normal";
+      style?:
+        "blockquote" | "h2" | "h3" | "normal" | "textCenter" | "textRight";
       listItem?: "bullet" | "number";
       markDefs?: Array<{
         href?: string;
@@ -1116,7 +1129,8 @@ export type GetSeminarsQueryResult = {
             _type: "span";
             _key: string;
           }>;
-          style?: "blockquote" | "h2" | "h3" | "normal";
+          style?:
+            "blockquote" | "h2" | "h3" | "normal" | "textCenter" | "textRight";
           listItem?: "bullet" | "number";
           markDefs?: Array<{
             href?: string;
@@ -1155,7 +1169,8 @@ export type GetSeminarsQueryResult = {
         _type: "span";
         _key: string;
       }>;
-      style?: "blockquote" | "h2" | "h3" | "normal";
+      style?:
+        "blockquote" | "h2" | "h3" | "normal" | "textCenter" | "textRight";
       listItem?: "bullet" | "number";
       markDefs?: Array<{
         href?: string;
@@ -1176,7 +1191,8 @@ export type GetSeminarsQueryResult = {
         _type: "span";
         _key: string;
       }>;
-      style?: "blockquote" | "h2" | "h3" | "normal";
+      style?:
+        "blockquote" | "h2" | "h3" | "normal" | "textCenter" | "textRight";
       listItem?: "bullet" | "number";
       markDefs?: Array<{
         href?: string;
@@ -1196,7 +1212,8 @@ export type GetSeminarsQueryResult = {
             _type: "span";
             _key: string;
           }>;
-          style?: "blockquote" | "h2" | "h3" | "normal";
+          style?:
+            "blockquote" | "h2" | "h3" | "normal" | "textCenter" | "textRight";
           listItem?: "bullet" | "number";
           markDefs?: Array<{
             href?: string;
@@ -1233,7 +1250,7 @@ export type GetSeminarsQueryResult = {
         _type: "span";
         _key: string;
       }>;
-      style?: "normal";
+      style?: "normal" | "textCenter" | "textRight";
       listItem?: never;
       markDefs?: Array<{
         href?: string;
@@ -1253,7 +1270,8 @@ export type GetSeminarsQueryResult = {
             _type: "span";
             _key: string;
           }>;
-          style?: "blockquote" | "h2" | "h3" | "normal";
+          style?:
+            "blockquote" | "h2" | "h3" | "normal" | "textCenter" | "textRight";
           listItem?: "bullet" | "number";
           markDefs?: Array<{
             href?: string;
@@ -1290,7 +1308,8 @@ export type GetSeminarsQueryResult = {
             _type: "span";
             _key: string;
           }>;
-          style?: "blockquote" | "h2" | "h3" | "normal";
+          style?:
+            "blockquote" | "h2" | "h3" | "normal" | "textCenter" | "textRight";
           listItem?: "bullet" | "number";
           markDefs?: Array<{
             href?: string;
@@ -1342,7 +1361,7 @@ export type GetSeminarsQueryResult = {
           _type: "span";
           _key: string;
         }>;
-        style?: "normal";
+        style?: "normal" | "textCenter" | "textRight";
         listItem?: never;
         markDefs?: Array<{
           href?: string;
@@ -1362,7 +1381,13 @@ export type GetSeminarsQueryResult = {
               _type: "span";
               _key: string;
             }>;
-            style?: "blockquote" | "h2" | "h3" | "normal";
+            style?:
+              | "blockquote"
+              | "h2"
+              | "h3"
+              | "normal"
+              | "textCenter"
+              | "textRight";
             listItem?: "bullet" | "number";
             markDefs?: Array<{
               href?: string;
@@ -1399,7 +1424,7 @@ export type GetSeminarsQueryResult = {
 
 // Source: features/seminars/queries/getSidebarSeminarsQuery.ts
 // Variable: getSidebarSeminarsQuery
-// Query: *[_type == "seminar"    && defined(slug.current)    && (      ($filterType == "upcoming" && count(eventDates[@ >= $today]) > 0) ||      ($filterType == "past" && count(eventDates[@ < $today]) == count(eventDates)) ||      (!defined($filterType) || $filterType == "all")    )  ] | order(eventDates[0] desc) {    _id,    category,    "slug": slug.current  }
+// Query: *[_type == "seminar"    && defined(slug.current)    && (      ($filterType == "upcoming" && count(eventDates[@ >= $today]) > 0) ||      ($filterType == "past" && (        count(eventDates[@ < $today]) == count(eventDates) ||        "recording" in type      )) ||      (!defined($filterType) || $filterType == "all")    )  ] | order(eventDates[0] desc) {    _id,    category,    "slug": slug.current  }
 export type GetSidebarSeminarsQueryResult = Array<{
   _id: string;
   category: string;
@@ -1420,7 +1445,7 @@ export type GetSpeakerBySlugResult = {
       _type: "span";
       _key: string;
     }>;
-    style?: "normal";
+    style?: "normal" | "textCenter" | "textRight";
     listItem?: never;
     markDefs?: Array<{
       href?: string;
@@ -1440,7 +1465,8 @@ export type GetSpeakerBySlugResult = {
           _type: "span";
           _key: string;
         }>;
-        style?: "blockquote" | "h2" | "h3" | "normal";
+        style?:
+          "blockquote" | "h2" | "h3" | "normal" | "textCenter" | "textRight";
         listItem?: "bullet" | "number";
         markDefs?: Array<{
           href?: string;
@@ -1490,7 +1516,8 @@ export type GetSpeakerBySlugResult = {
         _type: "span";
         _key: string;
       }>;
-      style?: "blockquote" | "h2" | "h3" | "normal";
+      style?:
+        "blockquote" | "h2" | "h3" | "normal" | "textCenter" | "textRight";
       listItem?: "bullet" | "number";
       markDefs?: Array<{
         href?: string;
@@ -1523,7 +1550,7 @@ export type GetSpeakersQueryResult = {
         _type: "span";
         _key: string;
       }>;
-      style?: "normal";
+      style?: "normal" | "textCenter" | "textRight";
       listItem?: never;
       markDefs?: Array<{
         href?: string;
@@ -1543,7 +1570,8 @@ export type GetSpeakersQueryResult = {
             _type: "span";
             _key: string;
           }>;
-          style?: "blockquote" | "h2" | "h3" | "normal";
+          style?:
+            "blockquote" | "h2" | "h3" | "normal" | "textCenter" | "textRight";
           listItem?: "bullet" | "number";
           markDefs?: Array<{
             href?: string;
@@ -1593,7 +1621,8 @@ export type GetSpeakersQueryResult = {
           _type: "span";
           _key: string;
         }>;
-        style?: "blockquote" | "h2" | "h3" | "normal";
+        style?:
+          "blockquote" | "h2" | "h3" | "normal" | "textCenter" | "textRight";
         listItem?: "bullet" | "number";
         markDefs?: Array<{
           href?: string;
@@ -1641,8 +1670,8 @@ declare global {
     '\n  *[_type == "contact"][0] {\n    phone,\n    email,\n    address,\n    registerNumbers\n  }\n': GetContactQueryResult;
     '\n  *[_type == "partner"] {\n    "image": image.asset->url,\n    link\n  }\n': GetPartnersQueryResult;
     '*[_type == "seminar" && slug.current == $slug][0]{\n  \n  _id,\n  title,\n  subtitle,\n  subtitle_main,\n  "slug": slug.current,\n  description,\n  eventDates,\n  eventTime,\n  speakerLayout,\n  location,\n  type,\n  category,\n  schedule,\n  discount,\n  googleMap,\n  price,\n  youGet,\n  youGetRight,\n  "image": image.asset->url,\n  "seo": {\n    "title": coalesce(seo.title, pt::text(title), ""),\n    "description": coalesce(seo.description, pt::text(subtitle), ""),\n    "image": seo.image\n  },\n  speakers[]->{\n    _id,\n    name,\n    "slug": slug.current,\n    title,\n    bio,\n    "photoUrl": photo.asset->url\n  }\n\n  }\n': GetSeminarBySlugResult;
-    '\n  {\n    "items": *[\n      _type == "seminar"\n      && defined(slug.current)\n      && (\n  ($filterType == "upcoming" && count(eventDates[@ >= $today]) > 0) ||\n  ($filterType == "past" && count(eventDates[@ < $today]) == count(eventDates)) ||\n  (!defined($filterType) || $filterType == "all")\n)\n    ] | order(eventDates[0] desc) {\n      \n  _id,\n  title,\n  subtitle,\n  subtitle_main,\n  "slug": slug.current,\n  description,\n  eventDates,\n  eventTime,\n  speakerLayout,\n  location,\n  type,\n  category,\n  schedule,\n  discount,\n  googleMap,\n  price,\n  youGet,\n  youGetRight,\n  "image": image.asset->url,\n  "seo": {\n    "title": coalesce(seo.title, pt::text(title), ""),\n    "description": coalesce(seo.description, pt::text(subtitle), ""),\n    "image": seo.image\n  },\n  speakers[]->{\n    _id,\n    name,\n    "slug": slug.current,\n    title,\n    bio,\n    "photoUrl": photo.asset->url\n  }\n\n    },\n    "total": count(*[\n      _type == "seminar"\n      && defined(slug.current)\n      && (\n  ($filterType == "upcoming" && count(eventDates[@ >= $today]) > 0) ||\n  ($filterType == "past" && count(eventDates[@ < $today]) == count(eventDates)) ||\n  (!defined($filterType) || $filterType == "all")\n)\n    ])\n  }\n': GetSeminarsQueryResult;
-    '\n  *[_type == "seminar"\n    && defined(slug.current)\n    && (\n      ($filterType == "upcoming" && count(eventDates[@ >= $today]) > 0) ||\n      ($filterType == "past" && count(eventDates[@ < $today]) == count(eventDates)) ||\n      (!defined($filterType) || $filterType == "all")\n    )\n  ] | order(eventDates[0] desc) {\n    _id,\n    category,\n    "slug": slug.current\n  }\n': GetSidebarSeminarsQueryResult;
+    '\n  {\n    "items": *[\n      _type == "seminar"\n      && defined(slug.current)\n      && (\n  ($filterType == "upcoming" && count(eventDates[@ >= $today]) > 0) ||\n  ($filterType == "past" && (\n    count(eventDates[@ < $today]) == count(eventDates) ||\n    "recording" in type\n  )) ||\n  (!defined($filterType) || $filterType == "all")\n)\n    ] | order(eventDates[0] desc) {\n      \n  _id,\n  title,\n  subtitle,\n  subtitle_main,\n  "slug": slug.current,\n  description,\n  eventDates,\n  eventTime,\n  speakerLayout,\n  location,\n  type,\n  category,\n  schedule,\n  discount,\n  googleMap,\n  price,\n  youGet,\n  youGetRight,\n  "image": image.asset->url,\n  "seo": {\n    "title": coalesce(seo.title, pt::text(title), ""),\n    "description": coalesce(seo.description, pt::text(subtitle), ""),\n    "image": seo.image\n  },\n  speakers[]->{\n    _id,\n    name,\n    "slug": slug.current,\n    title,\n    bio,\n    "photoUrl": photo.asset->url\n  }\n\n    },\n    "total": count(*[\n      _type == "seminar"\n      && defined(slug.current)\n      && (\n  ($filterType == "upcoming" && count(eventDates[@ >= $today]) > 0) ||\n  ($filterType == "past" && (\n    count(eventDates[@ < $today]) == count(eventDates) ||\n    "recording" in type\n  )) ||\n  (!defined($filterType) || $filterType == "all")\n)\n    ])\n  }\n': GetSeminarsQueryResult;
+    '\n  *[_type == "seminar"\n    && defined(slug.current)\n    && (\n      ($filterType == "upcoming" && count(eventDates[@ >= $today]) > 0) ||\n      ($filterType == "past" && (\n        count(eventDates[@ < $today]) == count(eventDates) ||\n        "recording" in type\n      )) ||\n      (!defined($filterType) || $filterType == "all")\n    )\n  ] | order(eventDates[0] desc) {\n    _id,\n    category,\n    "slug": slug.current\n  }\n': GetSidebarSeminarsQueryResult;
     '\n  *[_type == "speaker" && slug.current == $slug][0]{\n    \n  _id,\n  name,\n  "slug": slug.current,\n  title,\n  bio,\n  "photo": photo.asset->url,\n  "seo": {\n    "title": coalesce(seo.title, name, ""),\n    "description": coalesce(seo.description, pt::text(title), ""),\n    "image": seo.image\n  },\n  "seminars": *[_type == "seminar" && references(^._id)] | order(eventDates[0] desc) {\n    _id,\n    title,\n    "slug": slug.current,\n    eventDates,\n    "image": image.asset->url\n  }\n\n  }\n': GetSpeakerBySlugResult;
     '\n  {\n    "items": *[_type == "speaker"] | order(name asc) {\n      \n  _id,\n  name,\n  "slug": slug.current,\n  title,\n  bio,\n  "photo": photo.asset->url,\n  "seo": {\n    "title": coalesce(seo.title, name, ""),\n    "description": coalesce(seo.description, pt::text(title), ""),\n    "image": seo.image\n  },\n  "seminars": *[_type == "seminar" && references(^._id)] | order(eventDates[0] desc) {\n    _id,\n    title,\n    "slug": slug.current,\n    eventDates,\n    "image": image.asset->url\n  }\n\n    },\n    "total": count(*[_type == "speaker"])\n  }\n': GetSpeakersQueryResult;
     '\n  *[_type in ["seminar", "speaker"] && defined(slug.current)] {\n    "href": select(\n      _type == "seminar" => "/seminars/" + slug.current,\n      _type == "speaker" => "/speakers/" + slug.current\n    ),\n    _type,\n    _updatedAt\n  }\n': SitemapQueryResult;

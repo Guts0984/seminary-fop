@@ -11,13 +11,13 @@ export default function SeminarSpeakersOverview({
   if (!speakers || speakers.length === 0) return null;
 
   return (
-    <div className="flex flex-wrap items-center gap-1 text-sm">
-      <h3 className="font-bold text-primary">
+    <div className="mt-2 flex flex-wrap items-center gap-1 text-sm">
+      <h3 className="font-normal text-primary">
         {speakers.length === 1 ? "Спікер:" : "Спікери:"}
       </h3>
       <div className="flex flex-wrap items-center">
         {speakers.map((speaker, index) => (
-          <span key={speaker._id}>
+          <span key={speaker._id} className="font-bold">
             {speaker?.slug ? (
               <Link
                 href={`/speakers/${speaker.slug}`}

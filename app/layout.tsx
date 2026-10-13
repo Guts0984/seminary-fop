@@ -47,9 +47,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="uk" className="h-full antialiased">
+    <html
+      lang="uk"
+      className={`${inter.variable} ${geistMono.variable} ${montserrat.variable} h-full antialiased`}
+    >
       <body
-        className={`${inter.variable} ${geistMono.variable} ${montserrat.variable} min-h-full flex flex-col font-sans bg-background`}
+        className="min-h-full flex flex-col font-sans bg-background"
       >
         {children}
         <Toaster />

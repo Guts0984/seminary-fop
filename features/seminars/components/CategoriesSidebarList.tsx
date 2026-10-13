@@ -18,7 +18,7 @@ export default function CategoriesSidebarList({
   return (
     <>
       <div className="flex flex-col w-full border-2 border-gray-200 rounded-xl overflow-hidden">
-        <h3 className="w-full bg-secondary border-b-2 border-gray-200 px-3 py-2 font-medium text-md text-zinc-900">
+        <h3 className="w-full bg-graybg border-b-2 border-gray-200 px-3 py-2 font-medium text-md text-zinc-900">
           Семінари / Вебінари
         </h3>
         {categories.map((category) => {
@@ -35,8 +35,8 @@ export default function CategoriesSidebarList({
               className={cn(
                 "w-full text-left px-2.5 py-2  text-sm font-medium transition-all",
                 isActive
-                  ? "bg-hover text-zinc-900 font-semibold"
-                  : " text-gray-700 hover:bg-gray-200 hover:text-gray-900",
+                  ? "bg-hover text-secondary font-semibold"
+                  : " text-gray-700 hover:bg-gray-200 hover:text-secondary/85",
               )}
             >
               {category.category}

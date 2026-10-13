@@ -10,13 +10,13 @@ export default function Footer({
   contact: GetContactQueryResult;
 }) {
   return (
-    <footer className="bg-secondary text-zinc-900 border-t border-zinc-200">
+    <footer className="bg-graybg text-zinc-900 border-t border-zinc-200">
       <div className="mx-auto flex max-w-7xl flex-col items-center gap-6 px-4 py-6 text-center sm:px-6 md:flex-row md:items-center md:gap-8 md:text-left">
         {/* 1: Про нас */}
         <div className="flex w-full min-w-0 flex-col items-center gap-2 text-center md:w-auto md:flex-1 md:items-start md:text-left">
           <Link
             href="/contacts"
-            className="inline-block rounded-sm border border-zinc-900 px-6 py-2 text-sm font-semibold text-zinc-900 transition-colors hover:bg-zinc-900 hover:text-zinc-100"
+            className="inline-block rounded-sm border border-secondary bg-secondary px-6 py-2 text-sm font-semibold text-zinc-100 transition-colors hover:bg-secondary/85"
           >
             Про нас
           </Link>

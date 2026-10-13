@@ -53,12 +53,18 @@ export function richTextBlock(options: RichTextOptions = {}) {
                 icon: () => (
                   <span style={{ color: "#00008b", fontWeight: 700 }}>A</span>
                 ),
+                component: (props: { children?: React.ReactNode }) => (
+                  <span style={{ color: "#00008b" }}>{props.children}</span>
+                ),
               },
               {
                 title: "Red",
                 value: "textSecondary",
                 icon: () => (
                   <span style={{ color: "#740000", fontWeight: 700 }}>A</span>
+                ),
+                component: (props: { children?: React.ReactNode }) => (
+                  <span style={{ color: "#740000" }}>{props.children}</span>
                 ),
               },
             ]

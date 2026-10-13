@@ -16,7 +16,7 @@ export default async function RootLayout({
   return (
     <div className="flex min-h-screen w-full flex-col font-sans">
       <Header contact={contact} />
-      <div className="mx-auto w-full max-w-7xl grow px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+      <div className="mx-auto w-full max-w-7xl grow px-4 sm:px-6 lg:px-8 py-8 md:py-10">
         {children}
       </div>
       <Footer contact={contact} />

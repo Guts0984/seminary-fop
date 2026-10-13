@@ -17,7 +17,7 @@ export const TextFormating: PortableTextComponents = {
       <p className={`${BASE_TEXT} not-first:mt-1 text-right`}>{children}</p>
     ),
     h2: ({ children }) => (
-      <h2 className="mt-1 text-[17px] font-semibold leading-snug tracking-tight first:mt-0 text-primary hover:text-primary/85">
+      <h2 className="mt-1 text-[17px] font-semibold leading-snug tracking-tight first:mt-0 text-secondary ">
         {children}
       </h2>
     ),

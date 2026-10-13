@@ -26,7 +26,7 @@ export function SeminarCard({ seminar }: { seminar: Seminar }) {
     block: {
       ...(TextFormating.block as Record<string, unknown>),
       h2: ({ children }) => (
-        <h2 className="mt-1 mb-0.5 text-base font-semibold leading-snug tracking-tight first:mt-0 text-primary transition-colors duration-200 hover:text-primary/80">
+        <h2 className="mt-1 mb-0.5 text-base font-semibold leading-snug tracking-tight first:mt-0 text-secondary transition-colors duration-200 hover:text-secondary/85">
           <Link href={`/seminars/${seminar.slug}`}>{children}</Link>
         </h2>
       ),

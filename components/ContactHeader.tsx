@@ -18,7 +18,7 @@ export default function ContactHeader({
             <button
               type="button"
               onClick={() => copyToClipboard(contact.phone)}
-              className="font-bold ml-1 text-xs text-zinc-900 md:text-sm hover:text-zinc-500 transition-colors cursor-pointer"
+              className="font-bold ml-1 text-xs text-secondary md:text-sm hover:text-secondary/85 transition-colors cursor-pointer"
             >
               {contact.phone}
             </button>
@@ -28,7 +28,7 @@ export default function ContactHeader({
           <button
             type="button"
             onClick={() => copyToClipboard(contact.email)}
-            className="font-bold ml-1 text-left text-xs text-zinc-900 hover:text-zinc-500 transition-colors md:text-sm cursor-pointer"
+            className="font-bold ml-1 text-left text-xs text-secondary hover:text-secondary/85 transition-colors md:text-sm cursor-pointer"
           >
             {contact.email}
           </button>

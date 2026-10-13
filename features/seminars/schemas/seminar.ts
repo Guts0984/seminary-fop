@@ -19,13 +19,13 @@ export const seminar = defineType({
 
     defineField({
       name: "subtitle",
-      title: "Підзаголовок (для огляду, короткий опис)",
+      title: "Підзаголовок (для основної сторінки, короткий опис)",
       type: "array",
       of: [richTextBlock()],
     }),
     defineField({
       name: "subtitle_main",
-      title: "Підзаголовок (для слагу, довгий опис)",
+      title: "Підзаголовок (для сторінки семнінару, довгий опис)",
       type: "array",
       of: [richTextBlock()],
     }),

@@ -37,7 +37,10 @@ export const seminarFields = `
 
 const seminarDateFilter = `(
   ($filterType == "upcoming" && count(eventDates[@ >= $today]) > 0) ||
-  ($filterType == "past" && count(eventDates[@ < $today]) == count(eventDates)) ||
+  ($filterType == "past" && (
+    count(eventDates[@ < $today]) == count(eventDates) ||
+    "recording" in type
+  )) ||
   (!defined($filterType) || $filterType == "all")
 )`;
 

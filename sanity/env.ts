@@ -20,15 +20,8 @@ function assertValue<T>(v: T | undefined, errorMessage: string): T {
 }
 
 //TODOS:
-// margin from images
-// fix on main seminar cards data
-// speaker more gap
+
 // sort by user, not ssytem in sidebar
-// change size for program in slug semianr
-// create blue text
-// speaker not fat, PIB spekaer fat
-// change colors on website
-// fix recordings, do now show recordings
 // fix revalidate webhook
 // db backup
 

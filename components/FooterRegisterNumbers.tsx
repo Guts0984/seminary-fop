@@ -15,7 +15,7 @@ export default function FooterRegisterNumbers({
           key={number}
           type="button"
           onClick={() => copyToClipboard(number)}
-          className="text-sm font-semibold text-zinc-900 transition-colors hover:text-zinc-500 cursor-pointer"
+          className="text-sm font-semibold text-zinc-900 transition-colors hover:text-secondary/85 cursor-pointer"
         >
           {number}
         </button>

@@ -10,10 +10,10 @@ export default async function PartnersList() {
 
   return (
     <div className="flex flex-col w-full border-2 border-gray-200 rounded-xl overflow-hidden">
-      <h3 className="w-full bg-secondary border-b-2 border-gray-200 px-3 py-2 font-medium text-md text-zinc-900">
+      <h3 className="w-full bg-graybg border-b-2 border-gray-200 px-3 py-2 font-medium text-md text-zinc-900">
         Партнери
       </h3>
-      <ul>
+      <ul className="flex flex-col gap-3 bg-white">
         {partners.map((partner) => (
           <li key={partner.link}>
             <PartnersCard image={partner.image} link={partner.link} />

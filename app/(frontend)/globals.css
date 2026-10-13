@@ -47,6 +47,7 @@
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
   --color-hover: var(--accent);
+  --color-graybg: var(--graybg);
   --color-amber: var(--amber);
   --color-highlight: #0466c8;
 }
@@ -61,8 +62,10 @@
   --primary: #00008b;
   --amber: #ffbf00;
   --primary-foreground: oklch(0.985 0 0);
-  --secondary: #d4d4d8;
+  --secondary: #ac0000;
   --secondary-foreground: #7d8597;
+  --graybg: white;
+  /* --graybg: #d4d4d8; */
   --muted: oklch(0.97 0 0);
   --muted-foreground: oklch(0.556 0 0);
   --accent: #e5e7eb;
@@ -143,14 +146,14 @@
 @keyframes amp-jump {
   0% {
     transform: translateY(0) scale(1, 1);
-    filter: drop-shadow(0 0 6px rgba(251, 191, 36, 0.3));
+    filter: drop-shadow(0 0 6px rgba(116, 0, 0, 0.3));
   }
   15% {
     transform: translateY(0) scale(1.25, 0.75);
   }
   38% {
     transform: translateY(-0.3em) scale(0.9, 1.15);
-    filter: drop-shadow(0 0 16px rgba(251, 146, 60, 0.8));
+    filter: drop-shadow(0 0 16px rgba(180, 40, 40, 0.8));
   }
   55% {
     transform: translateY(-0.35em) scale(1, 1);
@@ -163,7 +166,7 @@
   }
   100% {
     transform: translateY(0) scale(1, 1);
-    filter: drop-shadow(0 0 6px rgba(251, 191, 36, 0.3));
+    filter: drop-shadow(0 0 6px rgba(116, 0, 0, 0.3));
   }
 }
 

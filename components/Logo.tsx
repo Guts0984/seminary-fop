@@ -26,7 +26,7 @@ export default function Logo() {
           <span
             ref={ampRef}
             onAnimationEnd={handleAnimationEnd}
-            className="inline-block bg-gradient-to-br from-amber-200 via-yellow-400 to-orange-500 bg-[length:200%_auto] bg-clip-text text-xl font-bold text-transparent drop-shadow-[0_0_6px_rgba(251,191,36,0.3)]"
+            className="inline-block text-secondary text-xl font-bold"
           >
             &
           </span>

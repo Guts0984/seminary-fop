@@ -22,7 +22,7 @@ export default function Header({
   }, []);
 
   return (
-    <header className="w-full bg-graybg border-b border-zinc-200 sticky top-0 z-50 ">
+    <header className="w-full bg-secondary border-b border-zinc-200 sticky top-0 z-50 ">
       <div
         className={`mx-auto flex w-full max-w-7xl flex-row items-center justify-between pr-4 transition-all duration-300 lg:pr-12 ${
           scrolled ? "h-14" : "h-20"

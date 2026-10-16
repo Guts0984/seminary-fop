@@ -19,7 +19,7 @@ export default function HeaderNav() {
           return (
             <Link
               key={link.href}
-              className={`font-normal text-sm hover:text-secondary/85 transition-colors text-zinc-900 ${isActive(link.href) ? "text-zinc-500" : ""}`}
+              className={`font-bold text-sm hover:text-white/80 transition-colors text-white ${isActive(link.href) ? "text-white/60" : ""}`}
               href={link.href}
             >
               {link.label}

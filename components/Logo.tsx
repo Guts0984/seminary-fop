@@ -19,18 +19,18 @@ export default function Logo() {
   return (
     <Link href="/" onMouseEnter={handleMouseEnter}>
       <div className="flex flex-col items-center leading-none font-montserrat">
-        <p className="text-2xl font-bold tracking-[0.1em] text-zinc-900">
+        <p className="text-2xl font-bold tracking-[0.1em] text-white">
           SEMINARS
         </p>
         <div className="-mt-2 flex w-full items-baseline justify-end gap-1 mr-0.5">
           <span
             ref={ampRef}
             onAnimationEnd={handleAnimationEnd}
-            className="inline-block text-secondary text-xl font-bold"
+            className="inline-block text-black text-xl font-bold"
           >
             &
           </span>
-          <p className="text-lg font-bold tracking-[0.1em] text-zinc-900">
+          <p className="text-lg font-bold tracking-[0.1em] text-white">
             WEBINARS
           </p>
         </div>

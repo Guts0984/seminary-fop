@@ -18,7 +18,7 @@ export default function ContactHeader({
             <button
               type="button"
               onClick={() => copyToClipboard(contact.phone)}
-              className="font-bold ml-1 text-xs text-secondary md:text-sm hover:text-secondary/85 transition-colors cursor-pointer"
+              className="font-bold ml-1 text-xs text-white md:text-sm hover:text-white/80 transition-colors cursor-pointer"
             >
               {contact.phone}
             </button>
@@ -28,7 +28,7 @@ export default function ContactHeader({
           <button
             type="button"
             onClick={() => copyToClipboard(contact.email)}
-            className="font-bold ml-1 text-left text-xs text-secondary hover:text-secondary/85 transition-colors md:text-sm cursor-pointer"
+            className="font-bold ml-1 text-left text-xs text-white hover:text-white/80 transition-colors md:text-sm cursor-pointer"
           >
             {contact.email}
           </button>
@@ -36,8 +36,8 @@ export default function ContactHeader({
       </div>
       {contact?.phone && (
         <div className="flex gap-1">
-          <Telegram phone={contact.phone} size={24} />
-          <Viber phone={contact.phone} size={24} />
+          <Telegram phone={contact.phone} size={24} color="#fff" />
+          <Viber phone={contact.phone} size={24} color="#fff" />
         </div>
       )}
     </div>

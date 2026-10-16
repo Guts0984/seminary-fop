@@ -26,7 +26,7 @@ export async function sendRegistrationEmail(data: RegistrationFormType) {
     .join("");
 
   await resend.emails.send({
-    from: "Seminar <onboarding@resend.dev>",
+    from: "Seminar <noreply@contact.seminar-webinar.com.ua>",
     to: process.env.NOTIFY_EMAIL!,
     subject: `Нова реєстрація: ${data.name}`,
     html: `<h2 style="margin:0 0 12px">Нова реєстрація на семінар</h2><table style="border-collapse:collapse;font-family:sans-serif;font-size:14px">${rows}</table>`,
